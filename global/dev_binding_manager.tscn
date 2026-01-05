@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://jwoqbdy2gaqk"]
+
+[ext_resource type="Script" uid="uid://boguixwfedsg4" path="res://global/DevBindingManager.cs" id="1_4us7s"]
+
+[node name="DevBindingManager" type="Node"]
+script = ExtResource("1_4us7s")
