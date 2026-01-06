@@ -16,7 +16,7 @@ public partial class TestSave : Node, IController
     private Button Load => GetNode<Button>("%Load");
     private Button SetLevel => GetNode<Button>("%SetLevel");
     private Button Debug => GetNode<Button>("%Debug");
-    private ISaveDataUtility _saveDataUtility = null!;
+    private ISaveStorageUtility _saveStorageUtility = null!;
 
     /// <summary>
     /// 节点准备就绪时的回调方法
@@ -24,31 +24,60 @@ public partial class TestSave : Node, IController
     /// </summary>
     public override void _Ready()
     {
-        _saveDataUtility = this.GetUtility<ISaveDataUtility>()!;
+        _saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
         Save.Pressed += () =>
         {
             _log.Debug("开始保存");
-            _saveDataUtility.Save();
+            _saveStorageUtility.Save();
         };
         Load.Pressed += () =>
         {
             _log.Debug("开始加载");
-            _saveDataUtility.Load();
+            _saveStorageUtility.Load();
         };
         SetLevel.Pressed += () =>
         {
             _log.Debug("开始设置等级");
-            var level = _saveDataUtility.GetSkillLevel("Test");
+            var level = _saveStorageUtility.GetSkillLevel("Test");
             _log.Debug($"当前等级为：{level}");
-            _saveDataUtility.SetSkillLevel("Test", level + AddLevel);
-            level = _saveDataUtility.GetSkillLevel("Test");
+            _saveStorageUtility.SetSkillLevel("Test", level + AddLevel);
+            level = _saveStorageUtility.GetSkillLevel("Test");
             _log.Debug($"增加等级为：{level}");
-            _saveDataUtility.PrintSaveSummary();
+            _saveStorageUtility.PrintSaveSummary();
         };
         Debug.Pressed += () =>
         {
             _log.Debug("开始打印保存数据");
-            _saveDataUtility.PrintSaveSummary();
+            _saveStorageUtility.PrintSaveSummary();
+        };
+    }
+
+    private void Binding()
+    {
+        Save.Pressed += () =>
+        {
+            _log.Debug("开始保存");
+            _saveStorageUtility.Save();
+        };
+        Load.Pressed += () =>
+        {
+            _log.Debug("开始加载");
+            _saveStorageUtility.Load();
+        };
+        SetLevel.Pressed += () =>
+        {
+            _log.Debug("开始设置等级");
+            var level = _saveStorageUtility.GetSkillLevel("Test");
+            _log.Debug($"当前等级为：{level}");
+            _saveStorageUtility.SetSkillLevel("Test", level + AddLevel);
+            level = _saveStorageUtility.GetSkillLevel("Test");
+            _log.Debug($"增加等级为：{level}");
+            _saveStorageUtility.PrintSaveSummary();
+        };
+        Debug.Pressed += () =>
+        {
+            _log.Debug("开始打印保存数据");
+            _saveStorageUtility.PrintSaveSummary();
         };
     }
 }
