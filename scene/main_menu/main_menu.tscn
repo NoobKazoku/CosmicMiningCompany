@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://dgnuqqco6xbmw"]
+[gd_scene load_steps=3 format=3 uid="uid://dgnuqqco6xbmw"]
+
+[ext_resource type="Script" uid="uid://brpe1cvn7jnbp" path="res://scene/main_menu/MainMenu.cs" id="1_o25w2"]
+[ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_cds3d"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -7,3 +10,74 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_o25w2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_cds3d")
+theme_override_font_sizes/font_size = 112
+text = "CosmicMiningCompany"
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="NewGame" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_cds3d")
+text = "新游戏"
+
+[node name="Continue" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_cds3d")
+text = "继续游戏"
+
+[node name="Setting" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_cds3d")
+text = "设置"
+
+[node name="Credits" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_cds3d")
+text = "制作组"
+
+[node name="Exit" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_cds3d")
+text = "退出游戏"
