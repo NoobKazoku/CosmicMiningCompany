@@ -30,7 +30,7 @@ public partial class GameEntryPoint : Node
             {
                 LoggerFactoryProvider = new GodotLoggerFactoryProvider
                 {
-                    MinLevel = LogLevel.Error
+                    MinLevel = LogLevel.Debug
                 }
             }
         }, new GameDevEnvironment());
