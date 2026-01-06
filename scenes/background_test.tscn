@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://d0cm2pfa3u3ss"]
+
+[ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="1_cfxfk"]
+[ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="2_v7rin"]
+[ext_resource type="Texture2D" uid="uid://1xnk8rvurye" path="res://assets/art/oil-6-32x.png" id="3_v7rin"]
+[ext_resource type="Shader" uid="uid://baqqpsotv4dfc" path="res://assets/art/pixel.gdshader" id="4_l2uhj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uh7m"]
+shader = ExtResource("1_cfxfk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37kl0"]
+shader = ExtResource("2_v7rin")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvqjq"]
+shader = ExtResource("4_l2uhj")
+shader_parameter/color1 = Color(1, 1, 1, 1)
+shader_parameter/color2 = Color(0.75, 0.75, 0.75, 1)
+shader_parameter/color3 = Color(0.5, 0.5, 0.5, 1)
+shader_parameter/color4 = Color(0.25, 0.25, 0.25, 1)
+shader_parameter/color5 = Color(0, 0, 0, 1)
+shader_parameter/color6 = Color(0.153, 0.153, 0.267, 1)
+
+[node name="control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15294118, 0.15294118, 0.26666668, 1)
+
+[node name="tiny_star" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_8uh7m")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="bright_star" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_37kl0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="pixel" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_pvqjq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9843137, 0.9607843, 0.9372549, 1)
+
+[node name="Oil632x" type="Sprite2D" parent="."]
+position = Vector2(101, 21)
+texture = ExtResource("3_v7rin")
