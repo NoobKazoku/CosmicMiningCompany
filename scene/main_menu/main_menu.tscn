@@ -48,6 +48,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 20
 
 [node name="NewGame" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -55,13 +56,15 @@ theme = ExtResource("2_cds3d")
 text = "新游戏"
 
 [node name="Continue" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_cds3d")
 text = "继续游戏"
 
-[node name="Setting" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="Option" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -69,6 +72,7 @@ theme = ExtResource("2_cds3d")
 text = "设置"
 
 [node name="Credits" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -76,6 +80,7 @@ theme = ExtResource("2_cds3d")
 text = "制作组"
 
 [node name="Exit" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 size_flags_horizontal = 4
