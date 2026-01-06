@@ -13,7 +13,7 @@ namespace CosmicMiningCompany.global;
 /// </summary>
 public partial class GameEntryPoint : Node
 {
-    private GameArchitecture? _architecture;
+    private GameArchitecture _architecture = null!;
 
     /// <summary>
     /// 当节点准备好时调用，初始化游戏架构
@@ -44,6 +44,6 @@ public partial class GameEntryPoint : Node
     public override void _ExitTree()
     {
         // 安全销毁游戏架构实例
-        _architecture?.Destroy();
+        _architecture.Destroy();
     }
 }
