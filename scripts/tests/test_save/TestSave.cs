@@ -5,7 +5,7 @@ using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 
-namespace CosmicMiningCompany.scripts.tests;
+namespace CosmicMiningCompany.scripts.tests.test_save;
 
 [ContextAware]
 [Log]
@@ -24,7 +24,7 @@ public partial class TestSave : Node, IController
     /// </summary>
     public override void _Ready()
     {
-        _saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
+        _saveStorageUtility = ContextAwareExtensions.GetUtility<ISaveStorageUtility>(this)!;
         Save.Pressed += () =>
         {
             _log.Debug("开始保存");
