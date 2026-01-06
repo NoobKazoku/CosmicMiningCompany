@@ -21,7 +21,7 @@ public partial class MainMenu :Control,IController
 		{
 			GD.Print("新游戏");
 			_log.Debug("新游戏");
-			GetTree().ChangeSceneToFile("res://scene/space_station/space_station.tscn");
+			GetTree().ChangeSceneToFile("res://scenes/space_station/space_station.tscn");
 		};
 
 

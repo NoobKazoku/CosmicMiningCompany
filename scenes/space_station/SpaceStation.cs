@@ -18,7 +18,7 @@ public partial class SpaceStation :Node2D,IController
 		{
 			GD.Print("离港");
 			_log.Debug("离港");
-			GetTree().ChangeSceneToFile("res://scene/space/space.tscn");
+			GetTree().ChangeSceneToFile("res://scenes/space/space.tscn");
 		};
 	}
 }

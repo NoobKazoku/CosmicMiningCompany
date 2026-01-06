@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b81p3y0rlcajm"]
 
-[ext_resource type="Script" uid="uid://crouxsxjt42mk" path="res://scene/space_station/SpaceStation.cs" id="1_3yv4l"]
+[ext_resource type="Script" uid="uid://crouxsxjt42mk" path="res://scenes/space_station/SpaceStation.cs" id="1_3yv4l"]
 [ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_pa1ah"]
 
 [node name="SpaceStation" type="Node2D"]

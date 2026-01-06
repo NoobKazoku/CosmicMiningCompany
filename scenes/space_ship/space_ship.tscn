@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6hicsjid7hc1"]
+
+[ext_resource type="Script" uid="uid://dykohdebg4o30" path="res://scenes/space_ship/SpaceShip.cs" id="1_mnm42"]
+[ext_resource type="Texture2D" uid="uid://bglpnbqrok6yr" path="res://assets/art/飞船.png" id="2_vvmbp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s4tiy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vvmbp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_btnl3"]
+radius = 31.0
+
+[node name="SpaceShip" type="CharacterBody2D"]
+script = ExtResource("1_mnm42")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s4tiy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_btnl3")
