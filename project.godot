@@ -14,6 +14,7 @@ config/name="CosmicMiningCompany"
 run/main_scene="uid://dgnuqqco6xbmw"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
+config/save/save_path="user://save.json"
 
 [autoload]
 
