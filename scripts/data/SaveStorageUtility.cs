@@ -2,6 +2,8 @@
 using System.IO;
 using System.Linq;
 using CosmicMiningCompany.scripts.constants;
+using CosmicMiningCompany.scripts.serializer;
+using CosmicMiningCompany.scripts.storage;
 using GFramework.Core.Abstractions.environment;
 using GFramework.Core.extensions;
 using GFramework.Core.utility;
@@ -13,14 +15,14 @@ namespace CosmicMiningCompany.scripts.data;
 /// <summary>
 /// 保存数据工具类，负责游戏存档的创建、保存、加载和检查功能
 /// </summary>
-public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
+public class SaveStorageUtility : AbstractContextUtility, ISaveStorageUtility
 {
     /// <summary>
     /// 存档文件的路径，保存在用户目录下的save.json文件
     /// </summary>
     private static readonly string SavePath =
         ProjectSettings.GlobalizePath(
-            ProjectSettings.GetSetting("application/save/save_path").AsString()
+            ProjectSettings.GetSetting("application/config/save/save_path").AsString()
         );
 
     /// <summary>
@@ -29,17 +31,17 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
     /// <returns>如果存档文件存在返回true，否则返回false</returns>
     public static bool HasSave() => File.Exists(SavePath);
 
-    private static GameSaveData? _current;
+    private readonly ISerializer<GameSaveData> _serializer = new GameSaveSerializer();
+    private  GameSaveData? _current;
+
+    private ISaveStorage _storage = null!;
 
     protected override void OnInit()
     {
-        if (_current == null)
-        {
-            Load();
-        }
+        _storage = this.GetUtility<ISaveStorage>()!;
     }
 
-    bool ISaveDataUtility.HasSave()
+    bool ISaveStorageUtility.HasSave()
     {
         return HasSave();
     }
@@ -67,9 +69,7 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
             return;
         }
 
-        var json = JsonConvert.SerializeObject(data, Formatting.Indented);
-        File.WriteAllText(SavePath, json);
-
+        _storage.Write(SavePath, _serializer.Serialize(data));
         data.RuntimeDirty = false;
     }
 
@@ -181,16 +181,15 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
             return;
         }
 
-        var json = File.ReadAllText(SavePath);
-        var deserializedData = JsonConvert.DeserializeObject<GameSaveData>(json);
-        _current = deserializedData ?? new GameSaveData();
+        var json = _storage.Read(SavePath);
+        _current = _serializer.Deserialize(json);
         _current.RuntimeDirty = false;
     }
 
     /// <summary>
     /// 标记当前存档数据为脏数据，需要保存
     /// </summary>
-    private static void MarkDirty()
+    private  void MarkDirty()
     {
         _current?.RuntimeDirty = true;
     }
@@ -199,7 +198,7 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
     /// 确保存档数据已加载，如果未加载则从文件加载或创建新存档
     /// </summary>
     /// <returns>当前加载的存档数据</returns>
-    private static GameSaveData EnsureLoaded()
+    private  GameSaveData EnsureLoaded()
     {
         if (_current != null) return _current;
         if (HasSave())
@@ -218,6 +217,9 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
         return _current;
     }
 
+    /// <summary>
+    /// 打印存档摘要信息，仅在开发环境中可用
+    /// </summary>
     public void PrintSaveSummary()
     {
         var env = this.GetEnvironment<IEnvironment>();
@@ -239,6 +241,11 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
         PrintInventory(data);
         GD.Print("===== END SAVE SUMMARY =====");
     }
+
+    /// <summary>
+    /// 打印技能信息
+    /// </summary>
+    /// <param name="data">存档数据</param>
     private static void PrintSkills(GameSaveData data)
     {
         GD.Print("-- Skills --");
@@ -254,6 +261,11 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
             GD.Print($"  {id,-20} Lv.{level}");
         }
     }
+
+    /// <summary>
+    /// 打印已解锁场景信息
+    /// </summary>
+    /// <param name="data">存档数据</param>
     private static void PrintScenes(GameSaveData data)
     {
         GD.Print("-- Unlocked Scenes --");
@@ -269,6 +281,11 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
             GD.Print($"  {scene}");
         }
     }
+
+    /// <summary>
+    /// 打印库存信息
+    /// </summary>
+    /// <param name="data">存档数据</param>
     private static void PrintInventory(GameSaveData data)
     {
         GD.Print("-- Inventory --");
@@ -285,6 +302,4 @@ public class SaveDataUtility : AbstractContextUtility, ISaveDataUtility
             GD.Print($"  {item,-20} x{count}{flag}");
         }
     }
-
-
 }
