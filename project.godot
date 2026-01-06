@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 GameEntryPoint="*res://global/game_entry_point.tscn"
 DevBindingManager="*res://global/dev_binding_manager.tscn"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [dotnet]
 
 project/assembly_name="CosmicMiningCompany"
@@ -26,12 +31,14 @@ project/assembly_name="CosmicMiningCompany"
 [file_customization]
 
 folder_colors={
-"res://global/": "red",
-"res://script_templates/": "green",
-"res://scripts/": "blue"
+"res://assets/": "red",
+"res://global/": "orange",
+"res://scene/": "yellow",
+"res://scripts/": "green"
 }
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
