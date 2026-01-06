@@ -1,4 +1,5 @@
-﻿using GFramework.Core.Abstractions.architecture;
+﻿using CosmicMiningCompany.scripts.data;
+using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.architecture;
 
 namespace CosmicMiningCompany.scripts.module;
@@ -16,8 +17,7 @@ public class UtilityGodotModule: AbstractModule
     /// <param name="architecture">要安装模块的目标游戏架构实例</param>
     public override void Install(IArchitecture architecture)
     {
-        // 注册单位映射器实用程序到架构中
-        // architecture.RegisterUtility(new UnitMapper());
+        architecture.RegisterUtility(new SaveDataUtility());
     }
 }
 
