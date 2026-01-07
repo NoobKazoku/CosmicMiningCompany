@@ -19,10 +19,9 @@ public sealed class ToggleFullscreenCommand(ToggleFullscreenCommandInput input)
     /// <param name="input">切换全屏命令输入参数</param>
     protected override void OnExecute(ToggleFullscreenCommandInput input)
     {
-        // 获取设置模型并切换全屏状态
         var model = this.GetModel<ISettingsModel>()!;
-        model.Graphics.Fullscreen = !model.Graphics.Fullscreen;
-        // 应用图形设置
+        model.Graphics.Fullscreen = input.Fullscreen;
+
         this.GetSystem<ISettingsSystem>()!.ApplyGraphics();
     }
 }

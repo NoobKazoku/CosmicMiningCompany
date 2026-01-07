@@ -1,3 +1,5 @@
+using CosmicMiningCompany.scripts.command.audio;
+using CosmicMiningCompany.scripts.command.graphics;
 using CosmicMiningCompany.scripts.setting;
 using CosmicMiningCompany.scripts.setting.interfaces;
 using GFramework.Core.Abstractions.controller;
@@ -29,7 +31,6 @@ public partial class TestSetting : Node, IController
     private Button LoadButton => GetNode<Button>("%LoadButton");
     private Button ResetButton => GetNode<Button>("%ResetButton");
     private Button DebugButton => GetNode<Button>("%DebugButton");
-
     private ISettingsModel _settingsModel = null!;
     private ISettingsSystem _settingsSystem = null!;
     private ISettingsStorageUtility _settingsStorageUtility = null!;
@@ -131,9 +132,7 @@ public partial class TestSetting : Node, IController
     {
         MasterVolumeValue.Text = $"{Mathf.RoundToInt(value * 100)}%";
         
-        // 直接修改设置模型
-        _settingsModel.Audio.MasterVolume = (float)value;
-        _settingsSystem.ApplyAudio();
+        this.SendCommand(new ChangeMasterVolumeCommand(new ChangeMasterVolumeCommandInput { Volume = (float)value }));
         
         _log.Debug($"主音量更改为: {value}");
     }
@@ -145,11 +144,7 @@ public partial class TestSetting : Node, IController
     private void OnBgmVolumeChanged(double value)
     {
         BgmVolumeValue.Text = $"{Mathf.RoundToInt(value * 100)}%";
-        
-        // 直接修改设置模型
-        _settingsModel.Audio.BgmVolume = (float)value;
-        _settingsSystem.ApplyAudio();
-        
+        this.SendCommand(new ChangeBgmVolumeCommand(new ChangeBgmVolumeCommandInput { Volume = (float)value }));
         _log.Debug($"BGM音量更改为: {value}");
     }
 
@@ -160,11 +155,7 @@ public partial class TestSetting : Node, IController
     private void OnSfxVolumeChanged(double value)
     {
         SfxVolumeValue.Text = $"{Mathf.RoundToInt(value * 100)}%";
-        
-        // 直接修改设置模型
-        _settingsModel.Audio.SfxVolume = (float)value;
-        _settingsSystem.ApplyAudio();
-        
+        this.SendCommand(new ChangeSfxVolumeCommand(new ChangeSfxVolumeCommandInput { Volume = (float)value }));
         _log.Debug($"音效音量更改为: {value}");
     }
 
@@ -174,10 +165,7 @@ public partial class TestSetting : Node, IController
     /// <param name="pressed">是否启用全屏</param>
     private void OnFullscreenToggled(bool pressed)
     {
-        // 直接修改设置模型
-        _settingsModel.Graphics.Fullscreen = pressed;
-        _settingsSystem.ApplyGraphics();
-        
+        this.SendCommand(new ToggleFullscreenCommand(new ToggleFullscreenCommandInput { Fullscreen = pressed }));
         _log.Debug($"全屏模式切换为: {pressed}");
     }
 
@@ -188,12 +176,7 @@ public partial class TestSetting : Node, IController
     private void OnResolutionChanged(long index)
     {
         var resolution = _resolutions[index];
-        
-        // 直接修改设置模型
-        _settingsModel.Graphics.ResolutionWidth = resolution.X;
-        _settingsModel.Graphics.ResolutionHeight = resolution.Y;
-        _settingsSystem.ApplyGraphics();
-        
+        this.SendCommand(new ChangeResolutionCommand(new ChangeResolutionCommandInput { Width = resolution.X, Height = resolution.Y }));
         _log.Debug($"分辨率更改为: {resolution.X}x{resolution.Y}");
     }
 
