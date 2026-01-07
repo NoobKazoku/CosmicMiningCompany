@@ -8,13 +8,13 @@ using GFramework.SourceGenerators.Abstractions.rule;
 [Log]
 public partial class SpaceShip :Node2D,IController
 {
-    // 添加一个字段来控制旋转速度（可选）
+    // 旋转速度
     [Export] public float RotationSpeed = 5.0f;
     
     // 移动相关参数
-    [Export] public float Acceleration = 20.0f;      // 加速度
+    [Export] public float Acceleration = 20.0f;      // 推力加速度
     [Export] public float MaxSpeed = 150.0f;          // 最大速度
-    [Export] public float Friction = 0.95f;           // 摩擦力（接近1表示摩擦力小）
+    [Export] public float BrakeForce = 8.0f;          // 制动力（姿态控制），用于快速停止
     
     // 存储飞船的速度
     private Vector2 velocity = Vector2.Zero;
@@ -93,11 +93,16 @@ public partial class SpaceShip :Node2D,IController
             inputDirection = inputDirection.Normalized();
         }
         
-        // 根据输入方向更新速度
+        // 分离处理推力和制动，使它们不会相互干扰
+        
+        // 推力处理：只应用推力
         if (inputDirection.Length() > 0)
         {
-            // 应用加速度
-            velocity += inputDirection * Acceleration * delta;
+            // 应用推力（加速度）
+            Vector2 thrust = inputDirection * Acceleration;
+            
+            // 更新速度
+            velocity += thrust * delta;
             
             // 限制最大速度
             if (velocity.Length() > MaxSpeed)
@@ -105,13 +110,40 @@ public partial class SpaceShip :Node2D,IController
                 velocity = velocity.Normalized() * MaxSpeed;
             }
         }
-        else
+        
+        // 制动处理
+        bool shouldApplyBrake = false;
+        
+        if (inputDirection.Length() == 0 && velocity.Length() > 0.1f)
         {
-            // 应用摩擦力 - 当没有输入时逐渐减慢速度
-            velocity *= Friction;
+            // 没有输入时应用制动
+            shouldApplyBrake = true;
+        }
+        else if (inputDirection.Length() > 0 && velocity.Length() > 0.1f)
+        {
+            // 有输入时，检查输入方向是否与当前移动方向相反
+            Vector2 normalizedVelocity = velocity.Normalized();
+            float dotProduct = inputDirection.Dot(normalizedVelocity);
+            if (dotProduct < -0.1f) // 方向几乎相反（允许小的角度误差）
+            {
+                shouldApplyBrake = true;
+            }
+        }
+        
+        // 应用制动
+        if (shouldApplyBrake)
+        {
+            // 计算制动方向（与当前速度相反）
+            Vector2 brakeDirection = -velocity.Normalized();
             
-            // 如果速度变得非常小，将其设置为零以避免无限接近零的小值
-            if (velocity.Length() < 1.0f)
+            // 应用制动力
+            Vector2 brakeForceVector = brakeDirection * BrakeForce;
+            
+            // 更新速度（制动）
+            velocity += brakeForceVector * delta;
+            
+            // 防止过度制动导致反向运动
+            if (velocity.Length() > 0 && brakeDirection.Dot(velocity.Normalized()) > 0)
             {
                 velocity = Vector2.Zero;
             }
