@@ -1,4 +1,3 @@
-using CosmicMiningCompany.scripts.data;
 using CosmicMiningCompany.scripts.data.interfaces;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
@@ -25,32 +24,8 @@ public partial class TestSave : Node, IController
     /// </summary>
     public override void _Ready()
     {
-        _saveStorageUtility = ContextAwareExtensions.GetUtility<ISaveStorageUtility>(this)!;
-        Save.Pressed += () =>
-        {
-            _log.Debug("开始保存");
-            _saveStorageUtility.Save();
-        };
-        Load.Pressed += () =>
-        {
-            _log.Debug("开始加载");
-            _saveStorageUtility.Load();
-        };
-        SetLevel.Pressed += () =>
-        {
-            _log.Debug("开始设置等级");
-            var level = _saveStorageUtility.GetSkillLevel("Test");
-            _log.Debug($"当前等级为：{level}");
-            _saveStorageUtility.SetSkillLevel("Test", level + AddLevel);
-            level = _saveStorageUtility.GetSkillLevel("Test");
-            _log.Debug($"增加等级为：{level}");
-            _saveStorageUtility.PrintSaveSummary();
-        };
-        Debug.Pressed += () =>
-        {
-            _log.Debug("开始打印保存数据");
-            _saveStorageUtility.PrintSaveSummary();
-        };
+        _saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
+        Binding();
     }
 
     private void Binding()

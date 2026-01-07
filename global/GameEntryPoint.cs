@@ -23,7 +23,6 @@ public partial class GameEntryPoint : Node
     private ISaveStorageUtility _saveStorageUtility = null!;
     private ISettingsStorageUtility _settingsStorageUtility = null!;
     private ISettingsModel _settingsModel = null!;
-    private ISettingsSystem _settingsSystem = null!;
     /// <summary>
     /// 当节点准备好时调用，初始化游戏架构
     /// </summary>
@@ -46,11 +45,7 @@ public partial class GameEntryPoint : Node
         _architecture.Initialize();
         _saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
         _settingsStorageUtility = this.GetUtility<ISettingsStorageUtility>()!;
-        _settingsSystem = this.GetSystem<ISettingsSystem>()!;
         _settingsModel = this.GetModel<ISettingsModel>()!;
-        _saveStorageUtility.Load();
-        _settingsStorageUtility.Load();
-        _settingsSystem.ApplyAll();
     }
 
     /// <summary>
