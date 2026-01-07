@@ -1,9 +1,15 @@
+using System;
 using CosmicMiningCompany.scripts.command.audio;
 using CosmicMiningCompany.scripts.command.graphics;
-using CosmicMiningCompany.scripts.setting;
+using CosmicMiningCompany.scripts.command.setting;
+using CosmicMiningCompany.scripts.events.settings;
+using CosmicMiningCompany.scripts.query;
 using CosmicMiningCompany.scripts.setting.interfaces;
 using GFramework.Core.Abstractions.controller;
+using GFramework.Core.command;
 using GFramework.Core.extensions;
+using GFramework.Core.query;
+using GFramework.Godot.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
@@ -31,8 +37,6 @@ public partial class TestSetting : Node, IController
     private Button LoadButton => GetNode<Button>("%LoadButton");
     private Button ResetButton => GetNode<Button>("%ResetButton");
     private Button DebugButton => GetNode<Button>("%DebugButton");
-    private ISettingsModel _settingsModel = null!;
-    private ISettingsSystem _settingsSystem = null!;
     private ISettingsStorageUtility _settingsStorageUtility = null!;
 
     // 分辨率选项
@@ -50,13 +54,12 @@ public partial class TestSetting : Node, IController
     /// </summary>
     public override void _Ready()
     {
-        _settingsModel = this.GetModel<ISettingsModel>()!;
-        _settingsSystem = this.GetSystem<ISettingsSystem>()!;
         _settingsStorageUtility = this.GetUtility<ISettingsStorageUtility>()!;
 
         InitializeUi();
         SetupEventHandlers();
-        LoadSettings();
+        this.RegisterEvent<SettingsChangedEvent>(_=>LoadSettings())
+            .UnRegisterWhenNodeExitTree(this);
     }
 
     /// <summary>
@@ -98,24 +101,18 @@ public partial class TestSetting : Node, IController
     /// </summary>
     private void LoadSettings()
     {
-        var audio = _settingsModel.Audio;
-        var graphics = _settingsModel.Graphics;
+        var view = this.SendQuery(new GetCurrentSettingsQuery(new EmptyQueryInput()));
+        MasterVolumeSlider.Value = view.MasterVolume;
+        MasterVolumeValue.Text = $"{Mathf.RoundToInt(view.MasterVolume * 100)}%";
 
-        // 设置音频控件
-        MasterVolumeSlider.Value = audio.MasterVolume;
-        MasterVolumeValue.Text = $"{Mathf.RoundToInt(audio.MasterVolume * 100)}%";
-        
-        BgmVolumeSlider.Value = audio.BgmVolume;
-        BgmVolumeValue.Text = $"{Mathf.RoundToInt(audio.BgmVolume * 100)}%";
-        
-        SfxVolumeSlider.Value = audio.SfxVolume;
-        SfxVolumeValue.Text = $"{Mathf.RoundToInt(audio.SfxVolume * 100)}%";
+        BgmVolumeSlider.Value = view.BgmVolume;
+        BgmVolumeValue.Text = $"{Mathf.RoundToInt(view.BgmVolume * 100)}%";
 
-        // 设置图形控件
-        FullscreenCheckBox.ButtonPressed = graphics.Fullscreen;
+        SfxVolumeSlider.Value = view.SfxVolume;
+        SfxVolumeValue.Text = $"{Mathf.RoundToInt(view.SfxVolume * 100)}%";
+        FullscreenCheckBox.ButtonPressed = view.Fullscreen;
 
-        // 设置分辨率选项
-        var currentResolution = new Vector2I(graphics.ResolutionWidth, graphics.ResolutionHeight);
+        var currentResolution = new Vector2I(view.ResolutionWidth, view.ResolutionHeight);
         for (var i = 0; i < _resolutions.Length; i++)
         {
             if (_resolutions[i] != currentResolution) continue;
@@ -189,28 +186,10 @@ public partial class TestSetting : Node, IController
         
         try
         {
-            // 创建设置数据对象
-            var settingsData = new SettingsData
-            {
-                Audio = new AudioSettings
-                {
-                    MasterVolume = _settingsModel.Audio.MasterVolume,
-                    BgmVolume = _settingsModel.Audio.BgmVolume,
-                    SfxVolume = _settingsModel.Audio.SfxVolume
-                },
-                Graphics = new GraphicsSettings
-                {
-                    Fullscreen = _settingsModel.Graphics.Fullscreen,
-                    ResolutionWidth = _settingsModel.Graphics.ResolutionWidth,
-                    ResolutionHeight = _settingsModel.Graphics.ResolutionHeight
-                }
-            };
-            
-            // 保存到存储
-            _settingsStorageUtility.Save(settingsData);
+            this.SendCommand(new SaveSettingsCommand(new EmptyCommentInput()));
             _log.Info("设置已保存");
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             _log.Error("保存设置时发生错误: " + ex.Message);
         }
@@ -225,39 +204,17 @@ public partial class TestSetting : Node, IController
         
         try
         {
-            // 从存储加载设置数据
-            var settingsData = _settingsStorageUtility.Load();
-            
-            // 应用到当前设置模型
-            ApplySettingsData(settingsData);
-            
-            // 更新UI
-            LoadSettings();
-            
-            // 应用所有设置
-            _settingsSystem.ApplyAll();
+            var data = _settingsStorageUtility.Load();
+            this.SendCommand(new ApplySettingsDataCommand(new ApplySettingsDataCommandInput
+            {
+                Settings = data
+            }));
             _log.Info("设置已加载");
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             _log.Error("加载设置时发生错误: " + ex.Message);
         }
-    }
-
-    /// <summary>
-    /// 应用设置数据到设置模型
-    /// </summary>
-    /// <param name="settingsData">设置数据</param>
-    private void ApplySettingsData(SettingsData settingsData)
-    {
-        // 修改当前设置模型的值
-        _settingsModel.Audio.MasterVolume = settingsData.Audio.MasterVolume;
-        _settingsModel.Audio.BgmVolume = settingsData.Audio.BgmVolume;
-        _settingsModel.Audio.SfxVolume = settingsData.Audio.SfxVolume;
-        
-        _settingsModel.Graphics.Fullscreen = settingsData.Graphics.Fullscreen;
-        _settingsModel.Graphics.ResolutionWidth = settingsData.Graphics.ResolutionWidth;
-        _settingsModel.Graphics.ResolutionHeight = settingsData.Graphics.ResolutionHeight;
     }
 
     /// <summary>
@@ -269,21 +226,10 @@ public partial class TestSetting : Node, IController
         
         try
         {
-            // 重置音频设置
-            MasterVolumeSlider.Value = 1.0f;
-            BgmVolumeSlider.Value = 0.8f;
-            SfxVolumeSlider.Value = 0.8f;
-            
-            // 重置图形设置
-            FullscreenCheckBox.ButtonPressed = true;
-            ResolutionOptionButton.Select(0); // 1920x1080
-            
-            // 立即应用更改
-            _settingsSystem.ApplyAll();
-            
+            this.SendCommand(new ResetSettingsCommand(new EmptyCommentInput()));
             _log.Info("设置已重置为默认值");
         }
-        catch (System.Exception ex)
+        catch (Exception ex)
         {
             _log.Error("重置设置时发生错误: " + ex.Message);
         }
@@ -294,18 +240,7 @@ public partial class TestSetting : Node, IController
     /// </summary>
     private void OnDebugInfo()
     {
-        var audio = _settingsModel.Audio;
-        var graphics = _settingsModel.Graphics;
-        
-        _log.Debug("=== 当前设置信息 ===");
-        _log.Debug($"音频设置:");
-        _log.Debug($"  主音量: {audio.MasterVolume:F2}");
-        _log.Debug($"  BGM音量: {audio.BgmVolume:F2}");
-        _log.Debug($"  音效音量: {audio.SfxVolume:F2}");
-        
-        _log.Debug($"图形设置:");
-        _log.Debug($"  全屏模式: {graphics.Fullscreen}");
-        _log.Debug($"  分辨率: {graphics.ResolutionWidth}x{graphics.ResolutionHeight}");
-        _log.Debug("=====================");
+        var info = this.SendQuery(new GetSettingsDebugInfoQuery(new EmptyQueryInput()));
+        _log.Debug(info.Text);
     }
 }
