@@ -1,4 +1,5 @@
 using CosmicMiningCompany.scripts.data;
+using CosmicMiningCompany.scripts.data.interfaces;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;

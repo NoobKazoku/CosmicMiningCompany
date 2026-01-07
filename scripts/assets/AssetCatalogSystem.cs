@@ -1,7 +1,7 @@
 using GFramework.Game.assets;
 using GFramework.SourceGenerators.Abstractions.logging;
 
-namespace CosmicMiningCompany.scripts.system.impl;
+namespace CosmicMiningCompany.scripts.assets;
 
 /// <summary>
 /// 资源目录系统类，用于管理和注册游戏中的各种资源

@@ -1,6 +1,6 @@
 ﻿using GFramework.Core.Abstractions.utility;
 
-namespace CosmicMiningCompany.scripts.data;
+namespace CosmicMiningCompany.scripts.data.interfaces;
 
 /// <summary>
 /// 游戏存档数据管理接口，提供游戏进度、技能、场景解锁状态和物品数量的管理功能

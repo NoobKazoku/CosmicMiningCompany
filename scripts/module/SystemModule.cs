@@ -1,5 +1,6 @@
-﻿using CosmicMiningCompany.scripts.setting;
-using CosmicMiningCompany.scripts.system.impl;
+﻿using CosmicMiningCompany.scripts.assets;
+using CosmicMiningCompany.scripts.resources;
+using CosmicMiningCompany.scripts.setting;
 using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.architecture;
 using GFramework.Godot.assets;
