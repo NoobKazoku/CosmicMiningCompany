@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0cm2pfa3u3ss"]
+[gd_scene load_steps=15 format=3 uid="uid://d0cm2pfa3u3ss"]
 
 [ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="1_cfxfk"]
 [ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="2_v7rin"]
 [ext_resource type="Texture2D" uid="uid://1xnk8rvurye" path="res://assets/art/oil-6-32x.png" id="3_v7rin"]
 [ext_resource type="Shader" uid="uid://baqqpsotv4dfc" path="res://assets/art/pixel.gdshader" id="4_l2uhj"]
+[ext_resource type="Shader" uid="uid://bsb0cwho76tw8" path="res://assets/art/line.gdshader" id="5_nogb4"]
+[ext_resource type="Texture2D" uid="uid://c4em4qtvd3ltn" path="res://assets/art/小行星1.png" id="6_nogb4"]
+[ext_resource type="Texture2D" uid="uid://cc0kyy84m3qcu" path="res://assets/art/宝石.png" id="7_d6enk"]
+[ext_resource type="Texture2D" uid="uid://cckcub1a5r2xr" path="res://assets/art/散矿.png" id="8_5v8ik"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8uh7m"]
 shader = ExtResource("1_cfxfk")
@@ -13,12 +17,33 @@ shader = ExtResource("2_v7rin")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pvqjq"]
 shader = ExtResource("4_l2uhj")
-shader_parameter/color1 = Color(1, 1, 1, 1)
-shader_parameter/color2 = Color(0.75, 0.75, 0.75, 1)
-shader_parameter/color3 = Color(0.5, 0.5, 0.5, 1)
-shader_parameter/color4 = Color(0.25, 0.25, 0.25, 1)
-shader_parameter/color5 = Color(0, 0, 0, 1)
-shader_parameter/color6 = Color(0.153, 0.153, 0.267, 1)
+shader_parameter/color1 = Color(0.984, 0.961, 0.937, 1)
+shader_parameter/color2 = Color(0.949, 0.827, 0.671, 1)
+shader_parameter/color3 = Color(0.776, 0.624, 0.647, 1)
+shader_parameter/color4 = Color(0.545, 0.427, 0.612, 1)
+shader_parameter/color5 = Color(0.286, 0.302, 0.494, 1)
+shader_parameter/color6 = Color(0.075, 0.078, 0.18, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jeld2"]
+shader = ExtResource("5_nogb4")
+shader_parameter/outline_color1 = Color(0.2901961, 0.32941177, 0.38431373, 1)
+shader_parameter/outline_width1 = 1.0
+shader_parameter/outline_color2 = Color(0.21927449, 0.2513864, 0.296339, 1)
+shader_parameter/outline_width2 = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjsml"]
+shader = ExtResource("5_nogb4")
+shader_parameter/outline_color1 = Color(1, 1, 1, 1)
+shader_parameter/outline_width1 = 1.0
+shader_parameter/outline_color2 = Color(0, 0, 0, 0)
+shader_parameter/outline_width2 = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yo6cv"]
+shader = ExtResource("5_nogb4")
+shader_parameter/outline_color1 = Color(1, 1, 1, 1)
+shader_parameter/outline_width1 = 1.0
+shader_parameter/outline_color2 = Color(0, 0, 0, 0)
+shader_parameter/outline_width2 = 2.0
 
 [node name="control" type="Control"]
 layout_mode = 3
@@ -65,8 +90,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.9843137, 0.9607843, 0.9372549, 1)
+color = Color(0.07450981, 0.078431375, 0.18039216, 1)
 
 [node name="Oil632x" type="Sprite2D" parent="."]
 position = Vector2(101, 21)
 texture = ExtResource("3_v7rin")
+
+[node name="小行星测试" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jeld2")
+position = Vector2(1062, 448)
+rotation = -0.0014711991
+texture = ExtResource("6_nogb4")
+
+[node name="宝石" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tjsml")
+position = Vector2(961, 446)
+texture = ExtResource("7_d6enk")
+
+[node name="散矿" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_yo6cv")
+position = Vector2(1004, 448)
+texture = ExtResource("8_5v8ik")
