@@ -1,7 +1,7 @@
 using GFramework.Godot.assets;
 using GFramework.SourceGenerators.Abstractions.logging;
 
-namespace CosmicMiningCompany.scripts.system.impl;
+namespace CosmicMiningCompany.scripts.resources;
 
 /// <summary>
 /// 资源工厂系统，负责管理和创建各种游戏资源的工厂实例。

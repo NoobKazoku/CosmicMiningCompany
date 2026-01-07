@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using CosmicMiningCompany.scripts.constants;
+using CosmicMiningCompany.scripts.data.interfaces;
 using CosmicMiningCompany.scripts.serializer;
 using CosmicMiningCompany.scripts.storage;
 using GFramework.Core.Abstractions.environment;
