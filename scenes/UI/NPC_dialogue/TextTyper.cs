@@ -4,7 +4,7 @@ using System;
 public partial class TextTyper : RichTextLabel
 {
     // 打字机文本->想要显示的实际文本
-    public string _typerText = "测试使用文本1234567890壹贰叁肆伍陆七八90";
+    public string _typerText = "测试使用文本1234567890壹贰叁肆伍陆七八9000";
 
     // 打字机进度
     private int _progressIndex = 0;
