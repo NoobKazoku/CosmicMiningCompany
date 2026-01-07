@@ -13,6 +13,7 @@ public partial class TextTyper : RichTextLabel
     private float _speed = 0.075f;
     private float _timer = 0.0f; // 计时器
 
+
     public override void _Ready()
     {
         // 保留原始的空实现
