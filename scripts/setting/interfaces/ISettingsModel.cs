@@ -17,4 +17,9 @@ public interface ISettingsModel: IModel
     /// 获取音频设置配置对象
     /// </summary>
     AudioSettings Audio { get; }
+    
+    /// <summary>
+    /// 获取当前设置的数据对象
+    /// </summary>
+    SettingsData GetSettingsData();
 }
