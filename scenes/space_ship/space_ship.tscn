@@ -24,5 +24,4 @@ script = ExtResource("1_mnm42")
 sprite_frames = SubResource("SpriteFrames_s4tiy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_btnl3")

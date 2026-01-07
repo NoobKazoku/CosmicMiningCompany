@@ -3,10 +3,9 @@ using GFramework.Core.Abstractions.controller;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 
-
 [ContextAware]
 [Log]
-public partial class SpaceShip :Node2D,IController
+public partial class SpaceShip :CharacterBody2D,IController
 {
     // 旋转速度
     [Export] public float RotationSpeed = 5.0f;
@@ -14,11 +13,19 @@ public partial class SpaceShip :Node2D,IController
     // 移动相关参数
     [Export] public float Acceleration = 20.0f;      // 推力加速度
     [Export] public float MaxSpeed = 150.0f;          // 最大速度
-    [Export] public float BrakeForce = 8.0f;          // 制动力（姿态控制），用于快速停止
+    [Export] public float BrakeForce = 8.0f;          // 制动力
+    private bool isMoving = false;                    // 是否正在移动
     
     // 存储飞船的速度
     private Vector2 velocity = Vector2.Zero;
 
+    //飞船属性
+    [Export] public float Fuel  = 100.0f;
+    [Export] public float MaxFuel = 100.0f;
+    [Export] public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量 (100燃料/300秒 = 0.333)
+    
+
+	
 	/// <summary>
 	/// 节点准备就绪时的回调方法
 	/// 在节点添加到场景树后调用
@@ -36,6 +43,11 @@ public partial class SpaceShip :Node2D,IController
         // 处理旋转
         RotateToMouse(delta);
         
+        // 处理燃料消耗
+        if (isMoving)
+        {
+            ConsumeFuel((float)delta);
+        }
     }
 
 	public void RotateToMouse(double delta)
@@ -55,7 +67,7 @@ public partial class SpaceShip :Node2D,IController
             // 计算目标旋转角度
             float targetRotation = direction.Angle();
             
-            // 平滑旋转（可选，如果想要平滑效果）
+            // 平滑旋转
             Rotation = Mathf.LerpAngle(Rotation, targetRotation, (float)delta * RotationSpeed);
             
         }
@@ -68,23 +80,28 @@ public partial class SpaceShip :Node2D,IController
     private void HandleMovement(float delta)
     {
         Vector2 inputDirection = Vector2.Zero;
+        isMoving = false; // 重置移动状态
         
         // 检测方向键输入
         if (Input.IsKeyPressed(Key.W) || Input.IsKeyPressed(Key.Up))
         {
             inputDirection.Y -= 1; // 向上移动
+            isMoving = true;
         }
         if (Input.IsKeyPressed(Key.S) || Input.IsKeyPressed(Key.Down))
         {
             inputDirection.Y += 1; // 向下移动
+            isMoving = true;
         }
         if (Input.IsKeyPressed(Key.A) || Input.IsKeyPressed(Key.Left))
         {
             inputDirection.X -= 1; // 向左移动
+            isMoving = true;
         }
         if (Input.IsKeyPressed(Key.D) || Input.IsKeyPressed(Key.Right))
         {
             inputDirection.X += 1; // 向右移动
+            isMoving = true;
         }
         
         // 标准化输入方向向量，确保对角线移动速度不会过快
@@ -93,9 +110,9 @@ public partial class SpaceShip :Node2D,IController
             inputDirection = inputDirection.Normalized();
         }
         
-        // 分离处理推力和制动，使它们不会相互干扰
+        // 分离处理推力和制动
         
-        // 推力处理：只应用推力
+        // 只应用推力
         if (inputDirection.Length() > 0)
         {
             // 应用推力（加速度）
@@ -151,5 +168,22 @@ public partial class SpaceShip :Node2D,IController
         
         // 根据速度更新飞船位置
         Position += velocity;
+    }
+    
+    /// <summary>
+    /// 消耗燃料
+    /// </summary>
+    /// <param name="delta">时间步长</param>
+    private void ConsumeFuel(float delta)
+    {
+        if (Fuel > 0)
+        {
+            Fuel -= FuelConsumptionRate * delta;
+            if (Fuel < 0)
+            {
+                Fuel = 0;
+                GD.Print("燃料耗尽！");
+            }
+        }
     }
 }
