@@ -42,17 +42,27 @@ public partial class SettingsSystem : AbstractSystem, ISettingsSystem
         // 设置窗口模式（全屏或窗口化）
         DisplayServer.WindowSetMode(
             g.Fullscreen
-                ? DisplayServer.WindowMode.Fullscreen
+                ? DisplayServer.WindowMode.ExclusiveFullscreen
                 : DisplayServer.WindowMode.Windowed
         );
-
+        DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, g.Fullscreen);
+        var size = new Vector2I(g.ResolutionWidth, g.ResolutionHeight);
         // 非全屏模式下设置窗口分辨率
         if (!g.Fullscreen)
         {
+            _log.Debug($"设置窗口分辨率: {g.ResolutionWidth}x{g.ResolutionHeight}");
             DisplayServer.WindowSetSize(
-                new Vector2I(g.ResolutionWidth, g.ResolutionHeight)
+                size
             );
+        }else
+        {
+            _log.Debug("设置了全屏模式，因此分辨率不生效！");
         }
+        var screen = DisplayServer.GetPrimaryScreen();
+        var screenSize = DisplayServer.ScreenGetSize(screen);
+        var pos = (screenSize - size) / 2;
+
+        DisplayServer.WindowSetPosition(pos);
     }
 
     /// <summary>
