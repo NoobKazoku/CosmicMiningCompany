@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://beo8d4p6emdbg"]
+[gd_scene load_steps=5 format=3 uid="uid://beo8d4p6emdbg"]
 
 [ext_resource type="PackedScene" uid="uid://b6hicsjid7hc1" path="res://scenes/space_ship/space_ship.tscn" id="1_t2gi8"]
 [ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/background_test.tscn" id="1_x217o"]
 [ext_resource type="PackedScene" uid="uid://cdh57f160jys4" path="res://scenes/UI/fuel/fuel.tscn" id="2_ugvpa"]
+[ext_resource type="PackedScene" uid="uid://bmlasaajbp0ta" path="res://scenes/space_rock/space_rock.tscn" id="4_718x5"]
 
 [node name="Space" type="Node2D"]
 
@@ -35,3 +36,6 @@ offset_top = 390.0
 offset_right = 122.0
 offset_bottom = 462.0
 text = "-10"
+
+[node name="SpaceRock" parent="." instance=ExtResource("4_718x5")]
+position = Vector2(1549, 534)

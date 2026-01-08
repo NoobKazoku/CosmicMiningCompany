@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://7f45csnqagd2"]
+
+[ext_resource type="Texture2D" uid="uid://3q4qs4vr773r" path="res://assets/art/子弹.png" id="1_dsuvq"]
+[ext_resource type="Script" uid="uid://bjnjy606edvah" path="res://scenes/space_ship/Bullet/Bullet.cs" id="1_iw7fv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iw7fv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dsuvq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dsuvq"]
+radius = 2.0
+
+[node name="Bullet" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_iw7fv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_iw7fv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_dsuvq")
+
+[node name="BulletArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="BulletArea"]
+shape = SubResource("CircleShape2D_dsuvq")
