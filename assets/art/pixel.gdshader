@@ -4,8 +4,8 @@ uniform vec4 color1 : source_color = vec4(0.984, 0.961, 0.937, 1.0); // 最亮
 uniform vec4 color2 : source_color = vec4(0.949, 0.827, 0.671, 1.0);
 uniform vec4 color3 : source_color = vec4(0.776, 0.624, 0.647, 1.0);
 uniform vec4 color4 : source_color = vec4(0.545, 0.427, 0.612, 1.0);
-uniform vec4 color5 : source_color = vec4(0.286, 0.302, 0.494, 1.0); // 最暗
-uniform vec4 color6 : source_color = vec4(0.153, 0.153, 0.267, 1.0); // 最暗
+uniform vec4 color5 : source_color = vec4(0.286, 0.302, 0.494, 1.0); 
+uniform vec4 color6 : source_color = vec4(0.075, 0.078, 0.18, 1.0); // 最暗
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 void vertex() {
 	// Called for every vertex the material is visible on.
@@ -21,13 +21,13 @@ void fragment() {
     // 根据亮度选择对应的颜色
     vec4 selected_color;
 
-    if (luminance >= 0.9) {
+    if (luminance >= 0.95) {
         selected_color = color1;
-    } else if (luminance >= 0.8) {
+    } else if (luminance >= 0.65) {
         selected_color = color2;
-    } else if (luminance >= 0.6) {
+    } else if (luminance >= 0.5) {
         selected_color = color3;
-    } else if (luminance >= 0.4) {
+    } else if (luminance >= 0.35) {
         selected_color = color4;
     } else if(luminance >= 0.2){
 		selected_color = color5;
