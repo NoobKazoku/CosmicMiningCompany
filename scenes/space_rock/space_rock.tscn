@@ -1,18 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmlasaajbp0ta"]
+[gd_scene load_steps=12 format=3 uid="uid://bmlasaajbp0ta"]
 
-[ext_resource type="Texture2D" uid="uid://duqkhw1r6cakc" path="res://assets/art/小行星.png" id="1_6rv73"]
 [ext_resource type="Script" uid="uid://btcus1mef8kmy" path="res://scenes/space_rock/SpaceRock.cs" id="1_co7l4"]
+[ext_resource type="Texture2D" uid="uid://b1dv60px112v" path="res://assets/art/小行星测试.png" id="2_5gdrq"]
 [ext_resource type="PackedScene" uid="uid://y2xlqg5c2cv1" path="res://scenes/space_rock/shoot_area.tscn" id="2_d2lhf"]
+[ext_resource type="Texture2D" uid="uid://d3n0iojm6ynsr" path="res://assets/art/宝石小行星1.png" id="3_8583l"]
+[ext_resource type="Texture2D" uid="uid://c4em4qtvd3ltn" path="res://assets/art/小行星1.png" id="4_xov7u"]
+[ext_resource type="Texture2D" uid="uid://dglduavnyb6oe" path="res://assets/art/小行星2.png" id="5_uu6o5"]
+[ext_resource type="Texture2D" uid="uid://jh54oy17ke13" path="res://assets/art/小行星3.png" id="6_fuovs"]
+[ext_resource type="Texture2D" uid="uid://dkdpfymx5kid7" path="res://assets/art/小行星4.png" id="7_kp08o"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5gdrq"]
+friction = 0.0
+bounce = 0.28
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6yyvo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5gdrq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8583l")
+}],
+"loop": true,
+"name": &"宝石小行星1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xov7u")
+}],
+"loop": true,
+"name": &"小行星1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_uu6o5")
+}],
+"loop": true,
+"name": &"小行星2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_fuovs")
+}],
+"loop": true,
+"name": &"小行星3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_kp08o")
+}],
+"loop": true,
+"name": &"小行星4",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d2lhf"]
-radius = 29.017237
+radius = 24.020824
 
-[node name="SpaceRock" type="CharacterBody2D"]
+[node name="SpaceRock" type="RigidBody2D"]
 collision_layer = 2
+collision_mask = 2
+physics_material_override = SubResource("PhysicsMaterial_5gdrq")
+gravity_scale = 0.0
 script = ExtResource("1_co7l4")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_6rv73")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6yyvo")
+animation = &"小行星2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_d2lhf")
