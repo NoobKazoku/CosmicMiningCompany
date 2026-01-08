@@ -22,6 +22,7 @@ radius = 31.0
 script = ExtResource("1_mnm42")
 
 [node name="Gun" parent="." instance=ExtResource("2_w5ed5")]
+unique_name_in_owner = true
 position = Vector2(19, 24)
 
 [node name="Gun2" parent="." instance=ExtResource("2_w5ed5")]

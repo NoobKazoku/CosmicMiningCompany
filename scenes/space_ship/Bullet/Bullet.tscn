@@ -27,11 +27,3 @@ sprite_frames = SubResource("SpriteFrames_iw7fv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dsuvq")
-
-[node name="BulletArea" type="Area2D" parent="."]
-unique_name_in_owner = true
-collision_layer = 8
-collision_mask = 4
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="BulletArea"]
-shape = SubResource("CircleShape2D_dsuvq")
