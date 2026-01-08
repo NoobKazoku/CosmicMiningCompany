@@ -1,9 +1,13 @@
 using CosmicMiningCompany.scripts.architecture;
+using CosmicMiningCompany.scripts.data.interfaces;
 using CosmicMiningCompany.scripts.environment;
+using CosmicMiningCompany.scripts.setting.interfaces;
 using GFramework.Core.Abstractions.logging;
 using GFramework.Core.Abstractions.properties;
 using GFramework.Core.architecture;
+using GFramework.Core.extensions;
 using GFramework.Godot.logging;
+using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 
 namespace CosmicMiningCompany.global;
@@ -11,10 +15,14 @@ namespace CosmicMiningCompany.global;
 /// <summary>
 /// 游戏入口点节点，负责初始化和清理游戏架构
 /// </summary>
+[ContextAware]
 public partial class GameEntryPoint : Node
 {
-    private GameArchitecture? _architecture;
-
+    private GameArchitecture _architecture = null!;
+    private ISaveStorageUtility _saveStorageUtility = null!;
+    private ISettingsStorageUtility _settingsStorageUtility = null!;
+    private ISettingsModel _settingsModel = null!;
+    public static GameEntryPoint Instance { get; private set; } = null!;
     /// <summary>
     /// 当节点准备好时调用，初始化游戏架构
     /// </summary>
@@ -35,6 +43,10 @@ public partial class GameEntryPoint : Node
             }
         }, new GameDevEnvironment());
         _architecture.Initialize();
+        _saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
+        _settingsStorageUtility = this.GetUtility<ISettingsStorageUtility>()!;
+        _settingsModel = this.GetModel<ISettingsModel>()!;
+        Instance= this;
     }
 
     /// <summary>
@@ -43,7 +55,9 @@ public partial class GameEntryPoint : Node
     /// <returns>无返回值</returns>
     public override void _ExitTree()
     {
+        _saveStorageUtility.Save();
+        _settingsStorageUtility.Save(_settingsModel.GetSettingsData());
         // 安全销毁游戏架构实例
-        _architecture?.Destroy();
+        _architecture.Destroy();
     }
 }

@@ -1,11 +1,11 @@
 ﻿using GFramework.Core.Abstractions.utility;
 
-namespace CosmicMiningCompany.scripts.data;
+namespace CosmicMiningCompany.scripts.data.interfaces;
 
 /// <summary>
 /// 游戏存档数据管理接口，提供游戏进度、技能、场景解锁状态和物品数量的管理功能
 /// </summary>
-public interface ISaveDataUtility: IUtility
+public interface ISaveStorageUtility: IUtility
 {
     /// <summary>
     /// 检查是否存在已保存的游戏数据

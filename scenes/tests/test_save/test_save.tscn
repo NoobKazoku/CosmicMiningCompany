@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://o3rc01iu8kus"]
 
-[ext_resource type="Script" uid="uid://bjposx1wnxkyy" path="res://scripts/tests/TestSave.cs" id="1_1m43g"]
+[ext_resource type="Script" uid="uid://bjposx1wnxkyy" path="res://scripts/tests/test_save/TestSave.cs" id="1_7wlgn"]
 
 [node name="TestSave" type="Node"]
-script = ExtResource("1_1m43g")
+script = ExtResource("1_7wlgn")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15

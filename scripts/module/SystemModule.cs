@@ -1,6 +1,7 @@
-﻿using CosmicMiningCompany.scripts.system.impl;
+﻿using CosmicMiningCompany.scripts.assets;
+using CosmicMiningCompany.scripts.resources;
+using CosmicMiningCompany.scripts.setting;
 using GFramework.Core.Abstractions.architecture;
-using GFramework.Game.Abstractions.assets;
 using GFramework.Game.architecture;
 using GFramework.Godot.assets;
 
@@ -19,10 +20,11 @@ public class SystemModule: AbstractModule
     public override void Install(IArchitecture architecture)
     {
         // 注册资源目录系统
-        architecture.RegisterSystem<IAssetCatalogSystem>(new AssetCatalogSystem());
+        architecture.RegisterSystem(new AssetCatalogSystem());
         // 注册资源加载系统
-        architecture.RegisterSystem<IResourceLoadSystem>(new ResourceLoadSystem());
+        architecture.RegisterSystem(new ResourceLoadSystem());
         // 注册资源工厂系统
-        architecture.RegisterSystem<IResourceFactorySystem>(new ResourceFactorySystem());
+        architecture.RegisterSystem(new ResourceFactorySystem());
+        architecture.RegisterSystem(new SettingsSystem());
     }
 }
