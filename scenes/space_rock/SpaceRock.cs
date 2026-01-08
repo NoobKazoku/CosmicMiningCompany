@@ -21,7 +21,7 @@ public partial class SpaceRock : CharacterBody2D
         {
             if (body is Bullet)
             {
-                GD.Print("Bullet entered the area");
+                GD.Print("被子弹击中");
             }
 
         };

@@ -3,7 +3,7 @@ using System;
 
 public partial class Bullet : CharacterBody2D
 {
-    [Export]public float BulletSpeed = 400.0f;
+    [Export]public float BulletSpeed = 800.0f;
     private Timer _lifeTimer;
 	
     public override void _Ready()
@@ -20,7 +20,11 @@ public partial class Bullet : CharacterBody2D
         {
             // 当子弹进入Area2D时，销毁子弹
             GD.Print("子弹命中");
-            QueueFree();
+            _lifeTimer = new Timer();
+            _lifeTimer.WaitTime = 0.01f;
+            _lifeTimer.Timeout += () => QueueFree();
+            AddChild(_lifeTimer);
+            _lifeTimer.Start();
         };
     }
 
