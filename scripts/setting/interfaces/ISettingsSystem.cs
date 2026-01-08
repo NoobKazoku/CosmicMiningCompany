@@ -1,4 +1,5 @@
-﻿using GFramework.Core.Abstractions.system;
+﻿using System.Threading.Tasks;
+using GFramework.Core.Abstractions.system;
 
 namespace CosmicMiningCompany.scripts.setting.interfaces;
 
@@ -10,12 +11,12 @@ public interface ISettingsSystem: ISystem
     /// <summary>
     /// 应用所有设置项
     /// </summary>
-    void ApplyAll();
+    Task ApplyAll();
 
     /// <summary>
     /// 应用图形设置
     /// </summary>
-    void ApplyGraphics();
+    Task ApplyGraphics();
     
     /// <summary>
     /// 应用音频设置

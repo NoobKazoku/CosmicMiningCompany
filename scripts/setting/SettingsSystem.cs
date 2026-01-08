@@ -1,8 +1,10 @@
-﻿using CosmicMiningCompany.scripts.constants;
+﻿using System.Threading.Tasks;
+using CosmicMiningCompany.scripts.constants;
 using CosmicMiningCompany.scripts.setting.interfaces;
 using GFramework.Core.extensions;
 using GFramework.Core.system;
 using GFramework.SourceGenerators.Abstractions.logging;
+using CosmicMiningCompany.global;
 using Godot;
 
 namespace CosmicMiningCompany.scripts.setting;
@@ -26,16 +28,16 @@ public partial class SettingsSystem : AbstractSystem, ISettingsSystem
     /// <summary>
     /// 应用所有设置（图形设置和音频设置）
     /// </summary>
-    public void ApplyAll()
+    public async Task ApplyAll()
     {
-        ApplyGraphics();
+        await ApplyGraphics();
         ApplyAudio();
     }
 
     /// <summary>
     /// 应用图形设置，包括全屏模式和分辨率设置
     /// </summary>
-    public void ApplyGraphics()
+    public async Task ApplyGraphics()
     {
         var g = _settingsModel.Graphics;
 
@@ -52,11 +54,12 @@ public partial class SettingsSystem : AbstractSystem, ISettingsSystem
                 ? DisplayServer.WindowMode.ExclusiveFullscreen
                 : DisplayServer.WindowMode.Windowed
         );
+        await GameEntryPoint.Instance.ToSignal(Engine.GetMainLoop(), "process_frame");
         // 2. 窗口化下才管尺寸和位置
         if (!g.Fullscreen)
         {
             DisplayServer.WindowSetSize(size);
-
+           await  GameEntryPoint.Instance.ToSignal(Engine.GetMainLoop(), "process_frame");
             var screen = DisplayServer.GetPrimaryScreen();
             var screenSize = DisplayServer.ScreenGetSize(screen);
             var pos = (screenSize - size) / 2;

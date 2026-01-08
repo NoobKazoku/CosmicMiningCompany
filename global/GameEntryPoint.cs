@@ -19,10 +19,10 @@ namespace CosmicMiningCompany.global;
 public partial class GameEntryPoint : Node
 {
     private GameArchitecture _architecture = null!;
-
     private ISaveStorageUtility _saveStorageUtility = null!;
     private ISettingsStorageUtility _settingsStorageUtility = null!;
     private ISettingsModel _settingsModel = null!;
+    public static GameEntryPoint Instance { get; private set; } = null!;
     /// <summary>
     /// 当节点准备好时调用，初始化游戏架构
     /// </summary>
@@ -46,6 +46,7 @@ public partial class GameEntryPoint : Node
         _saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
         _settingsStorageUtility = this.GetUtility<ISettingsStorageUtility>()!;
         _settingsModel = this.GetModel<ISettingsModel>()!;
+        Instance= this;
     }
 
     /// <summary>
