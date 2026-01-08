@@ -11,20 +11,18 @@ public partial class SpaceShip :CharacterBody2D,IController
     [Export] public float RotationSpeed = 5.0f;
     
     // 移动相关参数
-    [Export] public float Acceleration = 20.0f;      // 推力加速度
-    [Export] public float MaxSpeed = 150.0f;          // 最大速度
-    [Export] public float BrakeForce = 8.0f;          // 制动力
+    [Export] public float Acceleration = 400.0f;      // 推力加速度
+    [Export] public float MaxSpeed = 600.0f;          // 最大速度
+    [Export] public float BrakeForce = 300.0f;          // 制动力
     private bool isMoving = false;                    // 是否正在移动
     
-    // 存储飞船的速度
-    private Vector2 velocity = Vector2.Zero;
 
     //飞船属性
     [Export] public float Fuel  = 100.0f;
     [Export] public float MaxFuel = 100.0f;
     [Export] public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量 (100燃料/300秒 = 0.333)
     
-
+    public Gun Gun => GetNode<Gun>("%Gun");
 	
 	/// <summary>
 	/// 节点准备就绪时的回调方法
@@ -73,7 +71,7 @@ public partial class SpaceShip :CharacterBody2D,IController
         }
 	}
 	
-	/// <summary>
+    /// <summary>
     /// 处理飞船移动
     /// </summary>
     /// <param name="delta">时间步长</param>
@@ -118,28 +116,41 @@ public partial class SpaceShip :CharacterBody2D,IController
             // 应用推力（加速度）
             Vector2 thrust = inputDirection * Acceleration;
             
-            // 更新速度
-            velocity += thrust * delta;
+            // 计算应用推力后的新速度
+            Vector2 newVelocity = Velocity + thrust * delta;
             
-            // 限制最大速度
-            if (velocity.Length() > MaxSpeed)
+            // 如果新速度超过最大速度，则限制推力大小
+            if (newVelocity.Length() > MaxSpeed)
             {
-                velocity = velocity.Normalized() * MaxSpeed;
+                // 计算允许的最大速度变化
+                float maxSpeedChange = Mathf.Max(0, MaxSpeed - Velocity.Length());
+                if (maxSpeedChange > 0)
+                {
+                    // 限制推力大小，使速度不超过最大速度
+                    thrust = thrust.Normalized() * (maxSpeedChange / delta);
+                    Velocity += thrust * delta;
+                }
+                // 如果已经达到或超过最大速度，不应用推力
+            }
+            else
+            {
+                // 新速度不超过最大速度，正常应用推力
+                Velocity = newVelocity;
             }
         }
         
         // 制动处理
         bool shouldApplyBrake = false;
         
-        if (inputDirection.Length() == 0 && velocity.Length() > 0.1f)
+        if (inputDirection.Length() == 0 && Velocity.Length() > 0.1f)
         {
             // 没有输入时应用制动
             shouldApplyBrake = true;
         }
-        else if (inputDirection.Length() > 0 && velocity.Length() > 0.1f)
+        else if (inputDirection.Length() > 0 && Velocity.Length() > 0.1f)
         {
             // 有输入时，检查输入方向是否与当前移动方向相反
-            Vector2 normalizedVelocity = velocity.Normalized();
+            Vector2 normalizedVelocity = Velocity.Normalized();
             float dotProduct = inputDirection.Dot(normalizedVelocity);
             if (dotProduct < -0.1f) // 方向几乎相反（允许小的角度误差）
             {
@@ -151,23 +162,29 @@ public partial class SpaceShip :CharacterBody2D,IController
         if (shouldApplyBrake)
         {
             // 计算制动方向（与当前速度相反）
-            Vector2 brakeDirection = -velocity.Normalized();
+            Vector2 brakeDirection = -Velocity.Normalized();
             
             // 应用制动力
             Vector2 brakeForceVector = brakeDirection * BrakeForce;
             
             // 更新速度（制动）
-            velocity += brakeForceVector * delta;
+            Velocity += brakeForceVector * delta;
             
             // 防止过度制动导致反向运动
-            if (velocity.Length() > 0 && brakeDirection.Dot(velocity.Normalized()) > 0)
+            if (Velocity.Length() > 0 && brakeDirection.Dot(Velocity.Normalized()) > 0)
             {
-                velocity = Vector2.Zero;
+                Velocity = Vector2.Zero;
             }
         }
         
-        // 根据速度更新飞船位置
-        Position += velocity;
+        // 在所有速度更新完成后统一限制最大速度
+        if (Velocity.Length() > MaxSpeed)
+        {
+            Velocity = Velocity.Normalized() * MaxSpeed;
+        }
+        
+        // 使用CharacterBody2D的MoveAndSlide方法移动飞船
+        MoveAndSlide();
     }
     
     /// <summary>
