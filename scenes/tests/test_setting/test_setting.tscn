@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0e7vhdp7iwa4"]
+[gd_scene load_steps=3 format=3 uid="uid://d0e7vhdp7iwa4"]
 
 [ext_resource type="Script" uid="uid://c6l00c7ul4e5e" path="res://scripts/tests/test_setting/TestSetting.cs" id="1_taser"]
+[ext_resource type="AudioStream" uid="uid://7gi4ucn2qj16" path="res://assets/music/Terran04.mp3" id="2_fo830"]
 
 [node name="TestSetting" type="Control"]
 layout_mode = 3
@@ -10,6 +11,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_taser")
+
+[node name="BgmPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_fo830")
+bus = &"BGM"
+parameters/looping = true
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -172,3 +179,8 @@ text = "重置默认"
 unique_name_in_owner = true
 layout_mode = 2
 text = "调试信息"
+
+[node name="BgmPlayButton" type="Button" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "播放背景音乐"
