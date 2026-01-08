@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7twsafr5miu"]
+
+[ext_resource type="Script" uid="uid://dqfbeic1uvohs" path="res://scenes/tests/test_data/JsonReader.cs" id="1_5q7w8"]
+
+[node name="TestLoadData" type="Node2D"]
+script = ExtResource("1_5q7w8")
