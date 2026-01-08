@@ -1,8 +1,9 @@
-using Godot;
 using GFramework.Core.Abstractions.controller;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
+using Godot;
 
+namespace CosmicMiningCompany.scenes.main_menu;
 
 [ContextAware]
 [Log]
@@ -37,7 +38,7 @@ public partial class MainMenu :Control,IController
 			GD.Print("游戏设置");
 			_log.Debug("游戏设置");
 			// 实例化设置场景
-			var optionScene = GD.Load<PackedScene>("res://scenes/Opition/Opition.tscn").Instantiate() as Control;
+			var optionScene = GD.Load<PackedScene>("res://scenes/Options/Options.tscn").Instantiate() as Control;
 			// 将其添加到当前场景中
 			AddChild(optionScene);
 
@@ -59,5 +60,3 @@ public partial class MainMenu :Control,IController
 		};
 	}
 }
-
-

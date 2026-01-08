@@ -44,6 +44,10 @@ folder_colors={
 "res://shader/": "gray"
 }
 
+[gui]
+
+theme/custom="uid://cfadp5dxx3ld1"
+
 [input]
 
 left={
