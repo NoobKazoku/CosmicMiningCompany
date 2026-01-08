@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6hicsjid7hc1"]
+[gd_scene load_steps=6 format=3 uid="uid://b6hicsjid7hc1"]
 
 [ext_resource type="Script" uid="uid://dykohdebg4o30" path="res://scenes/space_ship/SpaceShip.cs" id="1_mnm42"]
 [ext_resource type="Texture2D" uid="uid://bglpnbqrok6yr" path="res://assets/art/飞船.png" id="2_vvmbp"]
+[ext_resource type="PackedScene" uid="uid://by53s6t06nolm" path="res://scenes/space_ship/Gun/Gun.tscn" id="2_w5ed5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s4tiy"]
 animations = [{
@@ -19,6 +20,12 @@ radius = 31.0
 
 [node name="SpaceShip" type="CharacterBody2D"]
 script = ExtResource("1_mnm42")
+
+[node name="Gun" parent="." instance=ExtResource("2_w5ed5")]
+position = Vector2(19, 24)
+
+[node name="Gun2" parent="." instance=ExtResource("2_w5ed5")]
+position = Vector2(19, -24)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_s4tiy")

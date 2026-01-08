@@ -35,7 +35,7 @@ public partial class SpaceShip :CharacterBody2D,IController
 		
 	}
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
     {
         // 处理移动
         HandleMovement((float)delta);
