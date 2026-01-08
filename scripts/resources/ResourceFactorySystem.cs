@@ -1,3 +1,5 @@
+using CosmicMiningCompany.scripts.asteroid;
+using CosmicMiningCompany.scripts.constants;
 using GFramework.Godot.assets;
 using GFramework.SourceGenerators.Abstractions.logging;
 
@@ -16,7 +18,6 @@ public partial class ResourceFactorySystem : AbstractResourceFactorySystem
     protected override void RegisterResources()
     {
         _log.Debug("开始注册资源");
-        // RegisterSceneUnit<Unit>(AssetCatalogConstants.AssetCatalogSceneUnit.Unit.Key, true);
-        // RegisterAsset<UnitDataResource>(AssetCatalogConstants.AssetCatalogResource.Robin.Key,true);
+        RegisterAsset<AsteroidConfigTable>(AssetCatalogConstants.AssetCatalogResource.AsteroidConfigTable.Key,true);
     }
 }

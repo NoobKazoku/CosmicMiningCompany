@@ -1,3 +1,4 @@
+using CosmicMiningCompany.scripts.constants;
 using GFramework.Game.assets;
 using GFramework.SourceGenerators.Abstractions.logging;
 
@@ -16,8 +17,6 @@ public partial class AssetCatalogSystem : AbstractAssetCatalogSystem
     protected override void RegisterAssets()
     {
         _log.Debug("开始注册资产");
-        // 注册单位场景资源，将单位场景键与对应的资源路径进行绑定
-        // RegisterSceneUnit(AssetCatalogConstants.AssetCatalogSceneUnit.Unit);
-        // RegisterAsset(AssetCatalogConstants.AssetCatalogResource.Robin);
+        RegisterAsset(AssetCatalogConstants.AssetCatalogResource.AsteroidConfigTable);
     }
 }
