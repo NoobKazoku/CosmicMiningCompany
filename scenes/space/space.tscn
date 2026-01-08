@@ -1,10 +1,46 @@
-[gd_scene load_steps=2 format=3 uid="uid://beo8d4p6emdbg"]
+[gd_scene load_steps=6 format=3 uid="uid://beo8d4p6emdbg"]
 
 [ext_resource type="PackedScene" uid="uid://b6hicsjid7hc1" path="res://scenes/space_ship/space_ship.tscn" id="1_t2gi8"]
-[ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/test_VFX/background_test.tscn" id="1_x217o"]
+[ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/background_test.tscn" id="1_x217o"]
 [ext_resource type="PackedScene" uid="uid://cdh57f160jys4" path="res://scenes/UI/fuel/fuel.tscn" id="2_ugvpa"]
+[ext_resource type="PackedScene" uid="uid://b6rprjt4km0f7" path="res://scenes/UI/hot/hot.tscn" id="4_0a2q3"]
+[ext_resource type="PackedScene" uid="uid://bmlasaajbp0ta" path="res://scenes/space_rock/space_rock.tscn" id="4_718x5"]
 
 [node name="Space" type="Node2D"]
 
+[node name="control" parent="." instance=ExtResource("1_x217o")]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
 [node name="SpaceShip" parent="." instance=ExtResource("1_t2gi8")]
-position = Vector2(974, 514)
+unique_name_in_owner = true
+position = Vector2(961, 542)
+
+[node name="Camera2D" type="Camera2D" parent="SpaceShip"]
+
+[node name="UI" type="CanvasLayer" parent="SpaceShip/Camera2D"]
+
+[node name="Fuel" parent="SpaceShip/Camera2D/UI" instance=ExtResource("2_ugvpa")]
+
+[node name="Hot" parent="SpaceShip/Camera2D/UI" instance=ExtResource("4_0a2q3")]
+offset_top = 830.0
+offset_bottom = 1080.0
+
+[node name="Up" type="Button" parent="SpaceShip/Camera2D/UI"]
+unique_name_in_owner = true
+offset_left = 16.0
+offset_top = 310.0
+offset_right = 126.0
+offset_bottom = 367.0
+text = "+10"
+
+[node name="Down" type="Button" parent="SpaceShip/Camera2D/UI"]
+unique_name_in_owner = true
+offset_left = 11.0
+offset_top = 390.0
+offset_right = 122.0
+offset_bottom = 462.0
+text = "-10"
+
+[node name="SpaceRock" parent="." instance=ExtResource("4_718x5")]
+position = Vector2(1549, 534)

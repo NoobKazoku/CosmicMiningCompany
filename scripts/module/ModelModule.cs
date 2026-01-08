@@ -1,4 +1,5 @@
-﻿using GFramework.Core.Abstractions.architecture;
+﻿using CosmicMiningCompany.scripts.setting;
+using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.architecture;
 
 namespace CosmicMiningCompany.scripts.module;
@@ -15,6 +16,6 @@ public class ModelModule: AbstractModule
     public override void Install(IArchitecture architecture)
     {
         // 注册竞技场模型
-        // architecture.RegisterModel(new ArenaModel());
+        architecture.RegisterModel(new SettingsModel());
     }
 }

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnlls8jfigjcw"]
+
+[ext_resource type="Script" uid="uid://cjs24gyk658ny" path="res://scenes/UI/NPC_dialogue/TextTyper.cs" id="1_iogl1"]
+
+[node name="TextTyper" type="RichTextLabel"]
+offset_right = 359.0
+offset_bottom = 23.0
+fit_content = true
+script = ExtResource("1_iogl1")

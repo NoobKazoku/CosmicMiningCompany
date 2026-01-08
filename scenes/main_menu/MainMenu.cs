@@ -36,6 +36,11 @@ public partial class MainMenu :Control,IController
 		{
 			GD.Print("游戏设置");
 			_log.Debug("游戏设置");
+			// 实例化设置场景
+			var optionScene = GD.Load<PackedScene>("res://scenes/Opition/Opition.tscn").Instantiate() as Control;
+			// 将其添加到当前场景中
+			AddChild(optionScene);
+
 		};
 
 

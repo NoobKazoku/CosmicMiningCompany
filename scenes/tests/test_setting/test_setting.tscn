@@ -1,0 +1,186 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0e7vhdp7iwa4"]
+
+[ext_resource type="Script" uid="uid://c6l00c7ul4e5e" path="res://scripts/tests/test_setting/TestSetting.cs" id="1_taser"]
+[ext_resource type="AudioStream" uid="uid://7gi4ucn2qj16" path="res://assets/music/Terran04.mp3" id="2_fo830"]
+
+[node name="TestSetting" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_taser")
+
+[node name="BgmPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_fo830")
+bus = &"BGM"
+parameters/looping = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Title" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "游戏设置"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AudioSection" type="VBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AudioTitle" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection"]
+layout_mode = 2
+text = "音频设置"
+
+[node name="MasterVolumeContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection"]
+layout_mode = 2
+
+[node name="MasterVolumeLabel" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/MasterVolumeContainer"]
+layout_mode = 2
+text = "主音量"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/MasterVolumeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="MasterVolumeValue" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/MasterVolumeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100%"
+
+[node name="BgmVolumeContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection"]
+layout_mode = 2
+
+[node name="BgmVolumeLabel" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/BgmVolumeContainer"]
+layout_mode = 2
+text = "背景音乐"
+
+[node name="BgmVolumeSlider" type="HSlider" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/BgmVolumeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 0.8
+
+[node name="BgmVolumeValue" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/BgmVolumeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "80%"
+
+[node name="SfxVolumeContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection"]
+layout_mode = 2
+
+[node name="SfxVolumeLabel" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/SfxVolumeContainer"]
+layout_mode = 2
+text = "音效"
+
+[node name="SfxVolumeSlider" type="HSlider" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/SfxVolumeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.1
+value = 0.8
+
+[node name="SfxVolumeValue" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/AudioSection/SfxVolumeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "80%"
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GraphicsSection" type="VBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GraphicsTitle" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/GraphicsSection"]
+layout_mode = 2
+text = "图形设置"
+
+[node name="FullscreenContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/GraphicsSection"]
+layout_mode = 2
+
+[node name="FullscreenLabel" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/GraphicsSection/FullscreenContainer"]
+layout_mode = 2
+text = "全屏模式"
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/GraphicsSection/FullscreenContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+
+[node name="ResolutionContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/GraphicsSection"]
+layout_mode = 2
+
+[node name="ResolutionLabel" type="Label" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/GraphicsSection/ResolutionContainer"]
+layout_mode = 2
+text = "分辨率"
+
+[node name="ResolutionOptionButton" type="OptionButton" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/GraphicsSection/ResolutionContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator3" type="HSeparator" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ButtonContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SaveButton" type="Button" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "保存设置"
+
+[node name="LoadButton" type="Button" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "加载设置"
+
+[node name="ResetButton" type="Button" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "重置默认"
+
+[node name="DebugButton" type="Button" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "调试信息"
+
+[node name="BgmPlayButton" type="Button" parent="PanelContainer/CenterContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "播放背景音乐"

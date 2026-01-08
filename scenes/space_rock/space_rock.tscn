@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmlasaajbp0ta"]
+
+[ext_resource type="Texture2D" uid="uid://duqkhw1r6cakc" path="res://assets/art/小行星.png" id="1_6rv73"]
+[ext_resource type="Script" uid="uid://btcus1mef8kmy" path="res://scenes/space_rock/SpaceRock.cs" id="1_co7l4"]
+[ext_resource type="PackedScene" uid="uid://y2xlqg5c2cv1" path="res://scenes/space_rock/shoot_area.tscn" id="2_d2lhf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d2lhf"]
+radius = 29.017237
+
+[node name="SpaceRock" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_co7l4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6rv73")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d2lhf")
+
+[node name="ShootArea" parent="." instance=ExtResource("2_d2lhf")]
+unique_name_in_owner = true
