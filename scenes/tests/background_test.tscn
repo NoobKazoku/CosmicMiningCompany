@@ -1,0 +1,252 @@
+[gd_scene load_steps=28 format=3 uid="uid://d0cm2pfa3u3ss"]
+
+[ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="1_svyxg"]
+[ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="2_0l0bx"]
+[ext_resource type="Shader" uid="uid://baqqpsotv4dfc" path="res://assets/art/pixel.gdshader" id="3_ea1dn"]
+[ext_resource type="FontFile" uid="uid://cr2i4stnkh5fc" path="res://assets/fonts/VonwaonBitmap-16px.ttf" id="4_icixp"]
+[ext_resource type="Texture2D" uid="uid://1xnk8rvurye" path="res://assets/art/oil-6-32x.png" id="5_bjdg5"]
+[ext_resource type="Shader" uid="uid://bsb0cwho76tw8" path="res://assets/art/line.gdshader" id="6_8kiau"]
+[ext_resource type="Texture2D" uid="uid://cc0kyy84m3qcu" path="res://assets/art/宝石.png" id="7_u1yfb"]
+[ext_resource type="Texture2D" uid="uid://cckcub1a5r2xr" path="res://assets/art/散矿.png" id="8_5dcd0"]
+[ext_resource type="Texture2D" uid="uid://c4em4qtvd3ltn" path="res://assets/art/小行星1.png" id="9_fv2oc"]
+[ext_resource type="Texture2D" uid="uid://dbfdpn5qu2wct" path="res://assets/art/小行星碎片.png" id="10_ploxu"]
+[ext_resource type="Texture2D" uid="uid://3q4qs4vr773r" path="res://assets/art/子弹.png" id="11_0l0bx"]
+[ext_resource type="Texture2D" uid="uid://svcm6d50c2ms" path="res://assets/art/爆炸粒子.png" id="11_icixp"]
+[ext_resource type="Texture2D" uid="uid://cffyyf4ith1q2" path="res://assets/art/弹壳.png" id="12_ea1dn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uh7m"]
+shader = ExtResource("1_svyxg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37kl0"]
+shader = ExtResource("2_0l0bx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvqjq"]
+shader = ExtResource("3_ea1dn")
+shader_parameter/color1 = Color(0.984, 0.961, 0.937, 1)
+shader_parameter/color2 = Color(0.949, 0.827, 0.671, 1)
+shader_parameter/color3 = Color(0.776, 0.624, 0.647, 1)
+shader_parameter/color4 = Color(0.545, 0.427, 0.612, 1)
+shader_parameter/color5 = Color(0.286, 0.302, 0.494, 1)
+shader_parameter/color6 = Color(0.075, 0.078, 0.18, 1)
+
+[sub_resource type="Theme" id="Theme_yo6cv"]
+default_font = ExtResource("4_icixp")
+default_font_size = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjsml"]
+shader = ExtResource("6_8kiau")
+shader_parameter/outline_color1 = Color(1, 1, 1, 1)
+shader_parameter/outline_width1 = 1.0
+shader_parameter/outline_color2 = Color(0, 0, 0, 0)
+shader_parameter/outline_width2 = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yo6cv"]
+shader = ExtResource("6_8kiau")
+shader_parameter/outline_color1 = Color(1, 1, 1, 1)
+shader_parameter/outline_width1 = 1.0
+shader_parameter/outline_color2 = Color(0, 0, 0, 0)
+shader_parameter/outline_width2 = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jeld2"]
+shader = ExtResource("6_8kiau")
+shader_parameter/outline_color1 = Color(0.2901961, 0.32941177, 0.38431373, 1)
+shader_parameter/outline_width1 = 1.0
+shader_parameter/outline_color2 = Color(0.21927449, 0.2513864, 0.296339, 1)
+shader_parameter/outline_width2 = 2.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5v8ik"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_5v8ik"]
+offsets = PackedFloat32Array(0, 0.6219178, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.90000004, 1, 1, 1, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bjdg5"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_icixp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5866834, 0.6058395), -0.9551047, -0.9551047, 0, 0, Vector2(1, 0), -1.8117892, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_0l0bx"]
+_data = [Vector2(0, 0.77615577), 0.0, 0.0, 0, 0, Vector2(0.7047739, 0.34793192), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ea1dn"]
+offsets = PackedFloat32Array(0, 0.60273975, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.9843137, 0.7529412, 0.1764706, 0.8392157, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_icixp"]
+offsets = PackedFloat32Array(0, 0.64657533, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.019607844)
+
+[node name="control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15294118, 0.15294118, 0.26666668, 1)
+
+[node name="tiny_star" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_8uh7m")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="bright_star" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_37kl0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="pixel" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_pvqjq")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07450981, 0.078431375, 0.18039216, 1)
+
+[node name="备忘" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 48.0
+offset_right = 641.0
+offset_bottom = 80.0
+theme = SubResource("Theme_yo6cv")
+text = "星星的shader使用的是屏幕坐标，没法滚动，后面得改"
+
+[node name="Oil632x" type="Sprite2D" parent="."]
+position = Vector2(101, 21)
+texture = ExtResource("5_bjdg5")
+
+[node name="宝石" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tjsml")
+position = Vector2(961, 446)
+texture = ExtResource("7_u1yfb")
+
+[node name="散矿" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_yo6cv")
+position = Vector2(1004, 448)
+texture = ExtResource("8_5dcd0")
+
+[node name="小行星测试" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jeld2")
+position = Vector2(1132.0001, 401)
+rotation = -0.001471199
+texture = ExtResource("9_fv2oc")
+
+[node name="子弹" type="Sprite2D" parent="."]
+position = Vector2(1058, 398)
+texture = ExtResource("11_0l0bx")
+
+[node name="break" type="Node2D" parent="."]
+position = Vector2(1203, 398)
+
+[node name="CPUParticles2D_break" type="CPUParticles2D" parent="break"]
+material = SubResource("CanvasItemMaterial_5v8ik")
+emitting = false
+amount = 5
+texture = ExtResource("10_ploxu")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+lifetime_randomness = 0.25
+fixed_fps = 60
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+damping_min = 50.0
+damping_max = 50.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.9
+scale_amount_max = 1.1
+color_ramp = SubResource("Gradient_5v8ik")
+anim_offset_max = 1.0
+
+[node name="CPUParticles2D_blast" type="CPUParticles2D" parent="break"]
+material = SubResource("CanvasItemMaterial_bjdg5")
+amount = 10
+texture = ExtResource("11_icixp")
+lifetime = 2.0
+preprocess = 0.2
+explosiveness = 0.9
+lifetime_randomness = 0.2
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+angular_velocity_min = -10.0
+angular_velocity_max = 10.0
+damping_min = 30.0
+damping_max = 30.0
+angle_min = -30.0
+angle_max = 30.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_icixp")
+
+[node name="hit" type="Node2D" parent="."]
+position = Vector2(1099, 396)
+
+[node name="CPUParticles2D_hit" type="CPUParticles2D" parent="hit"]
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 40.0
+damping_min = 30.0
+damping_max = 30.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_0l0bx")
+color_ramp = SubResource("Gradient_ea1dn")
+
+[node name="shell casing" type="Node2D" parent="."]
+position = Vector2(1021, 388)
+
+[node name="CPUParticles2D_shell casing" type="CPUParticles2D" parent="shell casing"]
+position = Vector2(-1, 10)
+amount = 5
+texture = ExtResource("12_ea1dn")
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+angular_velocity_min = -10.0
+angular_velocity_max = 25.0
+color_ramp = SubResource("Gradient_icixp")
