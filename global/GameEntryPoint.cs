@@ -1,12 +1,16 @@
 using CosmicMiningCompany.scripts.architecture;
+using CosmicMiningCompany.scripts.command.setting;
 using CosmicMiningCompany.scripts.data.interfaces;
 using CosmicMiningCompany.scripts.environment;
+using CosmicMiningCompany.scripts.query;
 using CosmicMiningCompany.scripts.setting.interfaces;
 using GFramework.Core.Abstractions.logging;
 using GFramework.Core.Abstractions.properties;
 using GFramework.Core.architecture;
 using GFramework.Core.extensions;
+using GFramework.Core.query;
 using GFramework.Godot.logging;
+using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 
@@ -15,6 +19,7 @@ namespace CosmicMiningCompany.global;
 /// <summary>
 /// 游戏入口点节点，负责初始化和清理游戏架构
 /// </summary>
+[Log]
 [ContextAware]
 public partial class GameEntryPoint : Node
 {
@@ -47,6 +52,12 @@ public partial class GameEntryPoint : Node
         _settingsStorageUtility = this.GetUtility<ISettingsStorageUtility>()!;
         _settingsModel = this.GetModel<ISettingsModel>()!;
         Instance= this;
+        var data = _settingsStorageUtility.Load();
+        this.SendCommand(new ApplySettingsDataCommand(new ApplySettingsDataCommandInput
+        {
+            Settings = data
+        }));
+        _log.Info("设置已加载");
     }
 
     /// <summary>

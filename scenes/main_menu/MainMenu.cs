@@ -13,9 +13,6 @@ public partial class MainMenu :Control,IController
 	/// 节点准备就绪时的回调方法
 	/// 在节点添加到场景树后调用
 	/// </summary>
-	
-
-
 	public override void _Ready()
 	{
 		GetNode<Button>("%NewGame").Pressed += () =>
