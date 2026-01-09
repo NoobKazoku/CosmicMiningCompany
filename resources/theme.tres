@@ -1,15 +1,28 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cfadp5dxx3ld1"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cfadp5dxx3ld1"]
 
 [ext_resource type="FontFile" uid="uid://cr2i4stnkh5fc" path="res://assets/fonts/VonwaonBitmap-16px.ttf" id="1_d4nwg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ct1h"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b751m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_886mr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owntx"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d4nwg"]
 
 [resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(0.9490196, 0.827451, 0.67058825, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 48
 Button/fonts/font = ExtResource("1_d4nwg")
-Button/styles/normal = SubResource("StyleBoxEmpty_7ct1h")
+Button/styles/focus = SubResource("StyleBoxEmpty_7ct1h")
+Button/styles/hover = SubResource("StyleBoxEmpty_b751m")
+Button/styles/normal = SubResource("StyleBoxEmpty_886mr")
+Button/styles/pressed = SubResource("StyleBoxEmpty_owntx")
 Label/font_sizes/font_size = 32
 Label/fonts/font = ExtResource("1_d4nwg")
 OptionButton/styles/hover = SubResource("StyleBoxEmpty_d4nwg")
+OptionButton/styles/normal = null

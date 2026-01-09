@@ -1,6 +1,40 @@
-[gd_scene load_steps=2 format=3 uid="uid://ben7ntvl6sktn"]
+[gd_scene load_steps=9 format=3 uid="uid://ben7ntvl6sktn"]
 
 [ext_resource type="Script" uid="uid://b885u1fegde1v" path="res://scenes/component/SettingVolumeContainer.cs" id="1_iepht"]
+[ext_resource type="Texture2D" uid="uid://4t00r85gulyv" path="res://assets/art/tilemap.png" id="2_gsxyw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gsxyw"]
+atlas = ExtResource("2_gsxyw")
+region = Rect2(140, 20, 8, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hufx3"]
+atlas = ExtResource("2_gsxyw")
+region = Rect2(53, 53, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hufx3"]
+texture = SubResource("AtlasTexture_hufx3")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjd2a"]
+atlas = ExtResource("2_gsxyw")
+region = Rect2(2, 53, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g5cbl"]
+texture = SubResource("AtlasTexture_wjd2a")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="Theme" id="Theme_wjd2a"]
+HSlider/icons/grabber = SubResource("AtlasTexture_gsxyw")
+HSlider/icons/grabber_highlight = SubResource("AtlasTexture_gsxyw")
+HSlider/styles/grabber_area = SubResource("StyleBoxTexture_hufx3")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxTexture_hufx3")
+HSlider/styles/slider = SubResource("StyleBoxTexture_g5cbl")
 
 [node name="SettingVolumeContainer" type="HBoxContainer"]
 offset_right = 488.0
@@ -18,6 +52,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(320, 20)
 layout_mode = 2
 size_flags_vertical = 4
+theme = SubResource("Theme_wjd2a")
 max_value = 1.0
 step = 0.1
 value = 1.0
