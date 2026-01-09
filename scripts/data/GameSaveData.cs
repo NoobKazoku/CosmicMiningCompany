@@ -34,4 +34,3 @@ public class GameSaveData
     [JsonIgnore]
     public bool RuntimeDirty { get; set; }
 }
-

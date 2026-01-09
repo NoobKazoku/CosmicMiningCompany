@@ -218,10 +218,12 @@ public partial class SpaceShip :CharacterBody2D,IController
         if (Fuel > 0)
         {
             Fuel -= FuelConsumptionRate * delta;
-            if (Fuel < 0)
+            if (Fuel <= 0)
             {
                 Fuel = 0;
                 GD.Print("燃料耗尽！");
+                //回到空间站
+                GetTree().ChangeSceneToFile("res://scenes/space_station/space_station.tscn");
             }
         }
     }

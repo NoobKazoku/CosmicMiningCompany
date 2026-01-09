@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b81p3y0rlcajm"]
+[gd_scene load_steps=4 format=3 uid="uid://b81p3y0rlcajm"]
 
 [ext_resource type="Script" uid="uid://crouxsxjt42mk" path="res://scenes/space_station/SpaceStation.cs" id="1_3yv4l"]
 [ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_pa1ah"]
+[ext_resource type="PackedScene" uid="uid://bka7jj2s5xkgf" path="res://scenes/UI/storage/storage.tscn" id="3_x2jrh"]
 
 [node name="SpaceStation" type="Node2D"]
 script = ExtResource("1_3yv4l")
@@ -21,3 +22,9 @@ offset_right = 1863.0
 offset_bottom = 982.0
 theme = ExtResource("2_pa1ah")
 text = "离港"
+
+[node name="Storage" parent="Control" instance=ExtResource("3_x2jrh")]
+layout_mode = 0
+offset_top = 338.0
+offset_right = 148.0
+offset_bottom = 470.0
