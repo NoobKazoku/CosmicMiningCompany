@@ -154,16 +154,19 @@ public partial class SpaceRock : RigidBody2D
                 if (lootScene != null)
                 {
                     // 实例化掉落物
-                    var lootInstance = (Node2D)lootScene.Instantiate();
+                    var lootInstance = (Loot)lootScene.Instantiate();
                     
                     // 设置掉落物的位置（稍微分散一些）
                     var offset = new Vector2((float)GD.RandRange(-20, 21), (float)GD.RandRange(-20, 21));
                     lootInstance.GlobalPosition = this.GlobalPosition + offset;
+
+                    lootInstance.Initialize(AsteroidData.Loot);
                     
                     // 添加到场景树
                     GetParent().AddChild(lootInstance);
                     
                     GD.Print($"生成掉落物: {AsteroidData.Loot} #{i+1}");
+                    
                 }
                 else
                 {
