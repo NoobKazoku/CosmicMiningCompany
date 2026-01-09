@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://drg8crkkyrlt"]
+
+[ext_resource type="Script" uid="uid://se4mj3is7x8n" path="res://global/AsteroidSceneRegistry.cs" id="1_38mkv"]
+[ext_resource type="PackedScene" uid="uid://bmlasaajbp0ta" path="res://scenes/space_rock/space_rock.tscn" id="2_oxqc6"]
+
+[node name="AsteroidSceneRegistry" type="Node"]
+script = ExtResource("1_38mkv")
+Scenes = Dictionary[String, PackedScene]({
+"asteroid_1001": ExtResource("2_oxqc6"),
+"asteroid_1002": ExtResource("2_oxqc6"),
+"asteroid_1003": ExtResource("2_oxqc6"),
+"asteroid_1004": ExtResource("2_oxqc6")
+})

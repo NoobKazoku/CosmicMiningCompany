@@ -59,8 +59,6 @@ public partial class GameEntryPoint : Node
         {
             Settings = data
         }));
-        var assetCatalogUtility = this.GetUtility<IAsteroidDataReadUtility>()!;
-        assetCatalogUtility.Load();
         _log.Info("设置已加载");
     }
 

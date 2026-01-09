@@ -1,9 +1,7 @@
-﻿using CosmicMiningCompany.scripts.assets;
-using CosmicMiningCompany.scripts.resources;
+﻿using CosmicMiningCompany.scripts.asteroid;
 using CosmicMiningCompany.scripts.setting;
 using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.architecture;
-using GFramework.Godot.assets;
 
 namespace CosmicMiningCompany.scripts.module;
 
@@ -20,5 +18,6 @@ public class SystemModule: AbstractModule
     public override void Install(IArchitecture architecture)
     {
         architecture.RegisterSystem(new SettingsSystem());
+        architecture.RegisterSystem(new AsteroidSpawnSystem());
     }
 }

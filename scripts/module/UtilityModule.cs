@@ -1,4 +1,5 @@
 ﻿using CosmicMiningCompany.scripts.assets;
+using CosmicMiningCompany.scripts.asteroid;
 using CosmicMiningCompany.scripts.data;
 using CosmicMiningCompany.scripts.resources;
 using CosmicMiningCompany.scripts.setting;
@@ -31,6 +32,7 @@ public class UtilityModule: AbstractModule
         architecture.RegisterUtility(new ResourceLoadUtility());
         // 注册资源工厂系统
         architecture.RegisterUtility(new ResourceFactoryUtility());
+        architecture.RegisterUtility(new AsteroidDataReadUtility());
     }
 }
 

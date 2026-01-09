@@ -1,13 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://beo8d4p6emdbg"]
+[gd_scene load_steps=7 format=3 uid="uid://beo8d4p6emdbg"]
 
 [ext_resource type="PackedScene" uid="uid://b6hicsjid7hc1" path="res://scenes/space_ship/space_ship.tscn" id="1_t2gi8"]
+[ext_resource type="Script" uid="uid://udcgk5f8lhmf" path="res://scenes/space/Space.cs" id="1_wfdyj"]
 [ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/test_VFX/background_test.tscn" id="1_x217o"]
 [ext_resource type="PackedScene" uid="uid://cdh57f160jys4" path="res://scenes/UI/fuel/fuel.tscn" id="2_ugvpa"]
 [ext_resource type="PackedScene" uid="uid://b6rprjt4km0f7" path="res://scenes/UI/hot/hot.tscn" id="4_0a2q3"]
-[ext_resource type="PackedScene" uid="uid://bmlasaajbp0ta" path="res://scenes/space_rock/space_rock.tscn" id="4_718x5"]
 [ext_resource type="PackedScene" uid="uid://wvy8y4twx6s2" path="res://scenes/UI/cargo/cargo.tscn" id="5_n6hgd"]
 
 [node name="Space" type="Node2D"]
+script = ExtResource("1_wfdyj")
 
 [node name="control" parent="." instance=ExtResource("1_x217o")]
 offset_right = 1920.0
@@ -37,24 +38,3 @@ offset_left = 1.0
 offset_top = 260.0
 offset_right = 1.0000153
 offset_bottom = 260.0
-
-[node name="SpaceRock" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1549, 534)
-
-[node name="SpaceRock2" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1549, 534)
-
-[node name="SpaceRock3" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1610, 541)
-
-[node name="SpaceRock4" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1671, 544)
-
-[node name="SpaceRock7" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1660, 485)
-
-[node name="SpaceRock5" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1629, 604)
-
-[node name="SpaceRock6" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1591, 479)

@@ -1,7 +1,8 @@
-﻿using Godot;
+﻿using CosmicMiningCompany.scripts.asteroid;
+using Godot;
 using Godot.Collections;
 
-namespace CosmicMiningCompany.scripts.asteroid;
+namespace CosmicMiningCompany.global;
 
 /// <summary>
 /// 小行星场景注册表，继承自Node，实现IAsteroidSceneRegistry接口，管理小行星场景资源

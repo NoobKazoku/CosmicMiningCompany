@@ -23,6 +23,7 @@ config/assets/asteroid_path="res://assets/data/Asteroid.json"
 GameEntryPoint="*res://global/game_entry_point.tscn"
 DevBindingManager="*res://global/dev_binding_manager.tscn"
 PlayerManager="*res://global/PlayerManager.cs"
+AsteroidSceneRegistry="*res://global/asteroid_scene_registry.tscn"
 
 [display]
 

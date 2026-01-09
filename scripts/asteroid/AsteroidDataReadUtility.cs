@@ -40,6 +40,7 @@ public class AsteroidDataReadUtility: AbstractContextUtility,IAsteroidDataReadUt
     protected override void OnInit()
     {
         _storage = this.GetUtility<IReadStorageUtility>()!;
+        Load();
     }
     
     /// <summary>
