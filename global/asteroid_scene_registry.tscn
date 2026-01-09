@@ -9,5 +9,6 @@ Scenes = Dictionary[String, PackedScene]({
 "asteroid_1001": ExtResource("2_oxqc6"),
 "asteroid_1002": ExtResource("2_oxqc6"),
 "asteroid_1003": ExtResource("2_oxqc6"),
-"asteroid_1004": ExtResource("2_oxqc6")
+"asteroid_1004": ExtResource("2_oxqc6"),
+"gem_asteroid_2001": ExtResource("2_oxqc6")
 })

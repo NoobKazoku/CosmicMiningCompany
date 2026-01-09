@@ -7,21 +7,65 @@ using Godot;
 
 namespace CosmicMiningCompany.scenes.space;
 
+/// <summary>
+/// 太空场景节点，负责管理陨石生成、销毁和太空船相关逻辑
+/// </summary>
 [ContextAware]
 [Log]
 public partial class Space :Node2D,IController
 {
 	private IAsteroidSpawnSystem _asteroidSpawnSystem = null!;
 	private Timer _spawnTimer = null!;
+	
+	/// <summary>
+	/// 获取陨石根节点
+	/// </summary>
 	private Node2D AsteroidRoot => GetNode<Node2D>("%AsteroidRoot");
+	
+	/// <summary>
+	/// 获取2D相机节点
+	/// </summary>
 	private Camera2D Camera => GetNode<Camera2D>("%Camera2D");
+	
+	/// <summary>
+	/// 获取太空船节点
+	/// </summary>
 	private CharacterBody2D SpaceShip => GetNode<CharacterBody2D>("%SpaceShip");
+	
 	/// <summary>
 	/// 每次生成的陨石数量
 	/// </summary>
 	[Export]
 	private int _spawnCountPerTick = 3;
+	
+	/// <summary>
+	/// 陨石销毁距离阈值
+	/// </summary>
+	[Export]
+	private float _despawnDistance = 3000f;
+	
+	/// <summary>
+	/// 物理处理回调方法
+	/// 检查所有陨石与太空船的距离，超出阈值的陨石将被标记销毁
+	/// </summary>
+	/// <param name="delta">物理帧时间间隔</param>
+	public override void _PhysicsProcess(double delta)
+	{
+		foreach (var rock in AsteroidRoot.GetChildren())
+		{
+			if (rock is not SpaceRock spaceRock)
+				continue;
 
+			var distance =
+				(spaceRock.GlobalPosition - SpaceShip.GlobalPosition).Length();
+
+			if (distance > _despawnDistance)
+			{
+				spaceRock.ScheduleDestroy(10f);
+			}
+		}
+	}
+	
 	/// <summary>
 	/// 节点准备就绪时的回调方法
 	/// 在节点添加到场景树后调用
@@ -38,6 +82,11 @@ public partial class Space :Node2D,IController
 		_spawnTimer.Timeout += OnSpawnTimeout;
 		AddChild(_spawnTimer);
 	}
+	
+	/// <summary>
+	/// 生成计时器超时回调方法
+	/// 根据配置数量在视野外生成陨石
+	/// </summary>
 	private void OnSpawnTimeout()
 	{
 		for (int i = 0; i < _spawnCountPerTick; i++)
@@ -50,6 +99,7 @@ public partial class Space :Node2D,IController
 	/// <summary>
 	/// 在玩家视野范围外生成随机位置
 	/// </summary>
+	/// <returns>视野外的随机生成位置</returns>
 	private Vector2 GetRandomSpawnPositionOutsidePlayerView()
 	{
 		var view = GetCameraWorldRect();
@@ -81,6 +131,10 @@ public partial class Space :Node2D,IController
 		};
 	}
 
+	/// <summary>
+	/// 获取相机的世界矩形范围
+	/// </summary>
+	/// <returns>相机覆盖的世界矩形</returns>
 	private Rect2 GetCameraWorldRect()
 	{
 		var viewportSize = GetViewportRect().Size;
