@@ -5,13 +5,23 @@ public partial class Loot : CharacterBody2D
 {
 	public const float Speed = 800.0f;
 	public bool IsCollected = false;
+	public string OreName = "";
 
 	private SpaceShip SpaceShip => GetTree().Root.GetNode<SpaceShip>("Space/SpaceShip");
 	private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
 
+	private Cargo Cargo => GetTree().Root.GetNode<Cargo>("Space/SpaceShip/Camera2D/UI/Cargo");
+
     public override void _Ready()
     {
-        base._Ready();
+        if (Cargo != null)
+		{
+			GD.Print("成功获取Cargo节点");
+		}
+		else
+		{
+			GD.PrintErr("未能获取Cargo节点");
+		}
     }
 
 
@@ -44,6 +54,7 @@ public partial class Loot : CharacterBody2D
 	public void Collected()
 	{
 		GD.Print("资源已拾取");
+		Cargo.CollectOre(OreName);
 		QueueFree();
 		
 	}
@@ -55,5 +66,6 @@ public partial class Loot : CharacterBody2D
 	public void Initialize(string Name)
 	{
 		AnimatedSprite2D.Play(Name);
+		OreName = Name;
 	}
 }
