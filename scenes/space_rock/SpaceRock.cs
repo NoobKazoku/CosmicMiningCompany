@@ -1,27 +1,21 @@
+using CosmicMiningCompany.scripts.asteroid;
 using Godot;
-using System;
-using System.Collections.Generic;
-using CosmicMiningCompany.scripts.serializer;
-using CosmicMiningCompany.scripts.data;
+using AsteroidData = CosmicMiningCompany.scripts.data.AsteroidData;
 
-public partial class SpaceRock : RigidBody2D
+public partial class SpaceRock : RigidBody2D,IAsteroid
 {
 	private Timer _lifeTimer;
 	private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
 	private Area2D ShootArea => GetNode<Area2D>("%ShootArea");
-	private SpaceShip SpaceShip => GetTree().Root.GetNode<SpaceShip>("Space/SpaceShip");
-
+	
 	// 陨石属性，从JSON加载
 	public AsteroidData AsteroidData { get; set; }
 
 	// 添加标志来确保掉落只执行一次
-	private bool _hasDroppedLoot = false;
+	private bool _hasDroppedLoot;
 
 	public override void _Ready()
 	{
-		//读取json文件，初始化陨石属性
-		InitializeAsteroidProperties();
-
 		LinearDamp = 0;
 		AngularDamp = 0;
 		ShootArea.BodyEntered += OnBodyEntered;
@@ -34,89 +28,11 @@ public partial class SpaceRock : RigidBody2D
 		_lifeTimer.Timeout += () => QueueFree();
 		AddChild(_lifeTimer);
 	}
-
-	public override void _PhysicsProcess(double delta)
+	
+	public void Init(float hp, string dropId)
 	{
-		DestroyRock();
-
+		// 在此初始化小行星属性
 	}
-
-	private void InitializeAsteroidProperties()
-	{
-		// 读取Asteroid.json文件内容
-		string jsonFilePath = "res://assets/data/Asteroid.json";
-
-		if (!FileAccess.FileExists(jsonFilePath))
-		{
-			GD.PrintErr($"文件不存在: {jsonFilePath}");
-			return;
-		}
-
-		try
-		{
-			// 使用FileAccess读取文件内容
-			string jsonString = FileAccess.GetFileAsString(jsonFilePath);
-
-			// 使用ISerializer接口反序列化JSON
-			var serializer = new AsteroidJsonSerializer();
-			var asteroidRoot = serializer.Deserialize(jsonString);
-
-			// 使用AsteroidDataHelper获取实际数据
-			var actualData = AsteroidDataHelper.GetActualAsteroidData(asteroidRoot);
-
-			if (actualData.Count > 0)
-			{
-				// 根据刷新概率系数随机选择一个陨石数据
-				AsteroidData = SelectAsteroidByProbability(actualData);
-
-				GD.Print($"小行星加载成功: {AsteroidData.Name} (ID: {AsteroidData.Id}, 血量: {AsteroidData.Health}, 概率系数: {AsteroidData.Probability})");
-
-				// 初始化
-
-				// 设置动画
-				if (AnimatedSprite2D != null)
-				{
-					AnimatedSprite2D.Play(AsteroidData.Name);
-				}
-			}
-			else
-			{
-				GD.PrintErr("没有找到有效的陨石数据");
-			}
-		}
-		catch (Exception e)
-		{
-			GD.PrintErr($"读取或解析Asteroid.json时出错: {e.Message}");
-		}
-	}
-
-	private AsteroidData SelectAsteroidByProbability(List<AsteroidData> asteroids)
-	{
-		// 使用概率系数来选择陨石
-		int totalProbability = 0;
-		foreach (var asteroid in asteroids)
-		{
-			totalProbability += asteroid.Probability;
-		}
-
-		// 生成一个随机数
-		int randomValue = GD.RandRange(0, totalProbability);
-
-		// 根据概率选择陨石
-		int currentProbability = 0;
-		foreach (var asteroid in asteroids)
-		{
-			currentProbability += asteroid.Probability;
-			if (randomValue <= currentProbability)
-			{
-				return asteroid;
-			}
-		}
-
-		// 如果没有找到匹配的陨石，返回第一个
-		return asteroids[0];
-	}
-
 	private void OnBodyEntered(Node body)
 	{
 		if (body is Bullet bullet)
@@ -204,43 +120,15 @@ public partial class SpaceRock : RigidBody2D
 		}
 	}
 
-	public void DestroyRock()
+	public void ScheduleDestroy(float delay)
 	{
-		float distance = (this.GlobalPosition - SpaceShip.Position).Length();
-
-		if (distance > 3000)
+		var timer = new Timer
 		{
-			// 如果计时器未启动，则启动它
-			if (!_lifeTimer.IsStopped())
-			{
-				// 计时器已经在运行，无需操作
-			}
-			else
-			{
-				_lifeTimer.Start();
-			}
-		}
-		else
-		{
-			// 如果计时器正在运行，则停止它
-			if (!_lifeTimer.IsStopped())
-			{
-				_lifeTimer.Stop();
-			}
-		}
-	}
-}
-
-// 为AsteroidData实现ISerializer接口
-public class AsteroidJsonSerializer : ISerializer<AsteroidRoot>
-{
-	public string Serialize(AsteroidRoot data)
-	{
-		return Newtonsoft.Json.JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-	}
-
-	public AsteroidRoot Deserialize(string json)
-	{
-		return Newtonsoft.Json.JsonConvert.DeserializeObject<AsteroidRoot>(json) ?? new AsteroidRoot();
+			WaitTime = delay,
+			OneShot = true
+		};
+		timer.Timeout += QueueFree;
+		AddChild(timer);
+		timer.Start();
 	}
 }

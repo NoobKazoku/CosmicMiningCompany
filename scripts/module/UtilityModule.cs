@@ -1,8 +1,12 @@
-﻿using CosmicMiningCompany.scripts.data;
+﻿using CosmicMiningCompany.scripts.assets;
+using CosmicMiningCompany.scripts.asteroid;
+using CosmicMiningCompany.scripts.data;
+using CosmicMiningCompany.scripts.resources;
 using CosmicMiningCompany.scripts.setting;
 using CosmicMiningCompany.scripts.storage;
 using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.architecture;
+using GFramework.Godot.assets;
 
 namespace CosmicMiningCompany.scripts.module;
 
@@ -22,6 +26,13 @@ public class UtilityModule: AbstractModule
         architecture.RegisterUtility(new FileSaveStorage());
         architecture.RegisterUtility(new SaveStorageUtility());
         architecture.RegisterUtility(new SettingsStorageUtility());
+        // 注册资源目录系统
+        architecture.RegisterUtility(new AssetCatalogUtility());
+        // 注册资源加载系统
+        architecture.RegisterUtility(new ResourceLoadUtility());
+        // 注册资源工厂系统
+        architecture.RegisterUtility(new ResourceFactoryUtility());
+        architecture.RegisterUtility(new AsteroidDataReadUtility());
     }
 }
 
