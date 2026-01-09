@@ -75,6 +75,7 @@ gravity_scale = 0.0
 script = ExtResource("1_co7l4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_6yyvo")
 animation = &"小行星2"
 

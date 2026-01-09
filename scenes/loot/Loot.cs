@@ -7,6 +7,13 @@ public partial class Loot : CharacterBody2D
 	public bool IsCollected = false;
 
 	private SpaceShip SpaceShip => GetTree().Root.GetNode<SpaceShip>("Space/SpaceShip");
+	private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
+
+    public override void _Ready()
+    {
+        base._Ready();
+    }
+
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -39,5 +46,14 @@ public partial class Loot : CharacterBody2D
 		GD.Print("资源已拾取");
 		QueueFree();
 		
+	}
+
+
+	/// <summary>
+	/// 初始化
+	/// </summary>
+	public void Initialize(string Name)
+	{
+		AnimatedSprite2D.Play(Name);
 	}
 }

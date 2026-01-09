@@ -8,18 +8,18 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_8kgif")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": ExtResource("2_01umk")
 }],
 "loop": true,
 "name": &"宝石1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8kgif")
+}],
+"loop": true,
+"name": &"散矿",
 "speed": 5.0
 }]
 
@@ -31,8 +31,9 @@ collision_mask = 17
 script = ExtResource("1_01umk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_6mdjo")
-animation = &"宝石1"
+animation = &"散矿"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_dyds6")
