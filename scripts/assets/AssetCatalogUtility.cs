@@ -17,6 +17,5 @@ public partial class AssetCatalogUtility : AbstractAssetCatalogUtility
     protected override void RegisterAssets()
     {
         _log.Debug("开始注册资产");
-        RegisterAsset(AssetCatalogConstants.AssetCatalogResource.AsteroidConfigTable);
     }
 }

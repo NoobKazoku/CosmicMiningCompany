@@ -13,6 +13,7 @@ public partial class Space :Node2D,IController
 {
 	private IAsteroidSpawnSystem _asteroidSpawnSystem = null!;
 	private Timer _spawnTimer = null!;
+	private Node2D AsteroidRoot => GetNode<Node2D>("%AsteroidRoot");
 
 	/// <summary>
 	/// 节点准备就绪时的回调方法
@@ -33,7 +34,7 @@ public partial class Space :Node2D,IController
 	private void OnSpawnTimeout()
 	{
 		var spawnPosition = RandomSpawnPosition();
-		_asteroidSpawnSystem.TrySpawn(this, spawnPosition);
+		_asteroidSpawnSystem.TrySpawn(AsteroidRoot, spawnPosition);
 	}
 	private Vector2 RandomSpawnPosition()
 	{

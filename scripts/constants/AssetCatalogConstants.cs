@@ -1,6 +1,4 @@
-﻿using GFramework.Game.Abstractions.assets;
-
-namespace CosmicMiningCompany.scripts.constants;
+﻿namespace CosmicMiningCompany.scripts.constants;
 
 /// <summary>
 /// 资产目录常量类，用于定义游戏中各种资产的配置映射
@@ -12,9 +10,6 @@ public class AssetCatalogConstants
     /// </summary>
     public static class AssetCatalogResource
     {
-        /// <summary>
-        /// 小行星配置文件的资产映射
-        /// </summary>
-        public static readonly AssetCatalog.AssetCatalogMapping AsteroidConfigTable = new("AsteroidConfigTable",new AssetCatalog.AssetId("res://resource/asteroid/asteroid_config_table.tres"));
+        
     }
 }

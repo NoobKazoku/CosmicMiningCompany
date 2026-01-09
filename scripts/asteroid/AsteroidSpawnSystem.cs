@@ -1,5 +1,6 @@
 ﻿using GFramework.Core.extensions;
 using GFramework.Core.system;
+using GFramework.SourceGenerators.Abstractions.logging;
 using global::CosmicMiningCompany.global;
 using Godot;
 
@@ -9,7 +10,8 @@ namespace CosmicMiningCompany.scripts.asteroid;
 /// <summary>
 /// 小行星生成系统，负责根据规则在指定位置生成小行星
 /// </summary>
-public class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
+[Log]
+public partial class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
 {
     /// <summary>
     /// 小行星生成规则实例，用于决定生成条件和类型
@@ -26,25 +28,31 @@ public class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
     /// </summary>
     /// <param name="target">生成小行星的目标节点</param>
     /// <param name="spawnPosition">生成位置的向量坐标</param>
-    public void TrySpawn(Node target,Vector2 spawnPosition)
+    public void TrySpawn(Node target, Vector2 spawnPosition)
     {
         var distance = spawnPosition.Length();
+        _log.Debug($"Checking spawn condition for distance {distance}");
 
-        // 检查是否满足生成条件
         if (!_rule.CanSpawn(distance))
+        {
+            _log.Debug("Spawn condition not met.");
             return;
+        }
 
-        var id = _rule.DecideAsteroidId(distance);
-        if (id < 0)
-            return;
-
-        // 根据距离决定小行星ID并创建小行星对象
         var asteroidId = _rule.DecideAsteroidId(distance);
-        var asteroid = _factory.Create(asteroidId, spawnPosition);
+        _log.Debug($"Decided asteroid ID: {asteroidId}");
 
-        // 将生成的小行星添加到目标节点
+        if (asteroidId < 0)
+        {
+            _log.Debug("Invalid asteroid ID.");
+            return;
+        }
+
+        var asteroid = _factory.Create(asteroidId, spawnPosition);
         target.AddChild(asteroid);
+        _log.Debug($"Asteroid spawned at {spawnPosition}");
     }
+
 
     /// <summary>
     /// 初始化系统，设置数据读取工具、生成规则和工厂实例

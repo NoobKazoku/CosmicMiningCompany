@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GFramework.SourceGenerators.Abstractions.logging;
 using Godot;
 
 namespace CosmicMiningCompany.scripts.asteroid;
@@ -7,7 +8,8 @@ namespace CosmicMiningCompany.scripts.asteroid;
 /// <summary>
 /// 小行星工厂类，负责根据定义创建小行星实例
 /// </summary>
-public class AsteroidFactory
+[Log]
+public partial class AsteroidFactory
 {
     /// <summary>
     /// 小行星定义字典，以ID为键存储小行星定义
@@ -45,6 +47,7 @@ public class AsteroidFactory
 
         var node = scene.Instantiate<Node2D>();
         node.Position = pos;
+        _log.Debug($"Created asteroid {asteroidId},Position:{pos}");
 
         if (node is IAsteroid asteroid)
         {
