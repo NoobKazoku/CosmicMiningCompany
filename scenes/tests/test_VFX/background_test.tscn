@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://d0cm2pfa3u3ss"]
+[gd_scene load_steps=29 format=3 uid="uid://d0cm2pfa3u3ss"]
 
 [ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="1_gi24m"]
 [ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="2_hwurh"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dbfdpn5qu2wct" path="res://assets/art/小行星碎片.png" id="11_ar0ak"]
 [ext_resource type="Texture2D" uid="uid://svcm6d50c2ms" path="res://assets/art/爆炸粒子.png" id="12_m742m"]
 [ext_resource type="Texture2D" uid="uid://cffyyf4ith1q2" path="res://assets/art/弹壳.png" id="13_iab3q"]
+[ext_resource type="Texture2D" uid="uid://b6rjw4ajrqvj" path="res://assets/art/空间站.png" id="14_hwurh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8uh7m"]
 shader = ExtResource("1_gi24m")
@@ -250,3 +251,7 @@ initial_velocity_max = 20.0
 angular_velocity_min = -10.0
 angular_velocity_max = 25.0
 color_ramp = SubResource("Gradient_icixp")
+
+[node name="空间站" type="Sprite2D" parent="."]
+position = Vector2(437, 815)
+texture = ExtResource("14_hwurh")

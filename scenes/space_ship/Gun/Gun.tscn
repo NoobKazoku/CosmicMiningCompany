@@ -1,8 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://by53s6t06nolm"]
+[gd_scene load_steps=7 format=3 uid="uid://by53s6t06nolm"]
 
 [ext_resource type="Texture2D" uid="uid://dpwv3tubgya4p" path="res://assets/art/枪.png" id="1_csjyh"]
+[ext_resource type="Shader" uid="uid://bsb0cwho76tw8" path="res://assets/art/line.gdshader" id="1_rdelv"]
 [ext_resource type="Script" uid="uid://hef4x1wu2brf" path="res://scenes/space_ship/Gun/Gun.cs" id="2_gb1j4"]
+[ext_resource type="Texture2D" uid="uid://cffyyf4ith1q2" path="res://assets/art/弹壳.png" id="3_anhe2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vn7s8"]
+shader = ExtResource("1_rdelv")
+shader_parameter/outline_color1 = Color(1, 1, 1, 1)
+shader_parameter/outline_width1 = 1.0
+shader_parameter/outline_color2 = Color(0, 0, 0, 0)
+shader_parameter/outline_width2 = 2.0
+
+[sub_resource type="Gradient" id="Gradient_rdelv"]
+offsets = PackedFloat32Array(0, 0.64657533, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.019607844)
 
 [node name="Gun" type="Sprite2D"]
+material = SubResource("ShaderMaterial_vn7s8")
 texture = ExtResource("1_csjyh")
 script = ExtResource("2_gb1j4")
+
+[node name="CPUParticles2D_shell casing" type="CPUParticles2D" parent="."]
+position = Vector2(-5, -3)
+emitting = false
+amount = 5
+texture = ExtResource("3_anhe2")
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+angular_velocity_min = -10.0
+angular_velocity_max = 25.0
+color_ramp = SubResource("Gradient_rdelv")

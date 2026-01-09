@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://beo8d4p6emdbg"]
+[gd_scene load_steps=6 format=3 uid="uid://beo8d4p6emdbg"]
 
 [ext_resource type="PackedScene" uid="uid://b6hicsjid7hc1" path="res://scenes/space_ship/space_ship.tscn" id="1_t2gi8"]
 [ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/test_VFX/background_test.tscn" id="1_x217o"]
 [ext_resource type="PackedScene" uid="uid://cdh57f160jys4" path="res://scenes/UI/fuel/fuel.tscn" id="2_ugvpa"]
 [ext_resource type="PackedScene" uid="uid://b6rprjt4km0f7" path="res://scenes/UI/hot/hot.tscn" id="4_0a2q3"]
 [ext_resource type="PackedScene" uid="uid://bmlasaajbp0ta" path="res://scenes/space_rock/space_rock.tscn" id="4_718x5"]
-[ext_resource type="PackedScene" uid="uid://o7emwyjgkl2b" path="res://scenes/loot/loot.tscn" id="6_n6hgd"]
 
 [node name="Space" type="Node2D"]
 
@@ -45,48 +44,3 @@ text = "-10"
 
 [node name="SpaceRock" parent="." instance=ExtResource("4_718x5")]
 position = Vector2(1549, 534)
-
-[node name="SpaceRock2" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1567, 591)
-
-[node name="SpaceRock3" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1610, 541)
-
-[node name="SpaceRock4" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1671, 544)
-
-[node name="SpaceRock7" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1654, 487)
-
-[node name="SpaceRock5" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1629, 604)
-
-[node name="SpaceRock6" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1591, 479)
-
-[node name="Loot" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1568, 771)
-
-[node name="Loot2" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1568, 885)
-
-[node name="Loot3" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1568, 885)
-
-[node name="Loot4" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(532, 946)
-
-[node name="Loot6" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(408, 586)
-
-[node name="Loot7" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(569, 282)
-
-[node name="Loot8" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(996, 886)
-
-[node name="Loot9" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1079, 200)
-
-[node name="Loot5" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1675, 160)
