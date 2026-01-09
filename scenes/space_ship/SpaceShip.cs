@@ -109,76 +109,85 @@ public partial class SpaceShip :CharacterBody2D,IController
             inputDirection = inputDirection.Normalized();
         }
         
-        // 分离处理推力和制动
-        
-        // 只应用推力
+        // 应用推力（加速度）
         if (inputDirection.Length() > 0)
         {
-            // 应用推力（加速度）
             Vector2 thrust = inputDirection * Acceleration;
             
-            // 计算应用推力后的新速度
+            // 计算新速度
             Vector2 newVelocity = Velocity + thrust * delta;
             
-            // 如果新速度超过最大速度，则限制推力大小
-            if (newVelocity.Length() > MaxSpeed)
+            // 如果新速度没有超过最大速度，直接应用
+            if (newVelocity.Length() <= MaxSpeed)
             {
-                // 计算允许的最大速度变化
-                float maxSpeedChange = Mathf.Max(0, MaxSpeed - Velocity.Length());
-                if (maxSpeedChange > 0)
-                {
-                    // 限制推力大小，使速度不超过最大速度
-                    thrust = thrust.Normalized() * (maxSpeedChange / delta);
-                    Velocity += thrust * delta;
-                }
-                // 如果已经达到或超过最大速度，不应用推力
+                Velocity = newVelocity;
             }
             else
             {
-                // 新速度不超过最大速度，正常应用推力
-                Velocity = newVelocity;
+                // 如果新速度超过了最大速度
+                // 有两种情况需要处理：
+                // 1. 如果输入方向与当前速度方向相似（前进加速），则限制速度
+                // 2. 如果输入方向与当前速度方向不同（转向），则允许改变方向
+                
+                float dotProduct = Velocity.Normalized().Dot(inputDirection);
+                
+                if (dotProduct > 0.5f) // 大致向前（>90度夹角）
+                {
+                    // 限制速度到最大值
+                    Velocity = newVelocity.Normalized() * MaxSpeed;
+                }
+                else // 转向或后退
+                {
+                    // 让玩家能够转向，逐渐改变方向
+                    // 计算一个平衡当前速度和期望速度的混合速度
+                    Vector2 desiredVelocity = inputDirection * MaxSpeed;
+                    
+                    // 使用插值来平滑转向
+                    float turnRate = 0.1f; // 可以根据需要调整转向率
+                    Vector2 mixedVelocity = Velocity.Lerp(desiredVelocity, turnRate);
+                    
+                    // 确保最终速度不超过最大速度
+                    if (mixedVelocity.Length() > MaxSpeed)
+                    {
+                        mixedVelocity = mixedVelocity.Normalized() * MaxSpeed;
+                    }
+                    
+                    Velocity = mixedVelocity;
+                }
             }
         }
-        
-        // 制动处理
-        bool shouldApplyBrake = false;
-        
-        if (inputDirection.Length() == 0 && Velocity.Length() > 0.1f)
+        else
         {
             // 没有输入时应用制动
-            shouldApplyBrake = true;
-        }
-        else if (inputDirection.Length() > 0 && Velocity.Length() > 0.1f)
-        {
-            // 有输入时，检查输入方向是否与当前移动方向相反
-            Vector2 normalizedVelocity = Velocity.Normalized();
-            float dotProduct = inputDirection.Dot(normalizedVelocity);
-            if (dotProduct < -0.1f) // 方向几乎相反（允许小的角度误差）
+            if (Velocity.Length() > 0.1f)
             {
-                shouldApplyBrake = true;
+                // 计算制动方向（与当前速度相反）
+                Vector2 brakeDirection = -Velocity.Normalized();
+                
+                // 应用制动力
+                Vector2 brakeForceVector = brakeDirection * BrakeForce;
+                
+                // 更新速度（制动）
+                Vector2 newVelocity = Velocity + brakeForceVector * delta;
+                
+                // 防止过度制动导致反向运动
+                if (newVelocity.Length() > Velocity.Length())
+                {
+                    // 如果制动后速度反而增加（即已经是负向），则停止
+                    Velocity = Vector2.Zero;
+                }
+                else
+                {
+                    Velocity = newVelocity;
+                }
             }
-        }
-        
-        // 应用制动
-        if (shouldApplyBrake)
-        {
-            // 计算制动方向（与当前速度相反）
-            Vector2 brakeDirection = -Velocity.Normalized();
-            
-            // 应用制动力
-            Vector2 brakeForceVector = brakeDirection * BrakeForce;
-            
-            // 更新速度（制动）
-            Velocity += brakeForceVector * delta;
-            
-            // 防止过度制动导致反向运动
-            if (Velocity.Length() > 0 && brakeDirection.Dot(Velocity.Normalized()) > 0)
+            else
             {
                 Velocity = Vector2.Zero;
             }
         }
         
-        // 在所有速度更新完成后统一限制最大速度
+        // 确保最终速度不超过最大速度
         if (Velocity.Length() > MaxSpeed)
         {
             Velocity = Velocity.Normalized() * MaxSpeed;
