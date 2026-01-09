@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://7f45csnqagd2"]
+[gd_scene load_steps=7 format=3 uid="uid://7f45csnqagd2"]
 
 [ext_resource type="Texture2D" uid="uid://3q4qs4vr773r" path="res://assets/art/子弹.png" id="1_dsuvq"]
 [ext_resource type="Script" uid="uid://bjnjy606edvah" path="res://scenes/space_ship/Bullet/Bullet.cs" id="1_iw7fv"]
@@ -17,6 +17,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iw7fv"]
 size = Vector2(24, 4)
 
+[sub_resource type="Curve" id="Curve_iw7fv"]
+_data = [Vector2(0, 0.77615577), 0.0, 0.0, 0, 0, Vector2(0.7047739, 0.34793192), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_eetea"]
+offsets = PackedFloat32Array(0, 0.60273975, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.9843137, 0.7529412, 0.1764706, 0.8392157, 1, 1, 1, 0)
+
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 4
@@ -28,3 +36,21 @@ sprite_frames = SubResource("SpriteFrames_iw7fv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_iw7fv")
+
+[node name="CPUParticles2D_hit" type="CPUParticles2D" parent="."]
+position = Vector2(14, 0)
+emitting = false
+amount = 20
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 40.0
+damping_min = 30.0
+damping_max = 30.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_iw7fv")
+color_ramp = SubResource("Gradient_eetea")

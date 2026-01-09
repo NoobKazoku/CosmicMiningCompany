@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmlasaajbp0ta"]
+[gd_scene load_steps=18 format=3 uid="uid://bmlasaajbp0ta"]
 
 [ext_resource type="Script" uid="uid://btcus1mef8kmy" path="res://scenes/space_rock/SpaceRock.cs" id="1_co7l4"]
 [ext_resource type="Texture2D" uid="uid://b1dv60px112v" path="res://assets/art/小行星测试.png" id="2_5gdrq"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://dglduavnyb6oe" path="res://assets/art/小行星2.png" id="5_uu6o5"]
 [ext_resource type="Texture2D" uid="uid://jh54oy17ke13" path="res://assets/art/小行星3.png" id="6_fuovs"]
 [ext_resource type="Texture2D" uid="uid://dkdpfymx5kid7" path="res://assets/art/小行星4.png" id="7_kp08o"]
+[ext_resource type="Texture2D" uid="uid://dbfdpn5qu2wct" path="res://assets/art/小行星碎片.png" id="9_xov7u"]
+[ext_resource type="Texture2D" uid="uid://svcm6d50c2ms" path="res://assets/art/爆炸粒子.png" id="10_uu6o5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5gdrq"]
 friction = 0.0
@@ -67,6 +69,26 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_d2lhf"]
 radius = 24.020824
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fuovs"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_kp08o"]
+offsets = PackedFloat32Array(0, 0.6219178, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.90000004, 1, 1, 1, 0)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6yyvo"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_53syw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5866834, 0.6058395), -0.9551047, -0.9551047, 0, 0, Vector2(1, 0), -1.8117892, 0.0, 0, 0]
+point_count = 3
+
 [node name="SpaceRock" type="RigidBody2D"]
 collision_layer = 2
 collision_mask = 2
@@ -84,3 +106,54 @@ shape = SubResource("CircleShape2D_d2lhf")
 
 [node name="ShootArea" parent="." instance=ExtResource("2_d2lhf")]
 unique_name_in_owner = true
+
+[node name="break" type="Node2D" parent="."]
+
+[node name="CPUParticles2D_break" type="CPUParticles2D" parent="break"]
+material = SubResource("CanvasItemMaterial_fuovs")
+emitting = false
+amount = 5
+texture = ExtResource("9_xov7u")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9
+lifetime_randomness = 0.25
+fixed_fps = 60
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+damping_min = 50.0
+damping_max = 50.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.9
+scale_amount_max = 1.1
+color_ramp = SubResource("Gradient_kp08o")
+anim_offset_max = 1.0
+
+[node name="CPUParticles2D_blast" type="CPUParticles2D" parent="break"]
+material = SubResource("CanvasItemMaterial_6yyvo")
+emitting = false
+amount = 10
+texture = ExtResource("10_uu6o5")
+lifetime = 2.0
+one_shot = true
+preprocess = 0.2
+explosiveness = 0.9
+lifetime_randomness = 0.2
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+angular_velocity_min = -10.0
+angular_velocity_max = 10.0
+damping_min = 30.0
+damping_max = 30.0
+angle_min = -30.0
+angle_max = 30.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_53syw")

@@ -44,3 +44,9 @@ text = "-10"
 
 [node name="SpaceRock" parent="." instance=ExtResource("4_718x5")]
 position = Vector2(1549, 534)
+
+[node name="SpaceRock2" parent="." instance=ExtResource("4_718x5")]
+position = Vector2(1549, 534)
+
+[node name="SpaceRock3" parent="." instance=ExtResource("4_718x5")]
+position = Vector2(1549, 534)
