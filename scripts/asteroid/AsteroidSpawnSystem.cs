@@ -3,37 +3,40 @@ using Godot;
 
 namespace CosmicMiningCompany.scripts.asteroid;
 
+
 /// <summary>
-/// 小行星生成系统，负责根据配置规则在指定位置生成小行星
+/// 小行星生成系统，负责根据规则在指定位置生成小行星
 /// </summary>
-/// <param name="spawnConfig">生成配置参数</param>
-/// <param name="configTable">小行星配置表</param>
-/// <param name="worldRoot">世界根节点，用于添加生成的小行星</param>
+/// <param name="data">小行星数据，包含定义和生成规则</param>
+/// <param name="worldRoot">世界根节点，用于添加生成的小行星节点</param>
 public class AsteroidSpawnSystem(
-    AsteroidSpawnConfig spawnConfig,
-    AsteroidConfigTable configTable,
-    Node worldRoot): AbstractSystem
+    AsteroidData data,
+    Node worldRoot):AbstractSystem,IAsteroidSpawnSystem
 {
-    private readonly AsteroidSpawnRule _rule = new(spawnConfig);
-    private readonly AsteroidFactory _factory = new(configTable);
+    /// <summary>
+    /// 小行星生成规则实例，用于决定生成条件和类型
+    /// </summary>
+    private readonly AsteroidSpawnRule _rule = new(data);
+    
+    /// <summary>
+    /// 小行星工厂实例，用于创建小行星对象
+    /// </summary>
+    private readonly AsteroidFactory _factory = new(data, AsteroidSceneRegistry.Instance);
 
     /// <summary>
     /// 尝试在指定位置生成小行星
     /// </summary>
-    /// <param name="spawnPosition">生成位置</param>
+    /// <param name="spawnPosition">生成位置的向量坐标</param>
     public void TrySpawn(Vector2 spawnPosition)
     {
         var distance = spawnPosition.Length();
 
-        // 检查是否满足生成条件
         if (!_rule.CanSpawn(distance))
             return;
 
-        // 根据距离决定小行星类型
-        var type = _rule.Decide(distance);
-        var asteroid = _factory.Create(type, spawnPosition);
+        var asteroidId = _rule.DecideAsteroidId(distance);
+        var asteroid = _factory.Create(asteroidId, spawnPosition);
 
-        // 将生成的小行星添加到世界中
         worldRoot.AddChild(asteroid);
     }
 
@@ -42,39 +45,3 @@ public class AsteroidSpawnSystem(
         
     }
 }
-
-// using Godot;
-//
-// public partial class AsteroidSpawner : Node2D
-// {
-//     [Export] public AsteroidSpawnConfig SpawnConfig;
-//     [Export] public AsteroidConfigTable ConfigTable;
-//
-//     private AsteroidSpawnSystem _spawnSystem;
-//
-//     public override void _Ready()
-//     {
-//         _spawnSystem = new AsteroidSpawnSystem(
-//             SpawnConfig,
-//             ConfigTable,
-//             GetTree().CurrentScene
-//         );
-//     }
-//
-//     public override void _Process(double delta)
-//     {
-//         if (GD.Randf() < 0.02f)
-//         {
-//             Vector2 pos = RandomPosition();
-//             _spawnSystem.TrySpawn(pos);
-//         }
-//     }
-//
-//     private Vector2 RandomPosition()
-//     {
-//         float angle = GD.Randf() * Mathf.Tau;
-//         float distance = GD.RandRange(500, 4000);
-//         return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
-//     }
-// }
-

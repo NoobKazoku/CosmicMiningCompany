@@ -1,4 +1,5 @@
 using CosmicMiningCompany.scripts.architecture;
+using CosmicMiningCompany.scripts.asteroid;
 using CosmicMiningCompany.scripts.command.setting;
 using CosmicMiningCompany.scripts.data.interfaces;
 using CosmicMiningCompany.scripts.environment;
@@ -9,6 +10,7 @@ using GFramework.Core.Abstractions.properties;
 using GFramework.Core.architecture;
 using GFramework.Core.extensions;
 using GFramework.Core.query;
+using GFramework.Game.Abstractions.assets;
 using GFramework.Godot.logging;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
@@ -57,6 +59,8 @@ public partial class GameEntryPoint : Node
         {
             Settings = data
         }));
+        var assetCatalogUtility = this.GetUtility<IAsteroidDataReadUtility>()!;
+        assetCatalogUtility.Load();
         _log.Info("设置已加载");
     }
 
