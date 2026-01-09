@@ -14,14 +14,7 @@ public partial class Loot : CharacterBody2D
 
     public override void _Ready()
     {
-        if (Cargo != null)
-		{
-			GD.Print("成功获取Cargo节点");
-		}
-		else
-		{
-			GD.PrintErr("未能获取Cargo节点");
-		}
+
     }
 
 

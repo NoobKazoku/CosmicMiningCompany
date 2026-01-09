@@ -21,6 +21,7 @@ config/save/setting_path="user://setting.json"
 
 GameEntryPoint="*res://global/game_entry_point.tscn"
 DevBindingManager="*res://global/dev_binding_manager.tscn"
+PlayerManager="*res://global/PlayerManager.cs"
 
 [display]
 

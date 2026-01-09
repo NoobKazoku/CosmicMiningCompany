@@ -125,7 +125,7 @@ public partial class SpaceRock : RigidBody2D
 			// 减少血量
 			if (AsteroidData != null)
 			{
-				AsteroidData.Health -= 5; // 每发子弹造成5点伤害
+				AsteroidData.Health -= PlayerManager.Instance.Damage; // 每发子弹造成 n点伤害
 
 				if (AsteroidData.Health <= 0 && !_hasDroppedLoot) // 确保只掉落一次
 				{

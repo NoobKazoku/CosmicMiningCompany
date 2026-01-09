@@ -19,7 +19,7 @@ public partial class Fuel :HBoxContainer,IController
 	public override void _Ready()
 	{
 		UpdateFuelUI(); // 使用SpaceShip的当前Fuel值更新UI
-		ProgressBar.MaxValue = SpaceShip.MaxFuel;
+		ProgressBar.MaxValue = PlayerManager.Instance.MaxFuel;
 	}
 
 	public override void _Process(double delta)

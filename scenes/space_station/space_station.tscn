@@ -6,8 +6,15 @@
 [node name="SpaceStation" type="Node2D"]
 script = ExtResource("1_3yv4l")
 
-[node name="Depart" type="Button" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Depart" type="Button" parent="Control"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 1743.0
 offset_top = 934.0
 offset_right = 1863.0
