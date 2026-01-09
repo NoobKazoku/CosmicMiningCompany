@@ -7,21 +7,20 @@ using GFramework.SourceGenerators.Abstractions.rule;
 [Log]
 public partial class SpaceShip :CharacterBody2D,IController
 {
-    // 旋转速度
-    [Export] public float RotationSpeed = 5.0f;
+    [Export] public float RotationSpeed = 5.0f; //转向角速度
     
     // 移动相关参数
-    [Export] public float Acceleration = 400.0f;      // 推力加速度
-    [Export] public float MaxSpeed = 600.0f;          // 最大速度
-    [Export] public float BrakeForce = 300.0f;          // 制动力
+    [Export] public float Acceleration = 200;      // 推力加速度
+    [Export] public float MaxSpeed = 300;          // 最大速度
+    [Export] public float BrakeForce = 150;          // 制动力
     private bool isMoving = false;                    // 是否正在移动
     
 
     //飞船属性
-    [Export] public float Fuel  = 100.0f;
     [Export] public float MaxFuel = 100.0f;
+    [Export] public float Fuel  = 100.0f;
     [Export] public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量 (100燃料/300秒 = 0.333)
-    
+
     public Gun Gun => GetNode<Gun>("%Gun");
     private Area2D LootArea => GetNode<Area2D>("%LootArea");
 	
@@ -31,6 +30,19 @@ public partial class SpaceShip :CharacterBody2D,IController
 	/// </summary>
 	public override void _Ready()
 	{
+        //初始化全局变量
+        RotationSpeed = PlayerManager.Instance.RotationSpeed; //转向角速度
+        Acceleration = PlayerManager.Instance.Acceleration;      // 推力加速度
+        MaxSpeed = PlayerManager.Instance.Speed;          // 最大速度
+        BrakeForce = PlayerManager.Instance.BrakeForce;          // 制动力
+        MaxFuel = PlayerManager.Instance.MaxFuel;
+        Fuel = PlayerManager.Instance.MaxFuel;
+        FuelConsumptionRate = PlayerManager.Instance.FuelConsumptionRate; // 每秒消耗的燃料量 (100燃料/300秒 = 0.333)
+
+        LootArea.Scale = PlayerManager.Instance.PickupRange * Vector2.One;
+
+
+
 		LootArea.BodyEntered += OnLootEntered;
 	}
 

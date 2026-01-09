@@ -21,7 +21,7 @@ private Label GemLabel => GetNode<Label>("%宝石1数量");
 	/// </summary>
 	public override void _Ready()
 	{
-		
+		OreGet = PlayerManager.Instance.OreGet;
 	}
 
     public override void _PhysicsProcess(double delta)
