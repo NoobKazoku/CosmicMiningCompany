@@ -31,6 +31,7 @@ collision_mask = 17
 script = ExtResource("1_01umk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_6mdjo")
 animation = &"散矿"
 
