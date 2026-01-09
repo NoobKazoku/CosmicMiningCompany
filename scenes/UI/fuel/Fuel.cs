@@ -11,8 +11,6 @@ public partial class Fuel :HBoxContainer,IController
 	private TextureProgressBar ProgressBar => GetNode<TextureProgressBar>("%ProgressBar");
 	private Label FuelValue => GetNode<Label>("%FuelValue");
 	private SpaceShip SpaceShip => GetTree().Root.GetNode<SpaceShip>("Space/SpaceShip");
-	private Button Up => GetNode<Button>("%Up");
-	private Button Down => GetNode<Button>("%Down");
 
 	/// <summary>
 	/// 节点准备就绪时的回调方法
@@ -22,18 +20,6 @@ public partial class Fuel :HBoxContainer,IController
 	{
 		UpdateFuelUI(); // 使用SpaceShip的当前Fuel值更新UI
 		ProgressBar.MaxValue = SpaceShip.MaxFuel;
-
-		Up.Pressed += () =>
-		{
-			SpaceShip.Fuel += 10.0f;
-			GD.Print("燃料+10");
-		};
-
-		Down.Pressed += () =>
-		{
-			SpaceShip.Fuel -= 10.0f;
-			GD.Print("燃料-10");
-		};
 	}
 
 	public override void _Process(double delta)

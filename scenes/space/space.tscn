@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cdh57f160jys4" path="res://scenes/UI/fuel/fuel.tscn" id="2_ugvpa"]
 [ext_resource type="PackedScene" uid="uid://b6rprjt4km0f7" path="res://scenes/UI/hot/hot.tscn" id="4_0a2q3"]
 [ext_resource type="PackedScene" uid="uid://bmlasaajbp0ta" path="res://scenes/space_rock/space_rock.tscn" id="4_718x5"]
-[ext_resource type="PackedScene" uid="uid://o7emwyjgkl2b" path="res://scenes/loot/loot.tscn" id="6_n6hgd"]
+[ext_resource type="PackedScene" uid="uid://wvy8y4twx6s2" path="res://scenes/UI/cargo/cargo.tscn" id="5_n6hgd"]
 
 [node name="Space" type="Node2D"]
 
@@ -24,24 +24,19 @@ position = Vector2(961, 542)
 [node name="Fuel" parent="SpaceShip/Camera2D/UI" instance=ExtResource("2_ugvpa")]
 
 [node name="Hot" parent="SpaceShip/Camera2D/UI" instance=ExtResource("4_0a2q3")]
-offset_top = 830.0
-offset_bottom = 1080.0
+anchors_preset = -1
+anchor_top = 0.7685185
+anchor_right = 0.0375
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+metadata/_edit_use_anchors_ = true
 
-[node name="Up" type="Button" parent="SpaceShip/Camera2D/UI"]
-unique_name_in_owner = true
-offset_left = 16.0
-offset_top = 310.0
-offset_right = 126.0
-offset_bottom = 367.0
-text = "+10"
-
-[node name="Down" type="Button" parent="SpaceShip/Camera2D/UI"]
-unique_name_in_owner = true
-offset_left = 11.0
-offset_top = 390.0
-offset_right = 122.0
-offset_bottom = 462.0
-text = "-10"
+[node name="Cargo" parent="SpaceShip/Camera2D/UI" instance=ExtResource("5_n6hgd")]
+offset_left = 1.0
+offset_top = 260.0
+offset_right = 1.0000153
+offset_bottom = 260.0
 
 [node name="SpaceRock" parent="." instance=ExtResource("4_718x5")]
 position = Vector2(1549, 534)
@@ -56,37 +51,10 @@ position = Vector2(1610, 541)
 position = Vector2(1671, 544)
 
 [node name="SpaceRock7" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1654, 487)
+position = Vector2(1660, 485)
 
 [node name="SpaceRock5" parent="." instance=ExtResource("4_718x5")]
 position = Vector2(1629, 604)
 
 [node name="SpaceRock6" parent="." instance=ExtResource("4_718x5")]
 position = Vector2(1591, 479)
-
-[node name="Loot" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1568, 771)
-
-[node name="Loot2" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1568, 885)
-
-[node name="Loot3" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1568, 885)
-
-[node name="Loot4" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(532, 946)
-
-[node name="Loot6" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(408, 586)
-
-[node name="Loot7" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(569, 282)
-
-[node name="Loot8" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(996, 886)
-
-[node name="Loot9" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1079, 200)
-
-[node name="Loot5" parent="." instance=ExtResource("6_n6hgd")]
-position = Vector2(1675, 160)
