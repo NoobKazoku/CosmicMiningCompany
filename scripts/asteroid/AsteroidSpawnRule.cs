@@ -12,20 +12,26 @@ namespace CosmicMiningCompany.scripts.asteroid;
 public class AsteroidSpawnRule(AsteroidData data)
 {
     /// <summary>
-    /// 判断在指定距离处是否可以生成小行星
+    /// 判断在指定距离处是否存在「有效的生成规则」
     /// </summary>
-    /// <param name="distance">当前生成位置的距离</param>
-    /// <returns>如果存在允许在此距离生成的规则则返回true，否则返回false</returns>
+    /// <param name="distance">距离值</param>
+    /// <returns>如果存在有效生成规则则返回true，否则返回false</returns>
     public bool CanSpawn(float distance)
     {
-        return data.SpawnRules.Any(r => distance >= r.MinDistance);
+        return data.SpawnRules.Any(rule =>
+            distance >= rule.MinDistance &&
+            distance <= rule.MaxDistance &&
+            rule.BaseWeight +
+            rule.DistanceFactor * (distance - rule.MinDistance) > 0
+        );
     }
 
     /// <summary>
-    /// 根据距离和权重规则决定生成哪个ID的小行星
+    /// 根据距离和权重规则决定生成哪个小行星ID
+    /// 返回 -1 表示本次不生成
     /// </summary>
-    /// <param name="distance">当前生成位置的距离</param>
-    /// <returns>选中的小行星ID</returns>
+    /// <param name="distance">距离值</param>
+    /// <returns>返回选中的小行星ID，如果无有效规则则返回-1</returns>
     public int DecideAsteroidId(float distance)
     {
         var candidates = new List<(int id, float weight)>();
@@ -47,13 +53,19 @@ public class AsteroidSpawnRule(AsteroidData data)
     }
 
     /// <summary>
-    /// 根据权重随机选择一个小行星ID
+    /// 加权随机选择函数
     /// </summary>
-    /// <param name="list">包含小行星ID和对应权重的列表</param>
-    /// <returns>通过加权随机选择的小行星ID</returns>
+    /// <param name="list">包含ID和权重的候选列表</param>
+    /// <returns>返回选中的ID，如果列表为空或总权重小于等于0则返回-1</returns>
     private static int Roll(List<(int id, float weight)> list)
     {
+        if (list.Count == 0)
+            return -1;
+
         var total = list.Sum(x => x.weight);
+        if (total <= 0)
+            return -1;
+
         var roll = GD.Randf() * total;
 
         float acc = 0;
@@ -64,6 +76,7 @@ public class AsteroidSpawnRule(AsteroidData data)
                 return id;
         }
 
-        throw new InvalidOperationException("No asteroid rolled");
+        // 浮点误差兜底
+        return list[^1].id;
     }
 }

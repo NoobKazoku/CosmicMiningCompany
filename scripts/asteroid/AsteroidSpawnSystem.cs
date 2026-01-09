@@ -34,6 +34,10 @@ public class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
         if (!_rule.CanSpawn(distance))
             return;
 
+        var id = _rule.DecideAsteroidId(distance);
+        if (id < 0)
+            return;
+
         // 根据距离决定小行星ID并创建小行星对象
         var asteroidId = _rule.DecideAsteroidId(distance);
         var asteroid = _factory.Create(asteroidId, spawnPosition);
