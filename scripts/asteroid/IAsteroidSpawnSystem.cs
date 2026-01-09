@@ -14,5 +14,6 @@ public interface IAsteroidSpawnSystem: ISystem
     /// </summary>
     /// <param name="target">小行星生成的目标节点</param>
     /// <param name="spawnPosition">小行星生成的位置坐标</param>
-    public void TrySpawn(Node target, Vector2 spawnPosition);
+    /// <param name="origin">小行星生成的原点坐标</param>
+    public void TrySpawn(Node target, Vector2 spawnPosition, Vector2 origin);
 }

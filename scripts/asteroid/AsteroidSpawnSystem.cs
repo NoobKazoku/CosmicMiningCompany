@@ -28,9 +28,10 @@ public partial class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
     /// </summary>
     /// <param name="target">生成小行星的目标节点</param>
     /// <param name="spawnPosition">生成位置的向量坐标</param>
-    public void TrySpawn(Node target, Vector2 spawnPosition)
+    /// <param name="origin">生成位置的向量坐标</param>
+    public void TrySpawn(Node target, Vector2 spawnPosition, Vector2 origin)
     {
-        var distance = spawnPosition.Length();
+        var distance = spawnPosition.DistanceTo(origin);
         _log.Debug($"Checking spawn condition for distance {distance}");
 
         if (!_rule.CanSpawn(distance))
