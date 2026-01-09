@@ -85,6 +85,8 @@ shoot={
 2d_physics/layer_2="小行星"
 2d_physics/layer_3="子弹受击检测"
 2d_physics/layer_4="子弹"
+2d_physics/layer_5="战利品检测"
+2d_physics/layer_6="战利品"
 
 [rendering]
 
