@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://beo8d4p6emdbg"]
+[gd_scene load_steps=6 format=3 uid="uid://beo8d4p6emdbg"]
 
 [ext_resource type="PackedScene" uid="uid://b6hicsjid7hc1" path="res://scenes/space_ship/space_ship.tscn" id="1_t2gi8"]
 [ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/test_VFX/background_test.tscn" id="1_x217o"]
@@ -42,7 +42,7 @@ offset_bottom = 260.0
 position = Vector2(1549, 534)
 
 [node name="SpaceRock2" parent="." instance=ExtResource("4_718x5")]
-position = Vector2(1567, 591)
+position = Vector2(1549, 534)
 
 [node name="SpaceRock3" parent="." instance=ExtResource("4_718x5")]
 position = Vector2(1610, 541)

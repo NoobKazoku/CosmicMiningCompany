@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6hicsjid7hc1"]
+[gd_scene load_steps=9 format=3 uid="uid://b6hicsjid7hc1"]
 
 [ext_resource type="Script" uid="uid://dykohdebg4o30" path="res://scenes/space_ship/SpaceShip.cs" id="1_mnm42"]
 [ext_resource type="Texture2D" uid="uid://bglpnbqrok6yr" path="res://assets/art/飞船.png" id="2_vvmbp"]
 [ext_resource type="PackedScene" uid="uid://by53s6t06nolm" path="res://scenes/space_ship/Gun/Gun.tscn" id="2_w5ed5"]
+[ext_resource type="Shader" uid="uid://bsb0cwho76tw8" path="res://assets/art/line.gdshader" id="4_byl6i"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s4tiy"]
 animations = [{
@@ -14,6 +15,13 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_etmnf"]
+shader = ExtResource("4_byl6i")
+shader_parameter/outline_color1 = Color(1, 1, 1, 1)
+shader_parameter/outline_width1 = 1.0
+shader_parameter/outline_color2 = Color(0, 0, 0, 0)
+shader_parameter/outline_width2 = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_btnl3"]
 radius = 31.0
@@ -27,12 +35,20 @@ script = ExtResource("1_mnm42")
 [node name="Gun" parent="." instance=ExtResource("2_w5ed5")]
 unique_name_in_owner = true
 position = Vector2(19, 24)
+scale = Vector2(1, -1)
 
 [node name="Gun2" parent="." instance=ExtResource("2_w5ed5")]
 position = Vector2(19, -24)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_s4tiy")
+
+[node name="飞船" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_etmnf")
+position = Vector2(4, 0)
+rotation = 1.5707964
+texture = ExtResource("2_vvmbp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_btnl3")
