@@ -2,6 +2,8 @@ using System;
 using Godot;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
+using GFramework.Core.extensions;
+using CosmicMiningCompany.scripts.data.interfaces;
 
 [ContextAware]
 [Log]
@@ -9,7 +11,7 @@ public partial class PlayerManager : Node
 {
     public static PlayerManager Instance { get; private set; }
     
-    public float MaxFuel = 100.0f;//最大燃料
+    public float MaxFuel = 10.0f;//最大燃料
     public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量
 
     public int WeaponCount = 2; // 武器数量
@@ -24,13 +26,54 @@ public partial class PlayerManager : Node
     public int OreGet = 10;	//矿物获取量
     public int PickupRange = 1;//拾取范围大小倍率
 
+    //任务中获得的矿石数量
+    public int OreCount = 0; //任务获得散矿数量
+    public int GemCount = 0; //任务获得宝石数量
+
+    //存档的矿物总量
+    public int TotalOreCount = 0; //总矿物数量
+    public int TotalGemCount = 0; //总宝石数量
+
     public int MaxHeat = 100; //最大过热值
     public int ColdDownRateNormal = 5; // 正常冷却速率：每秒降低 n点
     public int ColdUpRateNormal = 2; // 正常加热速率：每次射击增加 n点
     public int ColdDownRateOverHeat = 20; // 过热冷却速率：每秒降低 n点
 
+    private ISaveStorageUtility _saveStorageUtility = null!;
+
     public override void _Ready()
     {
         Instance = this;
+        
+        // 获取存档工具依赖
+        _saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
+        
+        // 从存档初始化总矿石量
+        InitializeFromSave();
+    }
+
+    /// <summary>
+    /// 从存档初始化总矿石量
+    /// </summary>
+    private void InitializeFromSave()
+    {
+        if (_saveStorageUtility != null)
+        {
+            TotalOreCount = _saveStorageUtility.GetItemCount("Ore");
+            TotalGemCount = _saveStorageUtility.GetItemCount("Gem");
+            GD.Print($"从存档初始化矿石量: Ore={TotalOreCount}, Gem={TotalGemCount}");
+        }
+    }
+
+    /// <summary>
+    /// 更新总矿石量（当任务矿石添加到存档后调用）
+    /// </summary>
+    public void UpdateTotalOreFromSave()
+    {
+        if (_saveStorageUtility != null)
+        {
+            TotalOreCount = _saveStorageUtility.GetItemCount("Ore");
+            TotalGemCount = _saveStorageUtility.GetItemCount("Gem");
+        }
     }
 }
