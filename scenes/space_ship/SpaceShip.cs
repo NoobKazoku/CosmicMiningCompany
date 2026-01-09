@@ -23,6 +23,7 @@ public partial class SpaceShip :CharacterBody2D,IController
     [Export] public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量 (100燃料/300秒 = 0.333)
     
     public Gun Gun => GetNode<Gun>("%Gun");
+    private Area2D LootArea => GetNode<Area2D>("%LootArea");
 	
 	/// <summary>
 	/// 节点准备就绪时的回调方法
@@ -30,7 +31,7 @@ public partial class SpaceShip :CharacterBody2D,IController
 	/// </summary>
 	public override void _Ready()
 	{
-		
+		LootArea.BodyEntered += OnLootEntered;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -201,6 +202,16 @@ public partial class SpaceShip :CharacterBody2D,IController
                 Fuel = 0;
                 GD.Print("燃料耗尽！");
             }
+        }
+    }
+
+    public void OnLootEntered(Node body)
+    {
+        if (body is Loot loot)
+        {
+            GD.Print("检测到到资源");
+            // 向资源发送信号，让它销毁自己
+            loot.HasCollect();
         }
     }
 }
