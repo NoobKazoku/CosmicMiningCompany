@@ -13,8 +13,8 @@ public class AsteroidConfigModel: AbstractModel
     private readonly Dictionary<AsteroidType, AsteroidTypeConfig> _asteroidTypeConfigTableDic = new();
     public void Initialize()
     { 
-        var resourceFactorySystem = this.GetSystem<IResourceFactorySystem>();
-        _asteroidConfigTable = resourceFactorySystem!.GetFactory<AsteroidConfigTable>(AssetCatalogConstants.AssetCatalogResource.AsteroidConfigTable.Key).Invoke();
+        var resourceFactoryUtility = this.GetUtility<IResourceFactoryUtility>();
+        _asteroidConfigTable = resourceFactoryUtility!.GetFactory<AsteroidConfigTable>(AssetCatalogConstants.AssetCatalogResource.AsteroidConfigTable.Key).Invoke();
         foreach (var cfg in _asteroidConfigTable.Configs)
         {
             _asteroidTypeConfigTableDic[cfg.Type] = cfg;

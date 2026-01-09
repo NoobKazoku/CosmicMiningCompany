@@ -19,12 +19,6 @@ public class SystemModule: AbstractModule
     /// <param name="architecture">游戏架构接口实例，用于注册系统</param>
     public override void Install(IArchitecture architecture)
     {
-        // 注册资源目录系统
-        architecture.RegisterSystem(new AssetCatalogSystem());
-        // 注册资源加载系统
-        architecture.RegisterSystem(new ResourceLoadSystem());
-        // 注册资源工厂系统
-        architecture.RegisterSystem(new ResourceFactorySystem());
         architecture.RegisterSystem(new SettingsSystem());
     }
 }

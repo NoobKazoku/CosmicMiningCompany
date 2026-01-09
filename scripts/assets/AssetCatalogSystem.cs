@@ -8,7 +8,7 @@ namespace CosmicMiningCompany.scripts.assets;
 /// 资源目录系统类，用于管理和注册游戏中的各种资源
 /// </summary>
 [Log]
-public partial class AssetCatalogSystem : AbstractAssetCatalogSystem
+public partial class AssetCatalogUtility : AbstractAssetCatalogUtility
 {
     /// <summary>
     /// 注册游戏所需的所有资源
