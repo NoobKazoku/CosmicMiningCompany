@@ -40,35 +40,35 @@
 	{
 	  "AsteroidId": 1001,
 	  "MinDistance": 100.0,
-	  "MaxDistance": 500.0,
+	  "MaxDistance": 2000.0,
 	  "BaseWeight": 25.0,
 	  "DistanceFactor": 0.1
 	},
 	{
 	  "AsteroidId": 1002,
 	  "MinDistance": 100.0,
-	  "MaxDistance": 500.0,
+	  "MaxDistance": 2000.0,
 	  "BaseWeight": 25.0,
 	  "DistanceFactor": 0.1
 	},
 	{
 	  "AsteroidId": 1003,
 	  "MinDistance": 100.0,
-	  "MaxDistance": 500.0,
+	  "MaxDistance": 2000.0,
 	  "BaseWeight": 25.0,
 	  "DistanceFactor": 0.1
 	},
 	{
 	  "AsteroidId": 1004,
 	  "MinDistance": 100.0,
-	  "MaxDistance": 500.0,
+	  "MaxDistance": 2000.0,
 	  "BaseWeight": 25.0,
 	  "DistanceFactor": 0.1
 	},
 	{
 	  "AsteroidId": 2001,
 	  "MinDistance": 300.0,
-	  "MaxDistance": 1000.0,
+	  "MaxDistance": 3000.0,
 	  "BaseWeight": 10.0,
 	  "DistanceFactor": 0.05
 	}

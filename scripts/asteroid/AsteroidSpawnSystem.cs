@@ -62,6 +62,6 @@ public partial class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
         var dataReadUtility =  this.GetUtility<IAsteroidDataReadUtility>()!;
         var data = dataReadUtility.Current!;
         _rule = new AsteroidSpawnRule(data);
-        _factory = new AsteroidFactory(data,AsteroidSceneRegistry.Instance);
+        _factory = new AsteroidFactory(data);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GFramework.SourceGenerators.Abstractions.logging;
+using global::CosmicMiningCompany.global;
 using Godot;
 
 namespace CosmicMiningCompany.scripts.asteroid;
@@ -15,22 +16,14 @@ public partial class AsteroidFactory
     /// 小行星定义字典，以ID为键存储小行星定义
     /// </summary>
     private readonly Dictionary<int, AsteroidDefinition> _defs;
-    
-    /// <summary>
-    /// 小行星场景注册表，用于获取小行星场景资源
-    /// </summary>
-    private readonly IAsteroidSceneRegistry _sceneRegistry;
 
     /// <summary>
     /// 构造函数，初始化小行星工厂
     /// </summary>
     /// <param name="data">包含小行星定义的数据对象</param>
     /// <param name="sceneRegistry">小行星场景注册表</param>
-    public AsteroidFactory(
-        AsteroidData data,
-        IAsteroidSceneRegistry sceneRegistry)
+    public AsteroidFactory(AsteroidData data)
     {
-        _sceneRegistry = sceneRegistry;
         _defs = data.Definitions.ToDictionary(d => d.Id);
     }
 
@@ -42,8 +35,9 @@ public partial class AsteroidFactory
     /// <returns>创建的小行星节点</returns>
     public Node2D Create(int asteroidId, Vector2 pos)
     {
+        _log.Debug($"Creating asteroid {asteroidId}");
         var def = _defs[asteroidId];
-        var scene = _sceneRegistry.Get(def.SceneKey);
+        var scene = AsteroidSceneRegistry.Instance.Get(def.SceneKey);
 
         var node = scene.Instantiate<Node2D>();
         node.Position = pos;
