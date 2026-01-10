@@ -68,24 +68,28 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
             _hasDroppedLoot = true;
             DropLoot();
 
-            // 播放破碎效果
-            AnimatedSprite2D.Visible = false;
-            ShootArea.Monitoring = false;
-            ShootArea.Monitorable = false;
-
-            var timer = new Timer
-            {
-                WaitTime = 2.0f,
-                OneShot = true
-            };
-            timer.Timeout += RequestRecycle;
-            AddChild(timer);
-            timer.Start();
+            // 播放破碎效果 - 使用 CallDeferred 避免在物理回调中修改状态
+            CallDeferred(nameof(OnAsteroidDestroyed));
         }
-
 
         // 向子弹发送信号，让它销毁自己
         bullet.DestroyBullet();
+    }
+
+    private void OnAsteroidDestroyed()
+    {
+        AnimatedSprite2D.Visible = false;
+        ShootArea.Monitoring = false;
+        ShootArea.Monitorable = false;
+
+        var timer = new Timer
+        {
+            WaitTime = 2.0f,
+            OneShot = true
+        };
+        timer.Timeout += RequestRecycle;
+        AddChild(timer);
+        timer.Start();
     }
 
     private void DropLoot()
@@ -98,17 +102,23 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
 
         for (int i = 0; i < dropCount; i++)
         {
-            // 使用对象池获取 Loot
-            var lootInstance = _lootPool.Acquire(GetParent());
-
-            // 设置掉落物的位置（稍微分散一些）
-            var offset = new Vector2((float)GD.RandRange(-20, 21), (float)GD.RandRange(-20, 21));
-            lootInstance.GlobalPosition = this.GlobalPosition + offset;
-
-            lootInstance.Initialize(_definition.Loot);
-
-            GD.Print($"生成掉落物: {_definition.Loot} #{i + 1}");
+            // 使用 CallDeferred 避免在物理回调中修改场景树
+            CallDeferred(nameof(SpawnLootDeferred), _definition.Loot);
         }
+    }
+
+    private void SpawnLootDeferred(string lootType)
+    {
+        // 使用对象池获取 Loot
+        var lootInstance = _lootPool.Acquire(GetParent());
+
+        // 设置掉落物的位置（稍微分散一些）
+        var offset = new Vector2((float)GD.RandRange(-20, 21), (float)GD.RandRange(-20, 21));
+        lootInstance.GlobalPosition = this.GlobalPosition + offset;
+
+        lootInstance.Initialize(lootType);
+
+        GD.Print($"生成掉落物: {lootType}");
     }
 
     public void ScheduleDestroy(float delay)
