@@ -60,7 +60,7 @@ public partial class TextTyper : RichTextLabel
     }
 
     // 检查打字是否完成
-    public new bool IsFinished()
+    public bool IsFinished()
     {
         return _progressIndex >= _typerText.Length;
     }

@@ -20,41 +20,20 @@ namespace CosmicMiningCompany.global;
 
 /// <summary>
 /// 游戏入口点节点，负责初始化和清理游戏架构
-/// 作为游戏的核心入口，管理游戏的启动、运行和关闭过程
 /// </summary>
 [Log]
 [ContextAware]
 public partial class GameEntryPoint : Node
 {
-    /// <summary>
-    /// 游戏架构实例，负责管理游戏的整体架构
-    /// </summary>
     private GameArchitecture _architecture = null!;
-    
-    /// <summary>
-    /// 存档存储工具，用于保存游戏进度
-    /// </summary>
     private ISaveStorageUtility _saveStorageUtility = null!;
-    
-    /// <summary>
-    /// 设置存储工具，用于保存和加载游戏设置
-    /// </summary>
     private ISettingsStorageUtility _settingsStorageUtility = null!;
-    
-    /// <summary>
-    /// 设置模型，用于管理游戏的设置数据
-    /// </summary>
     private ISettingsModel _settingsModel = null!;
-    
-    /// <summary>
-    /// 游戏入口点的单例实例，提供全局访问点
-    /// </summary>
     public static GameEntryPoint Instance { get; private set; } = null!;
-    
     /// <summary>
     /// 当节点准备好时调用，初始化游戏架构
-    /// 这是游戏启动时的第一个关键方法，负责构建游戏的运行环境
     /// </summary>
+    /// <returns>无返回值</returns>
     public override void _Ready()
     {
         // 创建并初始化游戏架构实例
@@ -70,39 +49,28 @@ public partial class GameEntryPoint : Node
                 }
             }
         }, new GameDevEnvironment());
-        
-        // 初始化游戏架构，加载所有模块和服务
         _architecture.Initialize();
-        
-        // 获取必要的工具和模型实例
         _saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
         _settingsStorageUtility = this.GetUtility<ISettingsStorageUtility>()!;
         _settingsModel = this.GetModel<ISettingsModel>()!;
-        
-        // 设置单例实例
-        Instance = this;
-        
-        // 加载并应用游戏设置
+        Instance= this;
         var data = _settingsStorageUtility.Load();
         this.SendCommand(new ApplySettingsDataCommand(new ApplySettingsDataCommandInput
         {
             Settings = data
         }));
-        
         _log.Info("设置已加载");
     }
 
     /// <summary>
     /// 当节点从场景树中移除时调用，销毁游戏架构
-    /// 这是游戏关闭时的关键方法，负责清理资源和保存数据
     /// </summary>
+    /// <returns>无返回值</returns>
     public override void _ExitTree()
     {
-        // 保存游戏进度和设置
         _saveStorageUtility.Save();
         _settingsStorageUtility.Save(_settingsModel.GetSettingsData());
-        
-        // 安全销毁游戏架构实例，释放所有资源
+        // 安全销毁游戏架构实例
         _architecture.Destroy();
     }
 }

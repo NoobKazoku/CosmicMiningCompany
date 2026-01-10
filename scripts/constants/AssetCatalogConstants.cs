@@ -1,4 +1,4 @@
-namespace CosmicMiningCompany.scripts.constants;
+﻿namespace CosmicMiningCompany.scripts.constants;
 
 /// <summary>
 /// 资产目录常量类，用于定义游戏中各种资产的配置映射
@@ -10,18 +10,6 @@ public class AssetCatalogConstants
     /// </summary>
     public static class AssetCatalogResource
     {
-        // 武器资源
-        public const string BulletScene = "BulletScene";
-        public const string GunScene = "GunScene";
         
-        // 小行星资源
-        public const string SpaceRockScene = "SpaceRockScene";
-        
-        // 战利品资源
-        public const string LootScene = "LootScene";
-        
-        // 场景资源
-        public const string SpaceScene = "SpaceScene";
-        public const string SpaceStationScene = "SpaceStationScene";
     }
 }
