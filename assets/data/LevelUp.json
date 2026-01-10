@@ -8,7 +8,7 @@
       "levels": [
         {
           "level": 1,
-          "value": 100.0,
+          "value": 10.0,
           "upgradeCost": {
             "ore": 10,
             "gem": 0
