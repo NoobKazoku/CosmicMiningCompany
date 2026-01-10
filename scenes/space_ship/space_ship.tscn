@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6hicsjid7hc1"]
+[gd_scene load_steps=12 format=3 uid="uid://b6hicsjid7hc1"]
 
 [ext_resource type="Script" uid="uid://dykohdebg4o30" path="res://scenes/space_ship/SpaceShip.cs" id="1_mnm42"]
 [ext_resource type="Texture2D" uid="uid://bglpnbqrok6yr" path="res://assets/art/飞船.png" id="2_vvmbp"]
 [ext_resource type="PackedScene" uid="uid://by53s6t06nolm" path="res://scenes/space_ship/Gun/Gun.tscn" id="2_w5ed5"]
 [ext_resource type="Shader" uid="uid://bsb0cwho76tw8" path="res://assets/art/line.gdshader" id="4_byl6i"]
+[ext_resource type="Script" uid="uid://cwai0u2pl7y1w" path="res://scenes/space_ship/TrailLine2D.cs" id="5_etmnf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s4tiy"]
 animations = [{
@@ -22,6 +23,14 @@ shader_parameter/outline_color1 = Color(1, 1, 1, 1)
 shader_parameter/outline_width1 = 1.0
 shader_parameter/outline_color2 = Color(0, 0, 0, 0)
 shader_parameter/outline_width2 = 2.0
+
+[sub_resource type="Curve" id="Curve_etmnf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_etmnf"]
+colors = PackedColorArray(0.66074795, 0.5911966, 0.9046343, 1, 0.30999282, 0.43878078, 0.8559379, 1)
+metadata/_snap_enabled = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_btnl3"]
 radius = 31.0
@@ -50,6 +59,36 @@ material = SubResource("ShaderMaterial_etmnf")
 position = Vector2(4, 0)
 rotation = 1.5707964
 texture = ExtResource("2_vvmbp")
+
+[node name="Trail1" type="Node2D" parent="飞船"]
+position = Vector2(-19, 25)
+
+[node name="Line2D" type="Line2D" parent="飞船/Trail1"]
+top_level = true
+z_index = -1
+width_curve = SubResource("Curve_etmnf")
+gradient = SubResource("Gradient_etmnf")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 1.0
+antialiased = true
+script = ExtResource("5_etmnf")
+
+[node name="Trail2" type="Node2D" parent="飞船"]
+position = Vector2(19.000002, 25)
+
+[node name="Line2D" type="Line2D" parent="飞船/Trail2"]
+top_level = true
+z_index = -1
+width_curve = SubResource("Curve_etmnf")
+gradient = SubResource("Gradient_etmnf")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+sharp_limit = 1.0
+antialiased = true
+script = ExtResource("5_etmnf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_btnl3")

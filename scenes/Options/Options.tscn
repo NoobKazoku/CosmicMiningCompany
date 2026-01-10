@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwd68e0ec74es"]
+[gd_scene load_steps=6 format=3 uid="uid://dwd68e0ec74es"]
 
 [ext_resource type="Script" uid="uid://c1q3bqit4e146" path="res://scenes/Options/Options.cs" id="1_n335j"]
+[ext_resource type="Texture2D" uid="uid://d04ygeejt08de" path="res://assets/art/button_square_header_blade_rectangle_screws.png" id="2_nmnqj"]
 [ext_resource type="PackedScene" uid="uid://ben7ntvl6sktn" path="res://scenes/component/setting_volume_container.tscn" id="2_q8s2u"]
 [ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="3_llmc6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ixfi3"]
+texture = ExtResource("2_nmnqj")
+texture_margin_left = 256.0
+texture_margin_top = 72.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -14,6 +22,7 @@ grow_vertical = 2
 script = ExtResource("1_n335j")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,6 +46,7 @@ offset_right = 240.0
 offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ixfi3")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
@@ -65,9 +75,9 @@ layout_mode = 2
 theme_override_constants/separation = 19
 
 [node name="Title" type="Label" parent="Panel/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(20, 32)
+custom_minimum_size = Vector2(180, 48)
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
+size_flags_horizontal = 0
 text = "设置"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -174,5 +184,5 @@ custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("3_llmc6")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 32
 text = "退出"
