@@ -142,7 +142,9 @@ public partial class Options : Control, IController
 		var resolution = _resolutions[index];
 		this.SendCommand(new ChangeResolutionCommand(new ChangeResolutionCommandInput
 			{ Width = resolution.X, Height = resolution.Y }));
-		_log.Debug($"分辨率更改为: {resolution.X}x{resolution.Y}");
+		
+		// 显示调试信息
+		GD.Print($"分辨率已保存为: {resolution.X}x{resolution.Y}");
 	}
 
 	/// <summary>
@@ -153,8 +155,11 @@ public partial class Options : Control, IController
 	{
 		var fullscreen = index == 0;
 		this.SendCommand(new ToggleFullscreenCommand(new ToggleFullscreenCommandInput { Fullscreen = fullscreen }));
-		// ⭐ 禁用 / 启用分辨率选择
+		
+		// 禁用 / 启用分辨率选择
 		ResolutionOptionButton.Disabled = fullscreen;
-		_log.Debug($"全屏模式切换为: {fullscreen}");
+		
+		// 显示调试信息
+		GD.Print($"全屏模式已保存为: {fullscreen}");
 	}
 }

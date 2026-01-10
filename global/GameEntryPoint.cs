@@ -1,3 +1,4 @@
+using System;
 using CosmicMiningCompany.scripts.architecture;
 using CosmicMiningCompany.scripts.asteroid;
 using CosmicMiningCompany.scripts.command.setting;
