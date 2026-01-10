@@ -1,30 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://b81p3y0rlcajm"]
+[gd_scene load_steps=5 format=3 uid="uid://b81p3y0rlcajm"]
 
 [ext_resource type="Script" uid="uid://crouxsxjt42mk" path="res://scenes/space_station/SpaceStation.cs" id="1_3yv4l"]
 [ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_pa1ah"]
+[ext_resource type="Texture2D" uid="uid://dgailfndwpga2" path="res://assets/art/客服撇嘴.png" id="3_hwpm3"]
 [ext_resource type="PackedScene" uid="uid://bka7jj2s5xkgf" path="res://scenes/UI/storage/storage.tscn" id="3_x2jrh"]
 
-[node name="SpaceStation" type="Node2D"]
+[node name="SpaceStation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_3yv4l")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Depart" type="Button" parent="Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 720)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Storage" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_x2jrh")]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NPC对话框" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NPC头像" type="TextureRect" parent="VBoxContainer/VBoxContainer/NPC对话框"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+texture = ExtResource("3_hwpm3")
+stretch_mode = 5
+
+[node name="NPC对话文本" type="Label" parent="VBoxContainer/VBoxContainer/NPC对话框"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="离港按钮" type="MarginContainer" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Depart" type="Button" parent="VBoxContainer/VBoxContainer/离港按钮"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1743.0
-offset_top = 934.0
-offset_right = 1863.0
-offset_bottom = 982.0
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("2_pa1ah")
 text = "离港"
-
-[node name="Storage" parent="Control" instance=ExtResource("3_x2jrh")]
-layout_mode = 0
-offset_top = 338.0
-offset_right = 148.0
-offset_bottom = 470.0

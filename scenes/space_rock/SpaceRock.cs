@@ -118,8 +118,8 @@ public partial class SpaceRock : RigidBody2D,IAsteroid
 
 					lootInstance.Initialize(AsteroidData.Loot);
 
-					// 添加到场景树
-					GetParent().AddChild(lootInstance);
+					// 添加到场景树（使用CallDeferred避免在物理回调中修改场景树）
+					GetParent().CallDeferred("add_child", lootInstance);
 
 					GD.Print($"生成掉落物: {AsteroidData.Loot} #{i + 1}");
 
