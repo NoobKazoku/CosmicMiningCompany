@@ -1,4 +1,5 @@
 using CosmicMiningCompany.scripts.asteroid;
+using CosmicMiningCompany.scripts.core;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;
@@ -9,7 +10,7 @@ namespace CosmicMiningCompany.scenes.space_rock;
 
 [Log]
 [ContextAware]
-public partial class SpaceRock : RigidBody2D, IAsteroid, IController
+public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableNode
 {
     private Timer _lifeTimer;
     private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
@@ -21,19 +22,21 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController
     // 添加标志来确保掉落只执行一次
     private bool _hasDroppedLoot;
     private IAsteroidPoolSystem _pool = null!;
+    private int _currentHealth;
+    private Timer _recycleTimer;
 
     public override void _Ready()
     {
         LinearDamp = 0;
         AngularDamp = 0;
         ShootArea.BodyEntered += OnBodyEntered;
-        this.LinearVelocity = new Vector2(GD.RandRange(-50, 50), GD.RandRange(-50, 50));
+        LinearVelocity = new Vector2(GD.RandRange(-50, 50), GD.RandRange(-50, 50));
 
         // 初始化计时器
         _lifeTimer = new Timer();
         _lifeTimer.WaitTime = 10.0f;
         _lifeTimer.OneShot = true;
-        _lifeTimer.Timeout += Recycle;
+        _lifeTimer.Timeout += RequestRecycle;
 
         AddChild(_lifeTimer);
     }
@@ -42,6 +45,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController
     {
         // 初始化AsteroidData
         _definition = definition;
+        _currentHealth = definition.BaseHealth;
         // 播放对应的陨石动画
         AnimatedSprite2D.Play(definition.Name);
         _pool = ContextAwareExtensions.GetSystem<IAsteroidPoolSystem>(this)!;
@@ -52,23 +56,24 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController
     {
         if (body is not Bullet bullet) return;
         // 减少血量
-        _definition.BaseHealth -= PlayerManager.Instance.Damage; // 每发子弹造成 n点伤害
+        _currentHealth  -= PlayerManager.Instance.Damage; // 每发子弹造成 n点伤害
 
-        if (_definition.BaseHealth <= 0 && !_hasDroppedLoot)
+        if (_currentHealth  <= 0 && !_hasDroppedLoot)
         {
             _hasDroppedLoot = true;
             DropLoot();
 
             // 播放破碎效果
             AnimatedSprite2D.Visible = false;
-            ShootArea.QueueFree();
+            ShootArea.Monitoring = false;
+            ShootArea.Monitorable = false;
 
             var timer = new Timer
             {
                 WaitTime = 2.0f,
                 OneShot = true
             };
-            timer.Timeout += Recycle;
+            timer.Timeout += RequestRecycle;
             AddChild(timer);
             timer.Start();
         }
@@ -121,31 +126,44 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController
             WaitTime = delay,
             OneShot = true
         };
-        timer.Timeout += Recycle;
+        timer.Timeout += RequestRecycle;
         AddChild(timer);
         timer.Start();
     }
-
-    private void Recycle()
+    
+    public void OnAcquire()
     {
         _hasDroppedLoot = false;
 
-        // 重置物理状态
         LinearVelocity = Vector2.Zero;
         AngularVelocity = 0;
-
-        // 重置可见性
         AnimatedSprite2D.Visible = true;
-
-        // 重新启用碰撞
+        ShootArea.Monitoring = true;
+        ShootArea.Monitorable = true;
         var collisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
-        if (collisionShape != null)
-            collisionShape.Disabled = false;
+        collisionShape?.Disabled = false;
 
-        // 停止粒子
+        _lifeTimer.Start();
+    }
+
+
+    public void OnRelease()
+    {
+        _lifeTimer.Stop();
+
         GetNodeOrNull<CpuParticles2D>("break/CPUParticles2D_break")?.Emitting = false;
         GetNodeOrNull<CpuParticles2D>("break/CPUParticles2D_blast")?.Emitting = false;
-        // 真正回收到对象池
+    }
+
+    public void OnPoolDestroy()
+    {
+        ShootArea.BodyEntered -= OnBodyEntered;
+        _lifeTimer.QueueFree();
+    }
+
+
+    public void RequestRecycle()
+    {
         _pool.Release(_definition.SceneKey, this);
     }
 }
