@@ -13,3 +13,5 @@ Button/styles/normal = SubResource("StyleBoxEmpty_7ct1h")
 Label/font_sizes/font_size = 32
 Label/fonts/font = ExtResource("1_d4nwg")
 OptionButton/styles/hover = SubResource("StyleBoxEmpty_d4nwg")
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/normal_font = ExtResource("1_d4nwg")

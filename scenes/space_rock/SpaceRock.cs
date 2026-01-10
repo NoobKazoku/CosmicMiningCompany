@@ -16,6 +16,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
     private Timer _lifeTimer;
     private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
     private Area2D ShootArea => GetNode<Area2D>("%ShootArea");
+	private CollisionShape2D CollisionShape2D => GetNode<CollisionShape2D>("%CollisionShape2D");
 
     // 陨石属性，从JSON加载
     private AsteroidDefinition _definition;
@@ -64,6 +65,8 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
         {
             _hasDroppedLoot = true;
             DropLoot();
+			
+
 
             // 播放破碎效果 - 使用 CallDeferred 避免在物理回调中修改状态
             CallDeferred(nameof(OnAsteroidDestroyed));
@@ -78,6 +81,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
         AnimatedSprite2D.Visible = false;
         ShootArea.Monitoring = false;
         ShootArea.Monitorable = false;
+		CollisionShape2D.Disabled = true;
 
         var timer = new Timer
         {
@@ -140,8 +144,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
         AnimatedSprite2D.Visible = true;
         ShootArea.Monitoring = true;
         ShootArea.Monitorable = true;
-        var collisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
-        collisionShape?.Disabled = false;
+        CollisionShape2D.Disabled = false;
 
         // 不再在这里启动计时器，销毁逻辑由 Space.cs 的距离检测控制
     }

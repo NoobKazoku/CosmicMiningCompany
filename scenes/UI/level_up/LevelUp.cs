@@ -40,6 +40,27 @@ public partial class LevelUp : Button, IController
 		GD.Print($"LevelUp._Ready(): _levelUpDataUtility = {_levelUpDataUtility}");
 		GD.Print($"LevelUp._Ready(): _saveStorageUtility = {_saveStorageUtility}");
 		
+		// 提前加载技能数据到缓存（参考陨石实现方法）
+		LoadSkillDataStatic();
+		
+		// 如果依赖注入的工具类可用，也通过它加载数据
+		if (_levelUpDataUtility != null)
+		{
+			_levelUpDataUtility.Load();
+			GD.Print($"LevelUp._Ready(): 通过依赖注入工具类加载了技能数据");
+		}
+		
+		// 验证数据加载是否成功
+		if (_cachedSkillRoot != null)
+		{
+			int skillCount = _cachedSkillRoot.Skills?.Count ?? 0;
+			GD.Print($"LevelUp._Ready(): 成功加载了{skillCount}个技能数据到缓存");
+		}
+		else
+		{
+			GD.PrintErr("LevelUp._Ready(): 技能数据加载失败，缓存为空");
+		}
+		
 		this.Pressed += this.OnPressed;
 		OnButtonsPressed();
 	}

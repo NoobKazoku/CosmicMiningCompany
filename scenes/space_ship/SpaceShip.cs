@@ -232,7 +232,7 @@ public partial class SpaceShip :CharacterBody2D,IController
     {
         if (body is Loot loot)
         {
-            // 向资源发送信号，让它销毁自己
+            GD.Print("检测到矿石");
             loot.HasCollect();
         }
     }

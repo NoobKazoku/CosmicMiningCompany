@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b81p3y0rlcajm"]
+[gd_scene load_steps=7 format=3 uid="uid://b81p3y0rlcajm"]
 
 [ext_resource type="Script" uid="uid://crouxsxjt42mk" path="res://scenes/space_station/SpaceStation.cs" id="1_3yv4l"]
 [ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_pa1ah"]
 [ext_resource type="Texture2D" uid="uid://dgailfndwpga2" path="res://assets/art/客服撇嘴.png" id="3_hwpm3"]
 [ext_resource type="PackedScene" uid="uid://cx1mpwr63h76o" path="res://scenes/UI/level_up/level_up.tscn" id="3_rl2py"]
 [ext_resource type="PackedScene" uid="uid://bka7jj2s5xkgf" path="res://scenes/UI/storage/storage.tscn" id="3_x2jrh"]
+[ext_resource type="Script" uid="uid://cjs24gyk658ny" path="res://scenes/UI/NPC_dialogue/TextTyper.cs" id="5_cvrig"]
 
 [node name="SpaceStation" type="Control"]
 layout_mode = 3
@@ -178,10 +179,12 @@ layout_mode = 2
 texture = ExtResource("3_hwpm3")
 stretch_mode = 5
 
-[node name="NPC对话文本" type="Label" parent="VBoxContainer/VBoxContainer/NPC对话框"]
+[node name="NPC对话文本" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/NPC对话框"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 1
+theme = ExtResource("2_pa1ah")
+script = ExtResource("5_cvrig")
 
 [node name="离港按钮" type="MarginContainer" parent="VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
