@@ -228,13 +228,13 @@ public partial class SpaceShip :CharacterBody2D,IController
 		}
 	}
 
-	public void OnLootEntered(Node body)
-	{
-		if (body is Loot loot)
-		{
-			GD.Print("检测到到资源");
-			// 向资源发送信号，让它销毁自己
-			loot.HasCollect();
-		}
-	}
+    public void OnLootEntered(Node body)
+    {
+        if (body is Loot loot)
+        {
+            GD.Print("检测到到资源");
+            // 向资源发送信号，让它销毁自己
+            loot.HasCollect();
+        }
+    }
 }

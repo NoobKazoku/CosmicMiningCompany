@@ -45,7 +45,7 @@ public partial class AsteroidFactory
 
         if (node is IAsteroid asteroid)
         {
-            asteroid.Init(def.BaseHealth, def.Loot);
+            asteroid.Init(def.BaseHealth, def.Loot, def.Name);
         }
 
         return node;

@@ -46,7 +46,6 @@ public partial class Loot : CharacterBody2D
 	/// </summary>
 	public void Collected()
 	{
-		GD.Print("资源已拾取");
 		Cargo.CollectOre(OreName);
 		QueueFree();
 		

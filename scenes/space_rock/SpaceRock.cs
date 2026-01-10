@@ -29,15 +29,27 @@ public partial class SpaceRock : RigidBody2D,IAsteroid
 		AddChild(_lifeTimer);
 	}
 	
-	public void Init(float hp, string dropId)
+	public void Init(float hp, string dropId, string asteroidName)
 	{
-		// 在此初始化小行星属性
+		// 初始化AsteroidData
+		AsteroidData = new AsteroidData
+		{
+			Health = hp,
+			Loot = dropId
+		};
+		
+		// 播放对应的陨石动画
+		if (AnimatedSprite2D != null)
+		{
+			AnimatedSprite2D.Play(asteroidName);
+		}
+		
+		GD.Print($"陨石初始化: 血量={hp}, 掉落物={dropId}, 名称={asteroidName}");
 	}
 	private void OnBodyEntered(Node body)
 	{
 		if (body is Bullet bullet)
 		{
-			GD.Print("被子弹击中");
 			// 减少血量
 			if (AsteroidData != null)
 			{
@@ -87,8 +99,8 @@ public partial class SpaceRock : RigidBody2D,IAsteroid
 		{
 			GD.Print($"小行星掉落: {AsteroidData.Loot}");
 
-			// 生成随机掉落数量 (1-3)
-			int dropCount = (int)GD.RandRange(1, 4); // RandRange 是包含上限的
+			// 生成随机掉落数量 (1-4)
+			int dropCount = (int)GD.RandRange(1, 4); 
 
 			for (int i = 0; i < dropCount; i++)
 			{
@@ -106,8 +118,8 @@ public partial class SpaceRock : RigidBody2D,IAsteroid
 
 					lootInstance.Initialize(AsteroidData.Loot);
 
-					// 添加到场景树
-					GetParent().AddChild(lootInstance);
+					// 添加到场景树（使用CallDeferred避免在物理回调中修改场景树）
+					GetParent().CallDeferred("add_child", lootInstance);
 
 					GD.Print($"生成掉落物: {AsteroidData.Loot} #{i + 1}");
 

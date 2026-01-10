@@ -8,7 +8,7 @@ using Godot;
 
 [ContextAware]
 [Log]
-public partial class SpaceStation :Node2D,IController
+public partial class SpaceStation :Control,IController
 {
 	private ISaveStorageUtility _saveStorageUtility = null!;
 	/// <summary>
