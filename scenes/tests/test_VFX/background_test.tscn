@@ -87,52 +87,19 @@ colors = PackedColorArray(1, 1, 1, 1, 0.9843137, 0.7529412, 0.1764706, 0.8392157
 offsets = PackedFloat32Array(0, 0.64657533, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.019607844)
 
-[node name="control" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="control" type="Node2D"]
 
-[node name="background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.15294118, 0.15294118, 0.26666668, 1)
-
-[node name="tiny_star" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_8uh7m")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
-
-[node name="bright_star" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_37kl0")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
-
-[node name="pixel" type="ColorRect" parent="."]
+[node name="background" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 material = SubResource("ShaderMaterial_pvqjq")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.07450981, 0.078431375, 0.18039216, 1)
+
+[node name="tiny_star" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
+material = SubResource("ShaderMaterial_8uh7m")
+
+[node name="bright_star" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
+material = SubResource("ShaderMaterial_37kl0")
 
 [node name="备忘" type="Label" parent="."]
 layout_mode = 0

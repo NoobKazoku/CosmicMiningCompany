@@ -2,34 +2,32 @@
 
 [ext_resource type="PackedScene" uid="uid://b6hicsjid7hc1" path="res://scenes/space_ship/space_ship.tscn" id="1_t2gi8"]
 [ext_resource type="Script" uid="uid://udcgk5f8lhmf" path="res://scenes/space/Space.cs" id="1_wfdyj"]
-[ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/test_VFX/background_test.tscn" id="1_x217o"]
 [ext_resource type="PackedScene" uid="uid://cdh57f160jys4" path="res://scenes/UI/fuel/fuel.tscn" id="2_ugvpa"]
-[ext_resource type="PackedScene" uid="uid://b6rprjt4km0f7" path="res://scenes/UI/hot/hot.tscn" id="4_0a2q3"]
-[ext_resource type="PackedScene" uid="uid://wvy8y4twx6s2" path="res://scenes/UI/cargo/cargo.tscn" id="5_n6hgd"]
+[ext_resource type="PackedScene" uid="uid://b6rprjt4km0f7" path="res://scenes/UI/hot/hot.tscn" id="3_0a2q3"]
+[ext_resource type="PackedScene" uid="uid://wvy8y4twx6s2" path="res://scenes/UI/cargo/cargo.tscn" id="4_n6hgd"]
+[ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/test_VFX/background_test.tscn" id="5_x217o"]
 
 [node name="Space" type="Node2D"]
 script = ExtResource("1_wfdyj")
 
+[node name="Background" parent="." instance=ExtResource("5_x217o")]
+z_index = -10
+
 [node name="AsteroidRoot" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="control" parent="." instance=ExtResource("1_x217o")]
-z_index = -1
-offset_right = 1920.0
-offset_bottom = 1080.0
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
 
 [node name="SpaceShip" parent="." instance=ExtResource("1_t2gi8")]
 unique_name_in_owner = true
 position = Vector2(961, 542)
 
-[node name="Camera2D" type="Camera2D" parent="SpaceShip"]
-unique_name_in_owner = true
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="SpaceShip/Camera2D"]
+[node name="Fuel" parent="UI" instance=ExtResource("2_ugvpa")]
 
-[node name="Fuel" parent="SpaceShip/Camera2D/UI" instance=ExtResource("2_ugvpa")]
-
-[node name="Hot" parent="SpaceShip/Camera2D/UI" instance=ExtResource("4_0a2q3")]
+[node name="Hot" parent="UI" instance=ExtResource("3_0a2q3")]
 anchors_preset = -1
 anchor_top = 0.7685185
 anchor_right = 0.0375
@@ -38,7 +36,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Cargo" parent="SpaceShip/Camera2D/UI" instance=ExtResource("5_n6hgd")]
+[node name="Cargo" parent="UI" instance=ExtResource("4_n6hgd")]
 offset_left = 1.0
 offset_top = 260.0
 offset_right = 1.0000153

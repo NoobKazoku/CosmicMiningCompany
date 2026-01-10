@@ -18,7 +18,7 @@ void fragment()
     float pulse_amplitude = 0.25;  // 脉动幅度
     
     // ========== 主要星星逻辑 ==========
-    vec2 pos = floor(1.0 / size * FRAGCOORD.xy);
+    vec2 pos = floor(1.0 / size * VERTEX);
     
     float brightness = 0.0;
     float starValue = rand(pos);
@@ -30,8 +30,8 @@ void fragment()
 		vec2 center = size * pos + vec2(size, size) * 0.5;
         float t = base_brightness + pulse_amplitude * sin(TIME + (starValue - star_prob) / (1.0 - star_prob) * pulse_freq+center.x+center.y);
      
-        brightness = 1.0 - distance(FRAGCOORD.xy, center) / (10.0* size);
-        brightness = brightness * t / (abs(FRAGCOORD.y - center.y)) * t / (abs(FRAGCOORD.x - center.x));
+        brightness = 1.0 - distance(VERTEX, center) / (10.0* size);
+        brightness = brightness * t / (abs(VERTEX.y - center.y)) * t / (abs(VERTEX.x - center.x));
         brightness = max(0.1, brightness);  // 确保亮度值在合理范围内
     }
     
