@@ -102,6 +102,8 @@ sprite_frames = SubResource("SpriteFrames_6yyvo")
 animation = &"小行星2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+visible = false
 shape = SubResource("CircleShape2D_d2lhf")
 
 [node name="ShootArea" parent="." instance=ExtResource("2_d2lhf")]

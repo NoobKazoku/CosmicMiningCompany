@@ -50,6 +50,7 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
     /// </summary>
     public void HasCollect()
     {
+        GD.Print("矿石被吸引");
         IsCollected = true;
     }
 
