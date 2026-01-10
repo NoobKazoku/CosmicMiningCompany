@@ -25,9 +25,6 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
     private IAsteroidPoolSystem _pool = null!;
     private ILootPoolSystem _lootPool = null!;
     private int _currentHealth;
-    
-    // 缓存 Loot 场景
-    private static readonly PackedScene CachedLootScene = ResourceLoader.Load<PackedScene>("res://scenes/loot/loot.tscn");
 
     public override void _Ready()
     {
@@ -113,7 +110,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
         var lootInstance = _lootPool.Acquire(GetParent());
 
         // 设置掉落物的位置（稍微分散一些）
-        var offset = new Vector2(GD.RandRange(-20, 21), (float)GD.RandRange(-20, 21));
+        var offset = new Vector2(GD.RandRange(-20, 21), GD.RandRange(-20, 21));
         lootInstance.GlobalPosition = this.GlobalPosition + offset;
 
         lootInstance.Initialize(lootType);
