@@ -44,7 +44,7 @@ namespace CosmicMiningCompany.scripts.data
                 {
                     Id = ConvertToInt(GetObjectValue(item, "编号ID")),
                     Name = ConvertToString(GetObjectValue(item, "名称")),
-                    Health = ConvertToFloat(GetObjectValue(item, "血量")),
+                    Health = (int)ConvertToFloat(GetObjectValue(item, "血量")),
                     Loot = ConvertToString(GetObjectValue(item, "掉落物")),
                     Distance = ConvertToInt(GetObjectValue(item, "刷新距离")),
                     Probability = ConvertToInt(GetObjectValue(item, "刷新概率系数")),

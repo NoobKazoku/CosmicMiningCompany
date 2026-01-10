@@ -16,7 +16,7 @@ public partial class PlayerManager : Node
     /// <summary>
     /// 获取玩家管理器的单例实例
     /// </summary>
-    public static PlayerManager Instance { get; private set; }
+    public static PlayerManager? Instance { get; private set; }
     
     public float MaxFuel = 10.0f;//最大燃料
     public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量

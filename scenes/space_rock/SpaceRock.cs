@@ -34,7 +34,7 @@ public partial class SpaceRock : RigidBody2D,IAsteroid
 		// 初始化AsteroidData
 		AsteroidData = new AsteroidData
 		{
-			Health = hp,
+			Health = (int)hp,
 			Loot = dropId
 		};
 		
