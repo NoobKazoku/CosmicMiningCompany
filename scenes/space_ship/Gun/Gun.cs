@@ -10,7 +10,7 @@ public partial class Gun : Sprite2D, IController
 {
 	[Export] public float FireRate = 0.2f; // 射击间隔，单位秒
 	private float _timeSinceLastShot = 0f;
-	private PackedScene? _bulletScene;
+	private PackedScene _bulletScene;
 
 	// 过热机制相关变量
 	private float _heat = 0f; // 当前过热值
