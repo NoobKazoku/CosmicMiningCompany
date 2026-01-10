@@ -5,42 +5,123 @@ using GFramework.SourceGenerators.Abstractions.rule;
 using GFramework.Core.extensions;
 using CosmicMiningCompany.scripts.data.interfaces;
 
+/// <summary>
+/// 玩家管理器类，负责管理玩家的各种属性和状态
+/// 采用单例模式，提供全局访问点
+/// </summary>
 [ContextAware]
 [Log]
 public partial class PlayerManager : Node
 {
+    /// <summary>
+    /// 获取玩家管理器的单例实例
+    /// </summary>
     public static PlayerManager Instance { get; private set; }
     
-    public float MaxFuel = 10.0f;//最大燃料
-    public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量
+    /// <summary>
+    /// 飞船最大燃料值
+    /// </summary>
+    public float MaxFuel = 10.0f;
+    
+    /// <summary>
+    /// 燃料消耗速率，每秒消耗的燃料量
+    /// </summary>
+    public float FuelConsumptionRate = 0.333f;
 
-    public int WeaponCount = 2; // 武器数量
-    public int Damage = 5; // 子弹伤害
-    public float FireRate = 0.2f; // 射击间隔，单位秒
+    /// <summary>
+    /// 武器数量
+    /// </summary>
+    public int WeaponCount = 2;
+    
+    /// <summary>
+    /// 子弹伤害值
+    /// </summary>
+    public int Damage = 5;
+    
+    /// <summary>
+    /// 射击间隔，单位秒
+    /// </summary>
+    public float FireRate = 0.2f;
 
-    public float Speed = 300.0f; // 最大速度
-    public float Acceleration = 200.0f; // 加速度
-    public float BrakeForce = 150.0f; // 制动力
-    public float RotationSpeed = 5.0f; //转向角速度
+    /// <summary>
+    /// 飞船最大速度
+    /// </summary>
+    public float Speed = 300.0f;
+    
+    /// <summary>
+    /// 飞船加速度
+    /// </summary>
+    public float Acceleration = 200.0f;
+    
+    /// <summary>
+    /// 飞船制动力
+    /// </summary>
+    public float BrakeForce = 150.0f;
+    
+    /// <summary>
+    /// 飞船转向角速度
+    /// </summary>
+    public float RotationSpeed = 5.0f;
 
-    public int OreGet = 10;	//矿物获取量
-    public int PickupRange = 1;//拾取范围大小倍率
+    /// <summary>
+    /// 每次采矿获得的矿物数量
+    /// </summary>
+    public int OreGet = 10;
+    
+    /// <summary>
+    /// 战利品拾取范围大小倍率
+    /// </summary>
+    public int PickupRange = 1;
 
-    //任务中获得的矿石数量
-    public int OreCount = 0; //任务获得散矿数量
-    public int GemCount = 0; //任务获得宝石数量
+    /// <summary>
+    /// 当前任务中获得的散矿数量
+    /// </summary>
+    public int OreCount = 0;
+    
+    /// <summary>
+    /// 当前任务中获得的宝石数量
+    /// </summary>
+    public int GemCount = 0;
 
-    //存档的矿物总量
-    public int TotalOreCount = 0; //总矿物数量
-    public int TotalGemCount = 0; //总宝石数量
+    /// <summary>
+    /// 存档中存储的总矿物数量
+    /// </summary>
+    public int TotalOreCount = 0;
+    
+    /// <summary>
+    /// 存档中存储的总宝石数量
+    /// </summary>
+    public int TotalGemCount = 0;
 
-    public int MaxHeat = 100; //最大过热值
-    public int ColdDownRateNormal = 5; // 正常冷却速率：每秒降低 n点
-    public int ColdUpRateNormal = 2; // 正常加热速率：每次射击增加 n点
-    public int ColdDownRateOverHeat = 20; // 过热冷却速率：每秒降低 n点
+    /// <summary>
+    /// 武器最大过热值
+    /// </summary>
+    public int MaxHeat = 100;
+    
+    /// <summary>
+    /// 正常冷却速率：每秒降低的过热值
+    /// </summary>
+    public int ColdDownRateNormal = 5;
+    
+    /// <summary>
+    /// 正常加热速率：每次射击增加的过热值
+    /// </summary>
+    public int ColdUpRateNormal = 2;
+    
+    /// <summary>
+    /// 过热冷却速率：每秒降低的过热值
+    /// </summary>
+    public int ColdDownRateOverHeat = 20;
 
+    /// <summary>
+    /// 存档存储工具，用于加载和保存玩家数据
+    /// </summary>
     private ISaveStorageUtility _saveStorageUtility = null!;
 
+    /// <summary>
+    /// 节点准备就绪时的回调方法
+    /// 初始化单例实例，获取存档工具依赖，并从存档初始化总矿石量
+    /// </summary>
     public override void _Ready()
     {
         Instance = this;
@@ -53,7 +134,7 @@ public partial class PlayerManager : Node
     }
 
     /// <summary>
-    /// 从存档初始化总矿石量
+    /// 从存档初始化总矿石量和总宝石量
     /// </summary>
     private void InitializeFromSave()
     {
@@ -66,7 +147,8 @@ public partial class PlayerManager : Node
     }
 
     /// <summary>
-    /// 更新总矿石量（当任务矿石添加到存档后调用）
+    /// 更新总矿石量和总宝石量
+    /// 当任务矿石添加到存档后调用
     /// </summary>
     public void UpdateTotalOreFromSave()
     {

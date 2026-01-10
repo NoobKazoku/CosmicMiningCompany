@@ -13,9 +13,9 @@ namespace CosmicMiningCompany.scripts.data
     public class AsteroidData
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public int Health { get; set; }
-        public string Loot { get; set; }
+        public string Loot { get; set; } = string.Empty;
         public int Distance { get; set; }
         public int Probability { get; set; }
         

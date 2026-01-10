@@ -60,7 +60,7 @@ public partial class SpaceRock : RigidBody2D,IAsteroid
 					if (animatedSprite != null)
 					{
 						animatedSprite.Visible = false;
-                        ShootArea.QueueFree();
+						ShootArea.QueueFree();
 						Timer tempTimer = new Timer();
 						tempTimer.WaitTime = 2.0f; // 粒子播放时长
 						tempTimer.Timeout += () => QueueFree();

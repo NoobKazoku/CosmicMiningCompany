@@ -4,7 +4,7 @@ using System;
 public partial class Bullet : CharacterBody2D
 {
 	[Export] public float BulletSpeed = 800.0f;
-	private Timer _lifeTimer;
+	private Timer? _lifeTimer;
 
 
 	public override void _Ready()
