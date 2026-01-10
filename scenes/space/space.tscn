@@ -15,6 +15,10 @@ script = ExtResource("1_wfdyj")
 [node name="AsteroidRoot" type="Node2D" parent="."]
 unique_name_in_owner = true
 
+[node name="control" parent="." instance=ExtResource("1_x217o")]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
 [node name="SpaceShip" parent="." instance=ExtResource("1_t2gi8")]
 unique_name_in_owner = true
 position = Vector2(961, 542)

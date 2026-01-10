@@ -1,0 +1,484 @@
+{
+  "skills": [
+    {
+      "name": "MaxFuel",
+      "displayName": "最大燃料",
+      "description": "提升飞船的最大燃料容量",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 100.0,
+          "upgradeCost": {
+            "ore": 10,
+            "gem": 0
+          }
+        },
+        {
+          "level": 2,
+          "value": 120.0,
+          "upgradeCost": {
+            "ore": 20,
+            "gem": 2
+          }
+        },
+        {
+          "level": 3,
+          "value": 150.0,
+          "upgradeCost": {
+            "ore": 30,
+            "gem": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "FuelConsumptionRate",
+      "displayName": "燃料消耗率",
+      "description": "降低燃料消耗速度",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 0.333,
+          "upgradeCost": {
+            "ore": 15,
+            "gem": 1
+          }
+        },
+        {
+          "level": 2,
+          "value": 0.280,
+          "upgradeCost": {
+            "ore": 25,
+            "gem": 2
+          }
+        },
+        {
+          "level": 3,
+          "value": 0.220,
+          "upgradeCost": {
+            "ore": 35,
+            "gem": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "WeaponCount",
+      "displayName": "武器数量",
+      "description": "增加同时激活的武器数量",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 2,
+          "upgradeCost": {
+            "ore": 20,
+            "gem": 2
+          }
+        },
+        {
+          "level": 2,
+          "value": 4,
+          "upgradeCost": {
+            "ore": 30,
+            "gem": 4
+          }
+        },
+        {
+          "level": 3,
+          "value": 6,
+          "upgradeCost": {
+            "ore": 40,
+            "gem": 6
+          }
+        }
+      ]
+    },
+    {
+      "name": "Damage",
+      "displayName": "子弹伤害",
+      "description": "提升单发子弹造成的伤害",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 5,
+          "upgradeCost": {
+            "ore": 10,
+            "gem": 1
+          }
+        },
+        {
+          "level": 2,
+          "value": 8,
+          "upgradeCost": {
+            "ore": 20,
+            "gem": 2
+          }
+        },
+        {
+          "level": 3,
+          "value": 12,
+          "upgradeCost": {
+            "ore": 30,
+            "gem": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "FireRate",
+      "displayName": "射击频率",
+      "description": "缩短射击间隔时间",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 0.2,
+          "upgradeCost": {
+            "ore": 15,
+            "gem": 1
+          }
+        },
+        {
+          "level": 2,
+          "value": 0.15,
+          "upgradeCost": {
+            "ore": 25,
+            "gem": 2
+          }
+        },
+        {
+          "level": 3,
+          "value": 0.1,
+          "upgradeCost": {
+            "ore": 35,
+            "gem": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "Speed",
+      "displayName": "最大速度",
+      "description": "提升飞船的最高速度",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 300.0,
+          "upgradeCost": {
+            "ore": 15,
+            "gem": 1
+          }
+        },
+        {
+          "level": 2,
+          "value": 350.0,
+          "upgradeCost": {
+            "ore": 25,
+            "gem": 2
+          }
+        },
+        {
+          "level": 3,
+          "value": 400.0,
+          "upgradeCost": {
+            "ore": 35,
+            "gem": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "Acceleration",
+      "displayName": "加速度",
+      "description": "提升飞船的加速性能",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 200.0,
+          "upgradeCost": {
+            "ore": 15,
+            "gem": 1
+          }
+        },
+        {
+          "level": 2,
+          "value": 250.0,
+          "upgradeCost": {
+            "ore": 25,
+            "gem": 2
+          }
+        },
+        {
+          "level": 3,
+          "value": 300.0,
+          "upgradeCost": {
+            "ore": 35,
+            "gem": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "BrakeForce",
+      "displayName": "制动力",
+      "description": "提升飞船的制动能力",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 150.0,
+          "upgradeCost": {
+            "ore": 15,
+            "gem": 1
+          }
+        },
+        {
+          "level": 2,
+          "value": 180.0,
+          "upgradeCost": {
+            "ore": 25,
+            "gem": 2
+          }
+        },
+        {
+          "level": 3,
+          "value": 210.0,
+          "upgradeCost": {
+            "ore": 35,
+            "gem": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "RotationSpeed",
+      "displayName": "转向速度",
+      "description": "提升飞船的转向灵活性",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 5.0,
+          "upgradeCost": {
+            "ore": 10,
+            "gem": 1
+          }
+        },
+        {
+          "level": 2,
+          "value": 6.0,
+          "upgradeCost": {
+            "ore": 20,
+            "gem": 2
+          }
+        },
+        {
+          "level": 3,
+          "value": 7.0,
+          "upgradeCost": {
+            "ore": 30,
+            "gem": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "OreGet",
+      "displayName": "矿物获取量",
+      "description": "提升每次采矿获得的矿物量",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 10,
+          "upgradeCost": {
+            "ore": 10,
+            "gem": 0
+          }
+        },
+        {
+          "level": 2,
+          "value": 15,
+          "upgradeCost": {
+            "ore": 20,
+            "gem": 1
+          }
+        },
+        {
+          "level": 3,
+          "value": 20,
+          "upgradeCost": {
+            "ore": 30,
+            "gem": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "PickupRange",
+      "displayName": "拾取范围",
+      "description": "扩大自动拾取物品的范围",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 1,
+          "upgradeCost": {
+            "ore": 20,
+            "gem": 2
+          }
+        },
+        {
+          "level": 2,
+          "value": 1.5,
+          "upgradeCost": {
+            "ore": 30,
+            "gem": 3
+          }
+        },
+        {
+          "level": 3,
+          "value": 2.0,
+          "upgradeCost": {
+            "ore": 40,
+            "gem": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "MaxHeat",
+      "displayName": "最大过热值",
+      "description": "提升武器系统的耐热上限",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 100,
+          "upgradeCost": {
+            "ore": 20,
+            "gem": 2
+          }
+        },
+        {
+          "level": 2,
+          "value": 120,
+          "upgradeCost": {
+            "ore": 30,
+            "gem": 3
+          }
+        },
+        {
+          "level": 3,
+          "value": 150,
+          "upgradeCost": {
+            "ore": 40,
+            "gem": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "ColdDownRateNormal",
+      "displayName": "正常冷却速率",
+      "description": "提升武器系统的正常冷却速度",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 5,
+          "upgradeCost": {
+            "ore": 15,
+            "gem": 2
+          }
+        },
+        {
+          "level": 2,
+          "value": 7,
+          "upgradeCost": {
+            "ore": 25,
+            "gem": 3
+          }
+        },
+        {
+          "level": 3,
+          "value": 10,
+          "upgradeCost": {
+            "ore": 35,
+            "gem": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "ColdUpRateNormal",
+      "displayName": "加热速率",
+      "description": "降低武器系统加热速度（减少热量产生）",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 2,
+          "upgradeCost": {
+            "ore": 15,
+            "gem": 2
+          }
+        },
+        {
+          "level": 2,
+          "value": 1.5,
+          "upgradeCost": {
+            "ore": 25,
+            "gem": 3
+          }
+        },
+        {
+          "level": 3,
+          "value": 1,
+          "upgradeCost": {
+            "ore": 35,
+            "gem": 4
+          }
+        }
+      ]
+    },
+    {
+      "name": "ColdDownRateOverHeat",
+      "displayName": "过热冷却速率",
+      "description": "提升武器系统过热状态下的冷却速度",
+      "maxlevel": 3,
+      "levels": [
+        {
+          "level": 1,
+          "value": 20,
+          "upgradeCost": {
+            "ore": 25,
+            "gem": 3
+          }
+        },
+        {
+          "level": 2,
+          "value": 25,
+          "upgradeCost": {
+            "ore": 35,
+            "gem": 4
+          }
+        },
+        {
+          "level": 3,
+          "value": 30,
+          "upgradeCost": {
+            "ore": 45,
+            "gem": 5
+          }
+        }
+      ]
+    }
+  ]
+}
