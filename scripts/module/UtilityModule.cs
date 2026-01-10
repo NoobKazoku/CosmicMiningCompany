@@ -33,7 +33,7 @@ public class UtilityModule: AbstractModule
         // 注册资源工厂系统
         architecture.RegisterUtility(new ResourceFactoryUtility());
         architecture.RegisterUtility(new AsteroidDataReadUtility());
+        // 注册技能升级数据读取工具
+        architecture.RegisterUtility(new LevelUpDataReadUtility());
     }
 }
-
-

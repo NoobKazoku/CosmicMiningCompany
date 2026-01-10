@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx1mpwr63h76o"]
+
+[ext_resource type="Script" uid="uid://pe0ktykn0i0q" path="res://scenes/UI/level_up/LevelUp.cs" id="1_e7cry"]
+
+[node name="LevelUp" type="Button"]
+text = "升级"
+script = ExtResource("1_e7cry")

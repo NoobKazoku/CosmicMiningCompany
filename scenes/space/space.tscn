@@ -14,6 +14,7 @@ script = ExtResource("1_wfdyj")
 unique_name_in_owner = true
 
 [node name="control" parent="." instance=ExtResource("1_x217o")]
+z_index = -1
 offset_right = 1920.0
 offset_bottom = 1080.0
 
