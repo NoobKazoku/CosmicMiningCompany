@@ -51,11 +51,6 @@ public partial class Space :Node2D,IController
 	/// <param name="delta">物理帧时间间隔</param>
 	public override void _PhysicsProcess(double delta)
 	{
-		// 平滑跟随太空船
-		float followSpeed = 2.0f; // 跟随速度，值越大跟随越快，降低速度让用户能感觉到飞船移动
-		Camera.GlobalPosition = Camera.GlobalPosition.Lerp(SpaceShip.GlobalPosition, (float)delta * followSpeed);
-		Camera.Rotation = Mathf.Lerp(Camera.Rotation, SpaceShip.Rotation, (float)delta * followSpeed);
-	
 		foreach (var rock in AsteroidRoot.GetChildren())
 		{
 			if (rock is not SpaceRock spaceRock)
@@ -80,7 +75,7 @@ public partial class Space :Node2D,IController
 		_asteroidSpawnSystem = this.GetSystem<IAsteroidSpawnSystem>()!;
 		_spawnTimer = new Timer
 		{
-			WaitTime = 1.0f,
+			WaitTime = 0.5f,
 			OneShot = false,
 			Autostart = true
 		};

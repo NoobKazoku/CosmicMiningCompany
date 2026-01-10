@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CosmicMiningCompany.scripts.constants;
@@ -9,8 +8,6 @@ using CosmicMiningCompany.scripts.storage;
 using GFramework.Core.Abstractions.environment;
 using GFramework.Core.extensions;
 using GFramework.Core.utility;
-using GFramework.SourceGenerators.Abstractions.logging;
-using GFramework.SourceGenerators.Abstractions.rule;
 using Godot;
 using Newtonsoft.Json;
 
@@ -19,9 +16,7 @@ namespace CosmicMiningCompany.scripts.data;
 /// <summary>
 /// 保存数据工具类，负责游戏存档的创建、保存、加载和检查功能
 /// </summary>
-[ContextAware]
-[Log]
-public partial class SaveStorageUtility : AbstractContextUtility, ISaveStorageUtility
+public class SaveStorageUtility : AbstractContextUtility, ISaveStorageUtility
 {
     /// <summary>
     /// 存档文件的路径，保存在用户目录下的save.json文件
@@ -37,7 +32,7 @@ public partial class SaveStorageUtility : AbstractContextUtility, ISaveStorageUt
     /// <returns>如果存档文件存在返回true，否则返回false</returns>
     public static bool HasSave() => File.Exists(SavePath);
 
-    // 直接使用JsonConvert进行序列化和反序列化，不依赖具体的序列化器类
+    private readonly ISerializer<GameSaveData> _serializer = new GameSaveSerializer();
     private  GameSaveData? _current;
 
     private ISaveStorage _storage = null!;
@@ -69,25 +64,14 @@ public partial class SaveStorageUtility : AbstractContextUtility, ISaveStorageUt
     /// </summary>
     public void Save()
     {
-        try
+        var data = EnsureLoaded();
+        if (!data.RuntimeDirty)
         {
-            var data = EnsureLoaded();
-            if (!data.RuntimeDirty)
-            {
-                _log.Debug("存档数据未修改，跳过保存");
-                return;
-            }
+            return;
+        }
 
-            string jsonContent = JsonConvert.SerializeObject(data, Formatting.Indented);
-            _storage.Write(SavePath, jsonContent);
-            data.RuntimeDirty = false;
-            _log.Info("存档保存成功");
-        }
-        catch (Exception ex)
-        {
-            _log.Error($"保存存档时发生错误: {ex.Message}");
-            throw;
-        }
+        _storage.Write(SavePath, _serializer.Serialize(data));
+        data.RuntimeDirty = false;
     }
 
     /// <summary>
@@ -191,33 +175,16 @@ public partial class SaveStorageUtility : AbstractContextUtility, ISaveStorageUt
     /// </summary>
     public void Load()
     {
-        try
+        // 检查存档文件是否存在
+        if (!HasSave())
         {
-            // 检查存档文件是否存在
-            if (!HasSave())
-            {
-                _log.Info("存档文件不存在，创建新存档");
-                _current = new GameSaveData();
-                return;
-            }
-
-            string jsonContent = _storage.Read(SavePath);
-            if (string.IsNullOrEmpty(jsonContent))
-            {
-                _log.Warn("存档文件为空，创建新存档");
-                _current = new GameSaveData();
-                return;
-            }
-
-            _current = JsonConvert.DeserializeObject<GameSaveData>(jsonContent) ?? new GameSaveData();
-            _current.RuntimeDirty = false;
-            _log.Info("存档加载成功");
-        }
-        catch (Exception ex)
-        {
-            _log.Error($"加载存档时发生错误: {ex.Message}");
             _current = new GameSaveData();
+            return;
         }
+
+        var json = _storage.Read(SavePath);
+        _current = _serializer.Deserialize(json);
+        _current.RuntimeDirty = false;
     }
 
     /// <summary>
