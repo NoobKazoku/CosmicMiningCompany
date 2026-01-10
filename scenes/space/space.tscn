@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://beo8d4p6emdbg"]
+[gd_scene load_steps=7 format=3 uid="uid://beo8d4p6emdbg"]
 
 [ext_resource type="PackedScene" uid="uid://b6hicsjid7hc1" path="res://scenes/space_ship/space_ship.tscn" id="1_t2gi8"]
 [ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/test_VFX/background_test.tscn" id="1_x217o"]
@@ -10,6 +10,7 @@
 [node name="Space" type="Node2D"]
 
 [node name="control" parent="." instance=ExtResource("1_x217o")]
+z_index = -2
 offset_right = 1920.0
 offset_bottom = 1080.0
 
