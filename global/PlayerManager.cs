@@ -5,11 +5,18 @@ using GFramework.SourceGenerators.Abstractions.rule;
 using GFramework.Core.extensions;
 using CosmicMiningCompany.scripts.data.interfaces;
 
+/// <summary>
+/// 玩家管理器类，负责管理玩家的各种属性和状态
+/// 采用单例模式，提供全局访问点
+/// </summary>
 [ContextAware]
 [Log]
 public partial class PlayerManager : Node
 {
-    public static PlayerManager Instance { get; private set; }
+    /// <summary>
+    /// 获取玩家管理器的单例实例
+    /// </summary>
+    public static PlayerManager? Instance { get; private set; }
     
     public float MaxFuel = 10.0f;//最大燃料
     public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量
@@ -41,6 +48,10 @@ public partial class PlayerManager : Node
 
     private ISaveStorageUtility _saveStorageUtility = null!;
 
+    /// <summary>
+    /// 节点准备就绪时的回调方法
+    /// 初始化单例实例，获取存档工具依赖，并从存档初始化总矿石量
+    /// </summary>
     public override void _Ready()
     {
         Instance = this;
@@ -53,7 +64,7 @@ public partial class PlayerManager : Node
     }
 
     /// <summary>
-    /// 从存档初始化总矿石量
+    /// 从存档初始化总矿石量和总宝石量
     /// </summary>
     private void InitializeFromSave()
     {
@@ -66,7 +77,8 @@ public partial class PlayerManager : Node
     }
 
     /// <summary>
-    /// 更新总矿石量（当任务矿石添加到存档后调用）
+    /// 更新总矿石量和总宝石量
+    /// 当任务矿石添加到存档后调用
     /// </summary>
     public void UpdateTotalOreFromSave()
     {

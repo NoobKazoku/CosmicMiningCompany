@@ -10,7 +10,7 @@ public partial class Loot : CharacterBody2D
 	private SpaceShip SpaceShip => GetTree().Root.GetNode<SpaceShip>("Space/SpaceShip");
 	private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
 
-	private Cargo Cargo => GetTree().Root.GetNode<Cargo>("Space/SpaceShip/Camera2D/UI/Cargo");
+	private Cargo Cargo => GetTree().Root.GetNode<Cargo>("Space/UI/Cargo");
 
     public override void _Ready()
     {

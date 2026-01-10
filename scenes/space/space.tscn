@@ -10,26 +10,25 @@
 [node name="Space" type="Node2D"]
 script = ExtResource("1_wfdyj")
 
+[node name="control" parent="." instance=ExtResource("1_x217o")]
+
+[node name="control2" parent="." instance=ExtResource("1_x217o")]
+
 [node name="AsteroidRoot" type="Node2D" parent="."]
 unique_name_in_owner = true
-
-[node name="control" parent="." instance=ExtResource("1_x217o")]
-z_index = -1
-offset_right = 1920.0
-offset_bottom = 1080.0
 
 [node name="SpaceShip" parent="." instance=ExtResource("1_t2gi8")]
 unique_name_in_owner = true
 position = Vector2(961, 542)
 
-[node name="Camera2D" type="Camera2D" parent="SpaceShip"]
+[node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 
-[node name="UI" type="CanvasLayer" parent="SpaceShip/Camera2D"]
+[node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Fuel" parent="SpaceShip/Camera2D/UI" instance=ExtResource("2_ugvpa")]
+[node name="Fuel" parent="UI" instance=ExtResource("2_ugvpa")]
 
-[node name="Hot" parent="SpaceShip/Camera2D/UI" instance=ExtResource("4_0a2q3")]
+[node name="Hot" parent="UI" instance=ExtResource("4_0a2q3")]
 anchors_preset = -1
 anchor_top = 0.7685185
 anchor_right = 0.0375
@@ -38,7 +37,7 @@ offset_right = 0.0
 offset_bottom = 0.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Cargo" parent="SpaceShip/Camera2D/UI" instance=ExtResource("5_n6hgd")]
+[node name="Cargo" parent="UI" instance=ExtResource("5_n6hgd")]
 offset_left = 1.0
 offset_top = 260.0
 offset_right = 1.0000153

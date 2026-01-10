@@ -1,4 +1,4 @@
-﻿using GFramework.Core.extensions;
+using GFramework.Core.extensions;
 using GFramework.Core.system;
 using GFramework.SourceGenerators.Abstractions.logging;
 using global::CosmicMiningCompany.global;
