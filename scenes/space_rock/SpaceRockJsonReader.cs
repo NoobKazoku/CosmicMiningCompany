@@ -14,7 +14,7 @@ namespace CosmicMiningCompany.scripts.data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Health { get; set; }
+        public float Health { get; set; }
         public string Loot { get; set; }
         public int Distance { get; set; }
         public int Probability { get; set; }
@@ -44,7 +44,7 @@ namespace CosmicMiningCompany.scripts.data
                 {
                     Id = ConvertToInt(GetObjectValue(item, "编号ID")),
                     Name = ConvertToString(GetObjectValue(item, "名称")),
-                    Health = ConvertToInt(GetObjectValue(item, "血量")),
+                    Health = ConvertToFloat(GetObjectValue(item, "血量")),
                     Loot = ConvertToString(GetObjectValue(item, "掉落物")),
                     Distance = ConvertToInt(GetObjectValue(item, "刷新距离")),
                     Probability = ConvertToInt(GetObjectValue(item, "刷新概率系数")),
@@ -103,6 +103,43 @@ namespace CosmicMiningCompany.scripts.data
             else
             {
                 return 0;
+            }
+        }
+
+        private static float ConvertToFloat(object value)
+        {
+            if (value == null) return 0f;
+            
+            if (value is float floatValue)
+            {
+                return floatValue;
+            }
+            else if (value is double doubleValue)
+            {
+                return (float)doubleValue;
+            }
+            else if (value is int intValue)
+            {
+                return (float)intValue;
+            }
+            else if (value is long longValue)
+            {
+                return (float)longValue;
+            }
+            else if (value is string stringValue)
+            {
+                if (float.TryParse(stringValue, out float result))
+                {
+                    return result;
+                }
+                else
+                {
+                    return 0f;
+                }
+            }
+            else
+            {
+                return 0f;
             }
         }
 
