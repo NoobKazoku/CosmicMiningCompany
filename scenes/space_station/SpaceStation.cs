@@ -12,6 +12,8 @@ using Godot;
 public partial class SpaceStation :Control,IController
 {
 	private ISaveStorageUtility _saveStorageUtility = null!;
+	private TextTyper _npcTextTyper = null!;
+	private LevelUpDataReadUtility _levelUpDataUtility = null!;
 	/// <summary>
 	/// 节点准备就绪时的回调方法
 	/// 在节点添加到场景树后调用
@@ -19,8 +21,29 @@ public partial class SpaceStation :Control,IController
 	public override void _Ready()
 	{
 		_saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
+		
+		// 获取TextTyper节点
+		_npcTextTyper = GetNode<TextTyper>("VBoxContainer/VBoxContainer/NPC对话框/NPC对话文本");
+		
+		// 获取LevelUpDataReadUtility
+		_levelUpDataUtility = this.GetUtility<LevelUpDataReadUtility>();
 
 		DataLoad();
+
+		// 从存档加载技能等级数据并更新PlayerManager变量
+		var playerManager = PlayerManager.Instance;
+		if (playerManager != null)
+		{
+			LoadSkillLevelsFromSave(playerManager);
+			_log.Debug("已从存档加载技能等级数据到PlayerManager");
+		}
+		else
+		{
+			_log.Error("PlayerManager实例为null，无法加载技能等级数据");
+		}
+
+		// 设置所有升级按钮的事件处理
+		SetupUpgradeButtons();
 
 		GetNode<Button>("%Depart").Pressed += () =>
 		{
@@ -175,6 +198,62 @@ public partial class SpaceStation :Control,IController
 			default:
 				_log.Error($"未知的技能名称: {skillName}");
 				break;
+		}
+	}
+
+	/// <summary>
+	/// 设置所有升级按钮的事件处理
+	/// </summary>
+	private void SetupUpgradeButtons()
+	{
+		// 所有技能名称列表
+		string[] skillNames = new string[]
+		{
+			"Acceleration", "Speed", "BrakeForce", "RotationSpeed",
+			"MaxHeat", "ColdDownRateNormal", "ColdDownRateOverHeat", "ColdUpRateNormal",
+			"MaxFuel", "FuelConsumptionRate", "OreGet", "PickupRange",
+			"WeaponCount", "Damage", "FireRate"
+		};
+
+		foreach (var skillName in skillNames)
+		{
+			var button = GetNode<Button>($"%{skillName}");
+			if (button != null)
+			{
+				button.Pressed += () => OnSkillButtonPressed(skillName);
+				_log.Debug($"已为技能按钮 {skillName} 添加事件处理");
+			}
+			else
+			{
+				_log.Error($"未找到技能按钮: {skillName}");
+			}
+		}
+	}
+
+	/// <summary>
+	/// 技能按钮点击处理
+	/// </summary>
+	/// <param name="skillName">技能名称</param>
+	private void OnSkillButtonPressed(string skillName)
+	{
+		// 获取技能数据
+		var skillData = _levelUpDataUtility?.GetSkillData(skillName);
+		if (skillData != null && _npcTextTyper != null)
+		{
+			// 显示技能描述
+			_npcTextTyper.SetTyperText(skillData.Description);
+			_log.Debug($"显示技能描述: {skillName} - {skillData.Description}");
+		}
+		else
+		{
+			if (skillData == null)
+			{
+				_log.Error($"未找到技能数据: {skillName}");
+			}
+			if (_npcTextTyper == null)
+			{
+				_log.Error("TextTyper节点未初始化");
+			}
 		}
 	}
 

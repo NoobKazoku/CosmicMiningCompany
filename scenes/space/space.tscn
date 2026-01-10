@@ -21,7 +21,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 position = Vector2(961, 542)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="SpaceShip"]
 unique_name_in_owner = true
 
 [node name="UI" type="CanvasLayer" parent="."]
