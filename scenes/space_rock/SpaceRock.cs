@@ -1,5 +1,6 @@
 using CosmicMiningCompany.scripts.asteroid;
 using CosmicMiningCompany.scripts.core;
+using CosmicMiningCompany.scripts.loot;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;
@@ -22,8 +23,11 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
     // 添加标志来确保掉落只执行一次
     private bool _hasDroppedLoot;
     private IAsteroidPoolSystem _pool = null!;
+    private ILootPoolSystem _lootPool = null!;
     private int _currentHealth;
-    private Timer _recycleTimer;
+    
+    // 缓存 Loot 场景
+    private static readonly PackedScene CachedLootScene = ResourceLoader.Load<PackedScene>("res://scenes/loot/loot.tscn");
 
     public override void _Ready()
     {
@@ -49,6 +53,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
         // 播放对应的陨石动画
         AnimatedSprite2D.Play(definition.Name);
         _pool = ContextAwareExtensions.GetSystem<IAsteroidPoolSystem>(this)!;
+        _lootPool = ContextAwareExtensions.GetSystem<ILootPoolSystem>(this)!;
         GD.Print($"陨石初始化: 血量={definition.BaseHealth}, 掉落物={definition.Loot}, 名称={definition.Name}");
     }
 
@@ -93,29 +98,16 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
 
         for (int i = 0; i < dropCount; i++)
         {
-            // 加载掉落物场景
-            var lootScene = ResourceLoader.Load<PackedScene>("res://scenes/loot/loot.tscn");
+            // 使用对象池获取 Loot
+            var lootInstance = _lootPool.Acquire(GetParent());
 
-            if (lootScene != null)
-            {
-                // 实例化掉落物
-                var lootInstance = (Loot)lootScene.Instantiate();
+            // 设置掉落物的位置（稍微分散一些）
+            var offset = new Vector2((float)GD.RandRange(-20, 21), (float)GD.RandRange(-20, 21));
+            lootInstance.GlobalPosition = this.GlobalPosition + offset;
 
-                // 设置掉落物的位置（稍微分散一些）
-                var offset = new Vector2((float)GD.RandRange(-20, 21), (float)GD.RandRange(-20, 21));
-                lootInstance.GlobalPosition = this.GlobalPosition + offset;
+            lootInstance.Initialize(_definition.Loot);
 
-                lootInstance.Initialize(_definition.Loot);
-
-                // 添加到场景树（使用CallDeferred避免在物理回调中修改场景树）
-                GetParent().CallDeferred("add_child", lootInstance);
-
-                GD.Print($"生成掉落物: {_definition.Loot} #{i + 1}");
-            }
-            else
-            {
-                GD.PrintErr("无法加载掉落物场景: res://scenes/loot/loot.tscn");
-            }
+            GD.Print($"生成掉落物: {_definition.Loot} #{i + 1}");
         }
     }
 
