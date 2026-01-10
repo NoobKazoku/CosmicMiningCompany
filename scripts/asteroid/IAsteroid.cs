@@ -2,5 +2,5 @@
 
 public interface IAsteroid
 {
-    void Init(float hp, string dropId);
+    void Init(float hp, string dropId, string asteroidName);
 }
