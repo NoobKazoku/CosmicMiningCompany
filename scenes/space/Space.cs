@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CosmicMiningCompany.scripts.asteroid;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
@@ -42,7 +43,18 @@ public partial class Space :Node2D,IController
 	/// 陨石销毁距离阈值
 	/// </summary>
 	[Export]
-	private float _despawnDistance = 3000f;
+	private float _despawnDistance = 5000f;
+	
+	/// <summary>
+	/// 陨石被标记为需要销毁后的额外等待时间（秒）
+	/// </summary>
+	[Export]
+	private float _despawnGraceTime = 5f;
+	
+	/// <summary>
+	/// 记录每个陨石被标记为需要销毁的时间
+	/// </summary>
+	private Dictionary<space_rock.SpaceRock, float> _markedForDestroyTimes = new();
 	
 	/// <summary>
 	/// 物理处理回调方法
@@ -51,17 +63,49 @@ public partial class Space :Node2D,IController
 	/// <param name="delta">物理帧时间间隔</param>
 	public override void _PhysicsProcess(double delta)
 	{
+		var viewRect = GetCameraWorldRect();
+		var viewExpansion = 500f; // 视野外多少距离开始计时销毁
+
 		foreach (var rock in AsteroidRoot.GetChildren())
 		{
 			if (rock is not space_rock.SpaceRock spaceRock)
 				continue;
 
-			var distance =
-				(spaceRock.GlobalPosition - SpaceShip.GlobalPosition).Length();
-
-			if (distance > _despawnDistance)
+			// 检查陨石是否在视野内（在视野内则不销毁）
+			if (viewRect.HasPoint(spaceRock.GlobalPosition))
 			{
-				spaceRock.ScheduleDestroy(10f);
+				_markedForDestroyTimes.Remove(spaceRock);
+				continue;
+			}
+
+			// 检查陨石是否在扩展视野外
+			var expandedRect = viewRect.Expand(viewRect.Position - new Vector2(viewExpansion, viewExpansion));
+			expandedRect = expandedRect.Expand(viewRect.End + new Vector2(viewExpansion, viewExpansion));
+			
+			if (!expandedRect.HasPoint(spaceRock.GlobalPosition))
+			{
+				// 标记需要销毁，并记录时间
+				if (!_markedForDestroyTimes.ContainsKey(spaceRock))
+				{
+					_markedForDestroyTimes[spaceRock] = (float)Time.GetTicksMsec() / 1000f;
+				}
+				else
+				{
+					var markedTime = _markedForDestroyTimes[spaceRock];
+					var currentTime = (float)Time.GetTicksMsec() / 1000f;
+					
+					// 如果标记时间已经超过宽限期，触发销毁
+					if (currentTime - markedTime > _despawnGraceTime)
+					{
+						_markedForDestroyTimes.Remove(spaceRock);
+						spaceRock.RequestRecycle();
+					}
+				}
+			}
+			else
+			{
+				// 陨石回到扩展视野内，移除标记
+				_markedForDestroyTimes.Remove(spaceRock);
 			}
 		}
 	}

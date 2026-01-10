@@ -113,7 +113,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
         var lootInstance = _lootPool.Acquire(GetParent());
 
         // 设置掉落物的位置（稍微分散一些）
-        var offset = new Vector2((float)GD.RandRange(-20, 21), (float)GD.RandRange(-20, 21));
+        var offset = new Vector2(GD.RandRange(-20, 21), (float)GD.RandRange(-20, 21));
         lootInstance.GlobalPosition = this.GlobalPosition + offset;
 
         lootInstance.Initialize(lootType);
@@ -137,7 +137,8 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
     {
         _hasDroppedLoot = false;
 
-        LinearVelocity = Vector2.Zero;
+        // 设置随机移动速度，让陨石持续移动
+        LinearVelocity = new Vector2(GD.RandRange(-50, 50), GD.RandRange(-50, 50));
         AngularVelocity = 0;
         AnimatedSprite2D.Visible = true;
         ShootArea.Monitoring = true;
@@ -145,7 +146,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
         var collisionShape = GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
         collisionShape?.Disabled = false;
 
-        _lifeTimer.Start();
+        // 不再在这里启动计时器，销毁逻辑由 Space.cs 的距离检测控制
     }
 
 
