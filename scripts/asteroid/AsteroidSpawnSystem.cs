@@ -1,27 +1,29 @@
 ﻿using GFramework.Core.extensions;
 using GFramework.Core.system;
 using GFramework.SourceGenerators.Abstractions.logging;
-using global::CosmicMiningCompany.global;
 using Godot;
 
 namespace CosmicMiningCompany.scripts.asteroid;
-
 
 /// <summary>
 /// 小行星生成系统，负责根据规则在指定位置生成小行星
 /// </summary>
 [Log]
-public partial class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
+public partial class AsteroidSpawnSystem : AbstractSystem, IAsteroidSpawnSystem
 {
     /// <summary>
     /// 小行星生成规则实例，用于决定生成条件和类型
     /// </summary>
     private AsteroidSpawnRule _rule = null!;
-    
+
     /// <summary>
     /// 小行星工厂实例，用于创建小行星对象
     /// </summary>
     private AsteroidFactory _factory = null!;
+
+    private IAsteroidPoolSystem _pool = null!;
+
+    private IAsteroidDataReadUtility _dataReadUtility = null!;
 
     /// <summary>
     /// 尝试在指定位置生成小行星
@@ -49,8 +51,10 @@ public partial class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
             return;
         }
 
-        var asteroid = _factory.Create(asteroidId, spawnPosition);
-        target.AddChild(asteroid);
+        var def = _dataReadUtility.GetAsteroidDefs()[asteroidId];
+        var rock = _pool.Acquire(def.SceneKey, (Node2D)target);
+        rock.GlobalPosition = spawnPosition;
+        _factory.Configure(rock, asteroidId);
         _log.Debug($"Asteroid spawned at {spawnPosition}");
     }
 
@@ -60,9 +64,10 @@ public partial class AsteroidSpawnSystem:AbstractSystem,IAsteroidSpawnSystem
     /// </summary>
     protected override void OnInit()
     {
-        var dataReadUtility =  this.GetUtility<IAsteroidDataReadUtility>()!;
-        var data = dataReadUtility.Current!;
+        _dataReadUtility = this.GetUtility<IAsteroidDataReadUtility>()!;
+        var data = _dataReadUtility.Current!;
         _rule = new AsteroidSpawnRule(data);
-        _factory = new AsteroidFactory(data);
+        _factory = new AsteroidFactory(_dataReadUtility.GetAsteroidDefs());
+        _pool = this.GetSystem<IAsteroidPoolSystem>()!;
     }
 }

@@ -18,6 +18,7 @@ public class SystemModule: AbstractModule
     public override void Install(IArchitecture architecture)
     {
         architecture.RegisterSystem(new SettingsSystem());
+        architecture.RegisterSystem(new AsteroidPoolSystem());
         architecture.RegisterSystem(new AsteroidSpawnSystem());
     }
 }

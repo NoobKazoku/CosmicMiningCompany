@@ -11,13 +11,16 @@ public interface IAsteroidPoolSystem : ISystem
     /// <summary>
     /// 从小行星对象池中获取一个可用的小行星对象
     /// </summary>
-    /// <param name="parent">要将获取的小行星添加到的父节点</param>
-    /// <returns>获取的SpaceRock对象实例</returns>
-    SpaceRock Acquire(Node2D parent);
+    /// <param name="sceneKey">场景键值，用于标识特定的小行星场景</param>
+    /// <param name="parent">父节点，指定小行星对象的父级容器</param>
+    /// <returns>返回获取到的SpaceRock对象实例</returns>
+    scenes.space_rock.SpaceRock Acquire(string sceneKey, Node2D parent);
     
     /// <summary>
     /// 将使用完毕的小行星对象归还到对象池中
     /// </summary>
-    /// <param name="rock">需要归还的小行星对象</param>
-    void Release(SpaceRock rock);
+    /// <param name="sceneKey">场景键值，用于标识特定的小行星场景</param>
+    /// <param name="rock">需要回收的SpaceRock对象实例</param>
+    void Release(string sceneKey, scenes.space_rock.SpaceRock rock);
 }
+

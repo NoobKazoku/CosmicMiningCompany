@@ -53,7 +53,7 @@ public partial class Space :Node2D,IController
 	{
 		foreach (var rock in AsteroidRoot.GetChildren())
 		{
-			if (rock is not SpaceRock spaceRock)
+			if (rock is not space_rock.SpaceRock spaceRock)
 				continue;
 
 			var distance =
