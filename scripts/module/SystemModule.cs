@@ -1,9 +1,8 @@
-﻿using CosmicMiningCompany.scripts.assets;
-using CosmicMiningCompany.scripts.resources;
+﻿using CosmicMiningCompany.scripts.asteroid;
+using CosmicMiningCompany.scripts.loot;
 using CosmicMiningCompany.scripts.setting;
 using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.architecture;
-using GFramework.Godot.assets;
 
 namespace CosmicMiningCompany.scripts.module;
 
@@ -19,12 +18,9 @@ public class SystemModule: AbstractModule
     /// <param name="architecture">游戏架构接口实例，用于注册系统</param>
     public override void Install(IArchitecture architecture)
     {
-        // 注册资源目录系统
-        architecture.RegisterSystem(new AssetCatalogSystem());
-        // 注册资源加载系统
-        architecture.RegisterSystem(new ResourceLoadSystem());
-        // 注册资源工厂系统
-        architecture.RegisterSystem(new ResourceFactorySystem());
         architecture.RegisterSystem(new SettingsSystem());
+        architecture.RegisterSystem(new AsteroidPoolSystem());
+        architecture.RegisterSystem(new AsteroidSpawnSystem());
+        architecture.RegisterSystem(new LootPoolSystem());
     }
 }

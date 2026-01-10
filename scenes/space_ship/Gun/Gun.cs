@@ -14,10 +14,10 @@ public partial class Gun : Sprite2D, IController
 
 	// 过热机制相关变量
 	private float _heat = 0f; // 当前过热值
-	private const float MAX_HEAT = 100f; // 最大过热值
+	private float MAX_HEAT = 100; // 最大过热值
 	private bool _isOverheated = false; // 是否过热
-	private const float COOL_DOWN_RATE_NORMAL = 5f; // 正常冷却速率：每秒降低5点
-	private const float COOL_DOWN_RATE_OVERHEAT = 20f; // 过热冷却速率：每秒降低20点
+	private float COOL_DOWN_RATE_NORMAL = 5; // 正常冷却速率：每秒降低5点
+	private float COOL_DOWN_RATE_OVERHEAT = 20; // 过热冷却速率：每秒降低20点
 
 	// 公共属性，供UI访问
 	public float Heat => _heat;
@@ -30,6 +30,12 @@ public partial class Gun : Sprite2D, IController
 	/// </summary>
 	public override void _Ready()
 	{
+		//初始化全局变量
+		FireRate = PlayerManager.Instance.FireRate; // 射击间隔，单位秒
+		MAX_HEAT = PlayerManager.Instance.MaxHeat; // 最大过热值
+		COOL_DOWN_RATE_NORMAL = PlayerManager.Instance.ColdDownRateNormal; // 正常冷却速率：每秒降低5点
+		COOL_DOWN_RATE_OVERHEAT = PlayerManager.Instance.ColdDownRateOverHeat; // 过热冷却速率：每秒降低20点
+
 		_bulletScene = GD.Load<PackedScene>("res://scenes/space_ship/Bullet/Bullet.tscn");
 	}
 
@@ -98,7 +104,7 @@ public partial class Gun : Sprite2D, IController
 		bullet.Velocity = initialDirection * bullet.BulletSpeed;
 
 		// 增加过热值
-		_heat += 2f;
+		_heat += PlayerManager.Instance.ColdUpRateNormal;
 
 		// 检查是否过热
 		if (_heat >= MAX_HEAT)

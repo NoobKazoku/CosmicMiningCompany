@@ -17,7 +17,7 @@ public partial class Hot :HBoxContainer,IController
 	/// </summary>
 	public override void _Ready()
 	{
-		
+		ProgressBar.MaxValue = PlayerManager.Instance.MaxHeat;
 	}
 
 	public override void _Process(double delta)

@@ -1,16 +1,199 @@
-[gd_scene load_steps=3 format=3 uid="uid://b81p3y0rlcajm"]
+[gd_scene load_steps=7 format=3 uid="uid://b81p3y0rlcajm"]
 
 [ext_resource type="Script" uid="uid://crouxsxjt42mk" path="res://scenes/space_station/SpaceStation.cs" id="1_3yv4l"]
 [ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_pa1ah"]
+[ext_resource type="Texture2D" uid="uid://dgailfndwpga2" path="res://assets/art/客服撇嘴.png" id="3_hwpm3"]
+[ext_resource type="PackedScene" uid="uid://cx1mpwr63h76o" path="res://scenes/UI/level_up/level_up.tscn" id="3_rl2py"]
+[ext_resource type="PackedScene" uid="uid://bka7jj2s5xkgf" path="res://scenes/UI/storage/storage.tscn" id="3_x2jrh"]
+[ext_resource type="Script" uid="uid://cjs24gyk658ny" path="res://scenes/UI/NPC_dialogue/TextTyper.cs" id="5_cvrig"]
 
-[node name="SpaceStation" type="Node2D"]
+[node name="SpaceStation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_3yv4l")
 
-[node name="Depart" type="Button" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 720)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Storage" parent="VBoxContainer/HBoxContainer" instance=ExtResource("3_x2jrh")]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Acceleration" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
-offset_left = 1743.0
-offset_top = 934.0
-offset_right = 1863.0
-offset_bottom = 982.0
+layout_mode = 2
+text = "引擎推力"
+
+[node name="Speed" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "最大速度"
+
+[node name="BrakeForce" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "制动力"
+
+[node name="RotationSpeed" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "转向角速度"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="MaxHeat" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "最大过热值"
+
+[node name="ColdDownRateNormal" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "正常冷却速率"
+
+[node name="ColdDownRateOverHeat" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "过热冷却速率"
+
+[node name="ColdUpRateNormal" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "射击加热速率"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="MaxFuel" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "最大燃料"
+
+[node name="FuelConsumptionRate" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "每秒消耗燃料量"
+
+[node name="OreGet" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "矿物获取量"
+
+[node name="PickupRange" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "拾取范围大小倍率"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer4"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="WeaponCount" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "武器数量"
+
+[node name="Damage" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "子弹伤害"
+
+[node name="FireRate" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "射击间隔"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="LevelUp" parent="VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("3_rl2py")]
+layout_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NPC对话框" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NPC头像" type="TextureRect" parent="VBoxContainer/VBoxContainer/NPC对话框"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+texture = ExtResource("3_hwpm3")
+stretch_mode = 5
+
+[node name="NPC对话文本" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/NPC对话框"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_pa1ah")
+script = ExtResource("5_cvrig")
+
+[node name="离港按钮" type="MarginContainer" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Depart" type="Button" parent="VBoxContainer/VBoxContainer/离港按钮"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("2_pa1ah")
 text = "离港"

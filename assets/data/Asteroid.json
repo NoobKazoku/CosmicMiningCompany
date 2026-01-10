@@ -1,52 +1,76 @@
 {
-	"data": [
-		{
-			"编号ID": "ID",
-			"名称": "name",
-			"血量": "health",
-			"掉落物": "loot",
-			"刷新距离": "distance",
-			"刷新概率系数": "Probability"
-		},
-		{
-			"编号ID": 1001,
-			"名称": "小行星1",
-			"血量": 10,
-			"掉落物": "散矿",
-			"刷新距离": 360,
-			"刷新概率系数": 25
-		},
-		{
-			"编号ID": 1002,
-			"名称": "小行星2",
-			"血量": 10,
-			"掉落物": "散矿",
-			"刷新距离": 360,
-			"刷新概率系数": 25
-		},
-		{
-			"编号ID": 1003,
-			"名称": "小行星3",
-			"血量": 10,
-			"掉落物": "散矿",
-			"刷新距离": 360,
-			"刷新概率系数": 25
-		},
-		{
-			"编号ID": 1004,
-			"名称": "小行星4",
-			"血量": 10,
-			"掉落物": "散矿",
-			"刷新距离": 360,
-			"刷新概率系数": 25
-		},
-		{
-			"编号ID": 2001,
-			"名称": "宝石小行星1",
-			"血量": 100,
-			"掉落物": "宝石1",
-			"刷新距离": 720,
-			"刷新概率系数": 10
-		}
-	]
+  "Definitions": [
+	{
+	  "Id": 1001,
+	  "Name": "小行星1",
+	  "BaseHealth": 10,
+	  "Loot": "散矿",
+	  "SceneKey": "asteroid_1001"
+	},
+	{
+	  "Id": 1002,
+	  "Name": "小行星2",
+	  "BaseHealth": 10,
+	  "Loot": "散矿",
+	  "SceneKey": "asteroid_1002"
+	},
+	{
+	  "Id": 1003,
+	  "Name": "小行星3",
+	  "BaseHealth": 10,
+	  "Loot": "散矿",
+	  "SceneKey": "asteroid_1003"
+	},
+	{
+	  "Id": 1004,
+	  "Name": "小行星4",
+	  "BaseHealth": 10,
+	  "Loot": "散矿",
+	  "SceneKey": "asteroid_1004"
+	},
+	{
+	  "Id": 2001,
+	  "Name": "宝石小行星1",
+	  "BaseHealth": 100,
+	  "Loot": "宝石1",
+	  "SceneKey": "gem_asteroid_2001"
+	}
+  ],
+  "SpawnRules": [
+	{
+	  "AsteroidId": 1001,
+	  "MinDistance": 100.0,
+	  "MaxDistance": 2000.0,
+	  "BaseWeight": 25.0,
+	  "DistanceFactor": 0.1
+	},
+	{
+	  "AsteroidId": 1002,
+	  "MinDistance": 100.0,
+	  "MaxDistance": 2000.0,
+	  "BaseWeight": 25.0,
+	  "DistanceFactor": 0.1
+	},
+	{
+	  "AsteroidId": 1003,
+	  "MinDistance": 100.0,
+	  "MaxDistance": 2000.0,
+	  "BaseWeight": 25.0,
+	  "DistanceFactor": 0.1
+	},
+	{
+	  "AsteroidId": 1004,
+	  "MinDistance": 100.0,
+	  "MaxDistance": 2000.0,
+	  "BaseWeight": 25.0,
+	  "DistanceFactor": 0.1
+	},
+	{
+	  "AsteroidId": 2001,
+	  "MinDistance": 300.0,
+	  "MaxDistance": 3000.0,
+	  "BaseWeight": 10.0,
+	  "DistanceFactor": 0.05
+	}
+  ]
 }

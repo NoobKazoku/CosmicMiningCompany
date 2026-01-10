@@ -8,8 +8,6 @@ using GFramework.SourceGenerators.Abstractions.rule;
 [Log]
 public partial class Cargo :VBoxContainer,IController
 {
-	public int OreCount = 0; //散矿
-	public int GemCount = 0; //宝石
 	public int OreGet = 10;	//矿物获取量
 
 private Label OreLabel => GetNode<Label>("%散矿数量");
@@ -21,10 +19,13 @@ private Label GemLabel => GetNode<Label>("%宝石1数量");
 	/// </summary>
 	public override void _Ready()
 	{
-		
+		OreGet = PlayerManager.Instance.OreGet;
+		//重置任务矿石数量
+		PlayerManager.Instance.OreCount = 0;
+		PlayerManager.Instance.GemCount = 0;
 	}
 
-    public override void _PhysicsProcess(double delta)
+    public override void _Process(double delta)
     {
         //更新UI
         UpdateOreUI();
@@ -32,8 +33,8 @@ private Label GemLabel => GetNode<Label>("%宝石1数量");
 
 	public void UpdateOreUI()
 	{
-        OreLabel.Text = OreCount.ToString();
-        GemLabel.Text = GemCount.ToString();
+        OreLabel.Text = PlayerManager.Instance.OreCount.ToString();
+        GemLabel.Text = PlayerManager.Instance.GemCount.ToString();
 	}
 
 
@@ -47,12 +48,14 @@ private Label GemLabel => GetNode<Label>("%宝石1数量");
 		if (OreName == "散矿")
 		{
 			GD.Print("散矿+1");
-			OreCount += OreGet;
+			PlayerManager.Instance.OreCount += OreGet;
+
 		}
 		if (OreName == "宝石1")
 		{
 			GD.Print("宝石1 +1");
-			GemCount += OreGet;
+			PlayerManager.Instance.GemCount += OreGet;
+
 		}
 		
 	}

@@ -15,7 +15,6 @@ public class ModelModule: AbstractModule
     /// <param name="architecture">游戏架构实例，用于注册模型</param>
     public override void Install(IArchitecture architecture)
     {
-        // 注册竞技场模型
         architecture.RegisterModel(new SettingsModel());
     }
 }

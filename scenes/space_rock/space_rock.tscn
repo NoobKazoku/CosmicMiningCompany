@@ -91,7 +91,7 @@ point_count = 3
 
 [node name="SpaceRock" type="RigidBody2D"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_5gdrq")
 gravity_scale = 0.0
 script = ExtResource("1_co7l4")
@@ -102,6 +102,8 @@ sprite_frames = SubResource("SpriteFrames_6yyvo")
 animation = &"小行星2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+visible = false
 shape = SubResource("CircleShape2D_d2lhf")
 
 [node name="ShootArea" parent="." instance=ExtResource("2_d2lhf")]

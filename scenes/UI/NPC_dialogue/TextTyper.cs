@@ -4,13 +4,13 @@ using System;
 public partial class TextTyper : RichTextLabel
 {
     // 打字机文本->想要显示的实际文本
-    public string _typerText = "测试使用文本1234567890壹贰叁肆伍陆七八9000";
+    public string _typerText = "欢迎回来，矿工！Rock and Stone!";
 
     // 打字机进度
     private int _progressIndex = 0;
 
     // 打字的速度
-    private float _speed = 0.075f;
+    private float _speed = 0.0075f;
     private float _timer = 0.0f; // 计时器
 
 
