@@ -11,7 +11,7 @@ public partial class PlayerManager : Node
 {
     public static PlayerManager Instance { get; private set; }
     
-    public float MaxFuel = 100.0f;//最大燃料
+    public float MaxFuel = 10.0f;//最大燃料
     public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量
 
     public int WeaponCount = 2; // 武器数量
@@ -36,7 +36,7 @@ public partial class PlayerManager : Node
 
     public int MaxHeat = 100; //最大过热值
     public int ColdDownRateNormal = 5; // 正常冷却速率：每秒降低 n点
-    public int ColdUpRateNormal = 2; // 正常加热速率：每次射击增加 n点
+    public float ColdUpRateNormal = 2.0f; // 正常加热速率：每次射击增加 n点
     public int ColdDownRateOverHeat = 20; // 过热冷却速率：每秒降低 n点
 
     private ISaveStorageUtility _saveStorageUtility = null!;
