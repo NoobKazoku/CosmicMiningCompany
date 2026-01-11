@@ -20,6 +20,7 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 
 	private SpaceShip SpaceShip => GetTree().Root.GetNode<SpaceShip>("Space/SpaceShip");
 	private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
+	private CollisionShape2D CollisionShape => GetNode<CollisionShape2D>("%CollisionShape2D");
 
 	private Cargo Cargo => GetTree().Root.GetNode<Cargo>("Space/UI/Cargo");
 
@@ -81,6 +82,25 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 		Visible = true;
 		SetProcess(true);
 		SetPhysicsProcess(true);
+		
+		// 暂时禁用碰撞检测，避免刚生成时立即触发检测区域事件
+		if (CollisionShape != null)
+		{
+			CollisionShape.Disabled = true;
+			// 延迟一帧后重新启用碰撞检测
+			CallDeferred(nameof(EnableCollision));
+		}
+	}
+	
+	/// <summary>
+	/// 启用碰撞检测（延迟调用）
+	/// </summary>
+	private void EnableCollision()
+	{
+		if (CollisionShape != null)
+		{
+			CollisionShape.Disabled = false;
+		}
 	}
 
 	/// <summary>
@@ -89,6 +109,11 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 	public void OnRelease()
 	{
 		IsCollected = false;
+		// 确保碰撞检测被禁用，避免在池中时仍然触发事件
+		if (CollisionShape != null)
+		{
+			CollisionShape.Disabled = true;
+		}
 	}
 
 	/// <summary>
