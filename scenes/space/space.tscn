@@ -8,7 +8,7 @@
 [ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="6_5v2dy"]
 [ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="7_pcxls"]
 [ext_resource type="Texture2D" uid="uid://b6rjw4ajrqvj" path="res://assets/art/空间站.png" id="7_wfdyj"]
-[ext_resource type="Shader" path="res://scenes/main_menu/main_menu.gdshader" id="8_vho6q"]
+[ext_resource type="Shader" uid="uid://yx1hnj3uanro" path="res://scenes/main_menu/main_menu.gdshader" id="8_vho6q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0drc4"]
 shader = ExtResource("6_5v2dy")
@@ -120,5 +120,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="空间站" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(437, 815)
 texture = ExtResource("7_wfdyj")
