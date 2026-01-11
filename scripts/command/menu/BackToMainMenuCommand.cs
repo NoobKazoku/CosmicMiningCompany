@@ -1,5 +1,7 @@
-﻿using GFramework.Core.Abstractions.command;
+﻿using CosmicMiningCompany.scripts.game;
+using GFramework.Core.Abstractions.command;
 using GFramework.Core.command;
+using GFramework.Core.extensions;
 using Godot;
 
 namespace CosmicMiningCompany.scripts.command.menu;
@@ -20,6 +22,11 @@ public sealed class BackToMainMenuCommand(BackToMainMenuCommandInput input)
         // 获取场景树并恢复暂停状态，然后切换到主菜单场景
         var tree = input.Node.GetTree();
         tree.Paused = false;
+        
+        // 同时更新游戏状态模型，确保暂停状态被正确重置
+        var gameStateModel = this.GetModel<IGameStateModel>()!;
+        gameStateModel.SetGamePaused(false);
+        
         tree.ChangeSceneToFile("res://scenes/main_menu/main_menu.tscn");
     }
 }
