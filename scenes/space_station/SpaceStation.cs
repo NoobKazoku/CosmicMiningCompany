@@ -254,8 +254,8 @@ public partial class SpaceStation :Control,IController
 				currentLevel = 1;
 			}
 			
-			// 构建显示文本：技能描述
-			string displayText = skillData.Description + "\n";
+			// 构建显示文本：技能描述（使用本地化）
+			string displayText = Tr(skillData.Description) + "\n";
 			
 			// 计算下一等级
 			int nextLevel = currentLevel;
@@ -271,19 +271,19 @@ public partial class SpaceStation :Control,IController
 			{
 				if (currentLevel < skillData.MaxLevel)
 				{
-					// 未满级：显示当前等级 -> 下一等级和消耗
-					displayText += $"当前等级{currentLevel} -> 下一等级{nextLevel}:  消耗={nextLevelData.UpgradeCost.Ore}矿石, {nextLevelData.UpgradeCost.Gem}宝石";
+					// 未满级：显示当前等级 -> 下一等级和消耗（使用本地化）
+					displayText += $"{Tr("当前等级")}{currentLevel} -> {Tr("下一等级")}{nextLevel}:  {Tr("消耗")}={nextLevelData.UpgradeCost.Ore}{Tr("矿石")}, {nextLevelData.UpgradeCost.Gem}{Tr("宝石")}";
 				}
 				else
 				{
-					// 已满级：只显示当前等级
-					displayText += $"已满级（等级{currentLevel}）";
+					// 已满级：只显示当前等级（使用本地化）
+					displayText += $"{Tr("已满级")}（{Tr("等级")}{currentLevel}）";
 				}
 			}
 			else
 			{
 				// 无法获取等级数据
-				displayText += $"当前等级{currentLevel}";
+				displayText += $"{Tr("当前等级")}{currentLevel}";
 				_log.Error($"未找到技能 {skillName} 的等级 {nextLevel} 数据");
 			}
 			

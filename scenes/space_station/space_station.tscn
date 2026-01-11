@@ -144,7 +144,6 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30
-alignment = 1
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 visible = false
@@ -154,7 +153,7 @@ layout_mode = 2
 [node name="Acceleration" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "引擎推力"
+text = "加速度"
 
 [node name="Speed" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -169,13 +168,27 @@ text = "制动力"
 [node name="RotationSpeed" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "转向角速度"
+text = "转向速度"
+
+[node name="FireRate" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "射击频率"
+
+[node name="MaxFuel" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "最大燃料"
+
+[node name="FuelConsumptionRate" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "燃料消耗率"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30
-alignment = 1
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
 visible = false
@@ -200,64 +213,27 @@ text = "过热冷却速率"
 [node name="ColdUpRateNormal" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "射击加热速率"
+text = "加热速率"
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
-visible = false
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="MaxFuel" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "最大燃料"
-
-[node name="FuelConsumptionRate" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "每秒消耗燃料量"
-
-[node name="OreGet" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "矿物获取量"
-
-[node name="PickupRange" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer3"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "拾取范围大小倍率"
-
-[node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer4"]
-visible = false
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="WeaponCount" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer4"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "武器数量"
-
-[node name="Damage" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer4"]
+[node name="Damage" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "子弹伤害"
 
-[node name="FireRate" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer4"]
+[node name="OreGet" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "射击间隔"
+text = "矿物获取量"
+
+[node name="PickupRange" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "拾取范围"
+
+[node name="WeaponCount" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer/ScrollContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "武器数量"
 
 [node name="升级按钮" type="Panel" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(128, 0)

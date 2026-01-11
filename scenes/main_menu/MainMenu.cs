@@ -65,6 +65,26 @@ public partial class MainMenu : Control, IController
 			_log.Debug("制作人员名单");
 		};
 
+		GetNode<Button>("%Language").Pressed += () =>	
+		{
+			GD.Print("切换语言");
+			_log.Debug("切换语言");
+			// 检查当前语言并切换
+			string currentLocale = TranslationServer.GetLocale();
+			if (currentLocale == "ch")
+			{
+				TranslationServer.SetLocale("en");
+				GD.Print("切换到英文");
+				_log.Debug("切换到英文");
+			}
+			else
+			{
+				TranslationServer.SetLocale("ch");
+				GD.Print("切换到中文");
+				_log.Debug("切换到中文");
+			}
+		};
+
 		GetNode<Button>("%Exit").Pressed += () =>
 		{
 			_log.Debug("退出游戏");
