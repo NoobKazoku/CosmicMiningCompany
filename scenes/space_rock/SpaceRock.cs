@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CosmicMiningCompany.scripts.asteroid;
 using CosmicMiningCompany.scripts.core;
 using CosmicMiningCompany.scripts.loot;
@@ -14,6 +15,8 @@ namespace CosmicMiningCompany.scenes.space_rock;
 public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableNode
 {
 	private Timer _lifeTimer;
+	// 跟踪动态创建的计时器，以便在释放时清理
+	private List<Timer> _dynamicTimers = new();
 	private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
 	private Area2D ShootArea => GetNode<Area2D>("%ShootArea");
 	private CollisionShape2D CollisionShape2D => GetNode<CollisionShape2D>("%CollisionShape2D");
@@ -90,6 +93,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
 		};
 		timer.Timeout += RequestRecycle;
 		AddChild(timer);
+		_dynamicTimers.Add(timer);  // 跟踪动态计时器
 		timer.Start();
 	}
 
@@ -131,6 +135,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
 		};
 		timer.Timeout += RequestRecycle;
 		AddChild(timer);
+		_dynamicTimers.Add(timer);  // 跟踪动态计时器
 		timer.Start();
 	}
 	
@@ -153,6 +158,14 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
 	public void OnRelease()
 	{
 		_lifeTimer.Stop();
+		
+		// 清理所有动态创建的计时器
+		foreach (var timer in _dynamicTimers)
+		{
+			timer.Stop();
+			timer.QueueFree();
+		}
+		_dynamicTimers.Clear();
 
 		GetNodeOrNull<CpuParticles2D>("break/CPUParticles2D_break")?.Emitting = false;
 		GetNodeOrNull<CpuParticles2D>("break/CPUParticles2D_blast")?.Emitting = false;
@@ -162,6 +175,12 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
 	{
 		ShootArea.BodyEntered -= OnBodyEntered;
 		_lifeTimer.QueueFree();
+		// 清理所有动态计时器
+		foreach (var timer in _dynamicTimers)
+		{
+			timer.QueueFree();
+		}
+		_dynamicTimers.Clear();
 	}
 
 
