@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://creditspage"]
+
+[ext_resource type="Script" uid="uid://creditspagecs" path="res://scenes/credits/Credits.cs" id="1_creditspagecs"]
+[ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_cds3d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1"]
+font_size = 32
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_creditspagecs")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07450981, 0.078431375, 0.18039216, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_cds3d")
+theme_override_font_sizes/font_size = 64
+text = "制作组"
+horizontal_alignment = 1
+
+[node name="TeamLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_cds3d")
+theme_override_font_sizes/font_size = 48
+text = "Cosmic Mining Company"
+horizontal_alignment = 1
+
+[node name="Members" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_cds3d")
+theme_override_font_sizes/font_size = 32
+text = "开发团队：\n\n策划：宇宙矿工\n程序：宇宙矿工\n美术：宇宙矿工\n音乐：宇宙矿工\n音效：宇宙矿工\n\n特别感谢：\n\nGodot引擎\n宇宙探索者社区"
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_cds3d")
+theme_override_font_sizes/font_size = 32
+text = "返回主菜单"

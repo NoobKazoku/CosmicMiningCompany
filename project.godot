@@ -24,11 +24,14 @@ GameEntryPoint="*res://global/game_entry_point.tscn"
 DevBindingManager="*res://global/dev_binding_manager.tscn"
 PlayerManager="*res://global/PlayerManager.cs"
 AsteroidSceneRegistry="*res://global/asteroid_scene_registry.tscn"
+PauseInputController="*res://global/pause_input_controller.tscn"
+UiRoot="*res://global/ui_root.tscn"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
 window/size/fullscreen=false
 window/stretch/aspect_ratio="keep"
 
@@ -83,6 +86,10 @@ shoot={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://resources/language.ch.translation", "res://resources/language.en.translation")
+
 [layer_names]
 
 2d_physics/layer_1="玩家"
@@ -97,3 +104,4 @@ shoot={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

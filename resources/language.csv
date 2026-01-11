@@ -1,0 +1,64 @@
+id,ch,en
+新游戏,新游戏,New Game
+继续游戏,继续游戏,Continue Game
+设置,设置,Settings
+制作组,制作组,Credits
+退出游戏,退出游戏,Exit Game
+任务结束,任务结束,Mission Complete
+返回空间站,返回空间站,Return to Space Station
+暂停,暂停,Pause
+返回游戏,返回游戏,Resume Game
+返回主菜单,返回主菜单,Back to Main Menu
+声音,声音,Audio
+主音量,主音量,Master Volume
+音乐音量,音乐音量,Music Volume
+音效音量,音效音量,SFX Volume
+图形,图形,Graphics
+全屏模式,全屏模式,Fullscreen Mode
+全屏,全屏,Fullscreen
+窗口化,窗口化,Windowed
+分辨率,分辨率,Resolution
+退出,退出,Back
+升级,升级,Upgrade
+最大燃料,最大燃料,Max Fuel
+提升飞船的最大燃料容量,提升飞船的最大燃料容量,Increase the maximum fuel capacity of the spaceship
+燃料消耗率,燃料消耗率,Fuel Consumption Rate
+降低燃料消耗速度,降低燃料消耗速度,Reduce fuel consumption rate
+武器数量,武器数量,Weapon Count
+增加同时激活的武器数量,增加同时激活的武器数量,Increase the number of simultaneously active weapons
+子弹伤害,子弹伤害,Bullet Damage
+提升单发子弹造成的伤害,提升单发子弹造成的伤害,Increase damage dealt by each bullet
+射击频率,射击频率,Fire Rate
+缩短射击间隔时间,缩短射击间隔时间,Reduce time between shots
+最大速度,最大速度,Max Speed
+提升飞船的最高速度,提升飞船的最高速度,Increase the maximum speed of the spaceship
+加速度,加速度,Acceleration
+提升飞船的加速性能,提升飞船的加速性能,Improve spaceship acceleration performance
+制动力,制动力,Braking Force
+提升飞船的制动能力,提升飞船的制动能力,Improve spaceship braking capability
+转向速度,转向速度,Rotation Speed
+提升飞船的转向灵活性,提升飞船的转向灵活性,Improve spaceship turning flexibility
+矿物获取量,矿物获取量,Ore Yield
+提升每次采矿获得的矿物量,提升每次采矿获得的矿物量,Increase ore obtained per mining operation
+拾取范围,拾取范围,Pickup Range
+扩大自动拾取物品的范围,扩大自动拾取物品的范围,Expand automatic item pickup range
+最大过热值,最大过热值,Max Heat
+提升武器系统的耐热上限,提升武器系统的耐热上限,Increase weapon system heat tolerance limit
+正常冷却速率,正常冷却速率,Normal Cooling Rate
+提升武器系统的正常冷却速度,提升武器系统的正常冷却速度,Increase normal cooling speed of weapon system
+加热速率,加热速率,Heating Rate
+降低武器系统加热速度（减少热量产生）,降低武器系统加热速度（减少热量产生）,Reduce weapon system heating rate (decrease heat generation)
+过热冷却速率,过热冷却速率,Overheat Cooling Rate
+提升武器系统过热状态下的冷却速度,提升武器系统过热状态下的冷却速度,Increase cooling speed when weapon system is overheated
+散矿,散矿,Ore
+宝石1,宝石1,Gem
+语言,语言,Language
+离港,离港,Departure
+切换语言,切换语言,Switch Language
+当前等级,当前等级,Current Level
+下一等级,下一等级,Next Level
+消耗,消耗,Cost
+矿石,矿石,Ore
+宝石,宝石,Gem
+已满级,已满级,Max Level Reached
+等级,等级,Level

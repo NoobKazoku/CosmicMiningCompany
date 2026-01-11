@@ -2,6 +2,7 @@ using CosmicMiningCompany.scenes.component;
 using CosmicMiningCompany.scripts.command.audio;
 using CosmicMiningCompany.scripts.command.graphics;
 using CosmicMiningCompany.scripts.command.setting;
+using CosmicMiningCompany.scripts.events.menu;
 using CosmicMiningCompany.scripts.query;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.command;
@@ -61,15 +62,29 @@ public partial class Options : Control, IController
 	/// </summary>
 	public override void _Ready()
 	{
-		GetNode<Button>("%Back").Pressed += () =>
-		{
-			this.SendCommand(new SaveSettingsCommand(new EmptyCommentInput()));
-			_log.Info("设置已保存");
-			GetParent()?.RemoveChild(this);
-			QueueFree();
-		};
+		GetNode<Button>("%Back").Pressed += OnBackPressed;
 		InitializeUi();
 		SetupEventHandlers();
+	}
+
+	/// <summary>
+	/// 处理未处理的输入事件，用于 ESC 关闭设置窗口
+	/// </summary>
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("ui_cancel"))
+		{
+			OnBackPressed();
+			AcceptEvent();
+		}
+		
+	}
+
+	private void OnBackPressed()
+	{
+		this.SendCommand(new SaveSettingsCommand(new EmptyCommentInput()));
+		_log.Info("设置已保存");
+		this.SendEvent<CloseOptionsMenuEvent>();
 	}
 
 	/// <summary>
@@ -142,9 +157,7 @@ public partial class Options : Control, IController
 		var resolution = _resolutions[index];
 		this.SendCommand(new ChangeResolutionCommand(new ChangeResolutionCommandInput
 			{ Width = resolution.X, Height = resolution.Y }));
-		
-		// 显示调试信息
-		GD.Print($"分辨率已保存为: {resolution.X}x{resolution.Y}");
+		_log.Debug($"分辨率更改为: {resolution.X}x{resolution.Y}");
 	}
 
 	/// <summary>
@@ -155,11 +168,8 @@ public partial class Options : Control, IController
 	{
 		var fullscreen = index == 0;
 		this.SendCommand(new ToggleFullscreenCommand(new ToggleFullscreenCommandInput { Fullscreen = fullscreen }));
-		
-		// 禁用 / 启用分辨率选择
+		// ⭐ 禁用 / 启用分辨率选择
 		ResolutionOptionButton.Disabled = fullscreen;
-		
-		// 显示调试信息
-		GD.Print($"全屏模式已保存为: {fullscreen}");
+		_log.Debug($"全屏模式切换为: {fullscreen}");
 	}
 }

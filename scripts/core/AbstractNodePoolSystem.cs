@@ -97,6 +97,12 @@ public abstract class AbstractNodePoolSystem<TKey, TNode>
         node.Visible = true;
         node.SetProcess(true);
         node.SetPhysicsProcess(true);
+        
+        // 对于 RigidBody2D，需要恢复物理模拟
+        if (node is RigidBody2D rigidBody)
+        {
+            rigidBody.Freeze = false;
+        }
     }
 
     /// <summary>
@@ -108,6 +114,12 @@ public abstract class AbstractNodePoolSystem<TKey, TNode>
         node.Visible = false;
         node.SetProcess(false);
         node.SetPhysicsProcess(false);
+        
+        // 对于 RigidBody2D，需要停止物理模拟以避免性能损耗
+        if (node is RigidBody2D rigidBody)
+        {
+            rigidBody.Freeze = true;
+        }
     }
 
     /// <summary>

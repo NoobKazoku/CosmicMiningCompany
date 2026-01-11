@@ -28,6 +28,18 @@ public class SimpleNodePool<TNode> : AbstractSystem where TNode : Node2D, IPoola
         node.SetProcess(true);
         node.SetPhysicsProcess(true);
         node.Visible = true;
+        
+        // 对于 CharacterBody2D/RigidBody2D，恢复物理模拟
+        if (node is CharacterBody2D characterBody)
+        {
+            // CharacterBody2D 使用 MotionMode，没有 Freeze，但可以通过设置速度为0来停止
+            characterBody.Velocity = Vector2.Zero;
+        }
+        else if (node is RigidBody2D rigidBody)
+        {
+            rigidBody.Freeze = false;
+        }
+        
         node.OnAcquire();
         
         return node;
@@ -39,6 +51,18 @@ public class SimpleNodePool<TNode> : AbstractSystem where TNode : Node2D, IPoola
         node.SetProcess(false);
         node.SetPhysicsProcess(false);
         node.Visible = false;
+        
+        // 对于 CharacterBody2D/RigidBody2D，停止物理模拟
+        if (node is CharacterBody2D characterBody)
+        {
+            // CharacterBody2D 通过停止速度和禁用物理处理来停止
+            characterBody.Velocity = Vector2.Zero;
+        }
+        else if (node is RigidBody2D rigidBody)
+        {
+            rigidBody.Freeze = true;
+        }
+        
         node.GetParent()?.RemoveChild(node);
         
         Pool.Push(node);
