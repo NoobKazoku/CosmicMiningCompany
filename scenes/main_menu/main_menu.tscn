@@ -32,44 +32,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_o25w2")
 
-[node name="background" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.15294118, 0.15294118, 0.26666668, 1)
-
-[node name="tiny_star" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_4xg86")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
-
-[node name="bright_star" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_thkx5")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0)
-
-[node name="pixel" type="ColorRect" parent="."]
+[node name="background" type="Polygon2D" parent="."]
 material = SubResource("ShaderMaterial_x2yjq")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.07450981, 0.078431375, 0.18039216, 1)
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
+
+[node name="tiny_star" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_4xg86")
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
+
+[node name="bright_star" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_thkx5")
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 
 [node name="Planet03" type="Sprite2D" parent="."]
 position = Vector2(275.00006, 649)
