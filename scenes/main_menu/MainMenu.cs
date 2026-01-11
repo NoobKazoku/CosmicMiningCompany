@@ -65,7 +65,7 @@ public partial class MainMenu : Control, IController
 			_log.Debug("制作人员名单");
 		};
 
-		GetNode<Button>("%Close").Pressed += () =>
+		GetNode<Button>("%Exit").Pressed += () =>
 		{
 			_log.Debug("退出游戏");
 			this.SendCommand(new QuitGameCommand(new QuitGameCommandInput { Node = this }));
