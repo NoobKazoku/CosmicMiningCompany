@@ -4,6 +4,8 @@ using GFramework.Core.Abstractions.controller;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 using CosmicMiningCompany.scripts.data.interfaces;
+using CosmicMiningCompany.scripts.enums;
+using CosmicMiningCompany.scripts.events.audio;
 using CosmicMiningCompany.scripts.game;
 using GFramework.Core.command;
 using Godot;
@@ -91,5 +93,9 @@ public partial class MainMenu : Control, IController
 			_log.Debug("退出游戏");
 			this.SendCommand(new QuitGameCommand(new QuitGameCommandInput { Node = this }));
 		};
+		this.SendEvent(new BgmChangedEvent()
+		{
+			BgmType = BgmType.MainMenu
+		});
 	}
 }

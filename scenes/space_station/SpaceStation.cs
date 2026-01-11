@@ -1,5 +1,7 @@
 using CosmicMiningCompany.scripts.data;
 using CosmicMiningCompany.scripts.data.interfaces;
+using CosmicMiningCompany.scripts.enums;
+using CosmicMiningCompany.scripts.events.audio;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;
@@ -72,6 +74,10 @@ public partial class SpaceStation :Control,IController
 			_log.Debug("离港");
 			GetTree().ChangeSceneToFile("res://scenes/space/space.tscn");
 		};
+		this.SendEvent(new BgmChangedEvent()
+		{
+			BgmType = BgmType.Ready
+		});
 	}
 
 	/// <summary>

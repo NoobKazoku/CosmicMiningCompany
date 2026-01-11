@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://2x538am28rd5"]
+
+[ext_resource type="Script" uid="uid://brkq721kvhhm2" path="res://global/AudioManager.cs" id="1_2b24j"]
+[ext_resource type="AudioStream" uid="uid://cophvwwobkrgu" path="res://assets/music/ERH BlueBeat 01 [loop].ogg" id="2_tnf83"]
+[ext_resource type="AudioStream" uid="uid://cxei3qjquwitg" path="res://assets/music/Blue Space v0_8.mp3" id="3_tnf83"]
+[ext_resource type="AudioStream" uid="uid://nh5e7kl5a6ug" path="res://assets/music/boss.ogg" id="4_hjth8"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_2b24j")
+BgmAudioStream = ExtResource("2_tnf83")
+GamingAudioStream = ExtResource("3_tnf83")
+ReadyAudioStream = ExtResource("4_hjth8")
+
+[node name="BgmAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("2_tnf83")
