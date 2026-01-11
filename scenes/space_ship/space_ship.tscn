@@ -48,7 +48,24 @@ position = Vector2(19, 24)
 scale = Vector2(1, -1)
 
 [node name="Gun2" parent="." instance=ExtResource("2_w5ed5")]
+unique_name_in_owner = true
 position = Vector2(19, -24)
+
+[node name="Gun3" parent="." instance=ExtResource("2_w5ed5")]
+unique_name_in_owner = true
+position = Vector2(24, -16)
+
+[node name="Gun5" parent="." instance=ExtResource("2_w5ed5")]
+unique_name_in_owner = true
+position = Vector2(24, -8)
+
+[node name="Gun4" parent="." instance=ExtResource("2_w5ed5")]
+unique_name_in_owner = true
+position = Vector2(24, 16)
+
+[node name="Gun6" parent="." instance=ExtResource("2_w5ed5")]
+unique_name_in_owner = true
+position = Vector2(24, 8)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false

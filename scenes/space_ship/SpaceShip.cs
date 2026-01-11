@@ -20,8 +20,14 @@ public partial class SpaceShip :CharacterBody2D,IController
 	[Export] public float MaxFuel = 100.0f;
 	[Export] public float Fuel  = 100.0f;
 	[Export] public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量 (100燃料/300秒 = 0.333)
+	[Export] public float WeaponCount = 2; // 武器数量
 
 	public Gun Gun => GetNode<Gun>("%Gun");
+	public Gun Gun2 => GetNode<Gun>("%Gun2");
+	public Gun Gun3 => GetNode<Gun>("%Gun3");
+	public Gun Gun4 => GetNode<Gun>("%Gun4");
+	public Gun Gun5 => GetNode<Gun>("%Gun5");
+	public Gun Gun6 => GetNode<Gun>("%Gun6");
 	private Area2D LootArea => GetNode<Area2D>("%LootArea");
 	
 	/// <summary>
@@ -31,6 +37,7 @@ public partial class SpaceShip :CharacterBody2D,IController
 	public override void _Ready()
 	{
 		//初始化全局变量
+		WeaponCount = PlayerManager.Instance.WeaponCount; // 武器数量
 		RotationSpeed = PlayerManager.Instance.RotationSpeed; //转向角速度
 		Acceleration = PlayerManager.Instance.Acceleration;      // 推力加速度
 		MaxSpeed = PlayerManager.Instance.Speed;          // 最大速度
@@ -41,7 +48,22 @@ public partial class SpaceShip :CharacterBody2D,IController
 
 		LootArea.Scale = PlayerManager.Instance.PickupRange * Vector2.One;
 
+		switch (WeaponCount)
+		{
+			case 2:
+				Gun3.QueueFree();
+				Gun4.QueueFree();
+				Gun5.QueueFree();
+				Gun6.QueueFree();
+				break;
+			case 4:
+				Gun5.QueueFree();
+				Gun6.QueueFree();
+				break;
+			case 6:
+				break;
 
+		}
 
 		LootArea.BodyEntered += OnLootEntered;
 	}

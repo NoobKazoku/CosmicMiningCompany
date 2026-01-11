@@ -14,7 +14,7 @@ public partial class PlayerManager : Node
     public float MaxFuel = 10.0f;//最大燃料
     public float FuelConsumptionRate = 0.333f; // 每秒消耗的燃料量
 
-    public int WeaponCount = 2; // 武器数量
+    public int WeaponCount = 4; // 武器数量
     public int Damage = 5; // 子弹伤害
     public float FireRate = 0.2f; // 射击间隔，单位秒
 
