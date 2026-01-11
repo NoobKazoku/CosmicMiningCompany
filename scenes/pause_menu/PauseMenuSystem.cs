@@ -21,7 +21,7 @@ public class PauseMenuSystem : AbstractSystem, IPauseMenuSystem
     /// </summary>
     protected override void OnInit()
     {
-        this.RegisterEvent<OpenPauseMenuEvent>(e =>
+        this.RegisterEvent<OpenPauseMenuEvent>(_ =>
         {
             // 防止重复打开暂停菜单
             if (_currentPauseMenu != null)
