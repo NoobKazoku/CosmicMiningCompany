@@ -36,6 +36,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
 		AngularDamp = 0;
 		ShootArea.BodyEntered += OnBodyEntered;
 		LinearVelocity = new Vector2(GD.RandRange(-50, 50), GD.RandRange(-50, 50));
+		AngularVelocity = GD.RandRange(-30, 30);
 
 		// 初始化计时器
 		_lifeTimer = new Timer();
@@ -145,7 +146,7 @@ public partial class SpaceRock : RigidBody2D, IAsteroid, IController, IPoolableN
 
 		// 设置随机移动速度，让陨石持续移动
 		LinearVelocity = new Vector2(GD.RandRange(-50, 50), GD.RandRange(-50, 50));
-		AngularVelocity = 0;
+		AngularVelocity = GD.RandRange(-30, 30);
 		AnimatedSprite2D.Visible = true;
 		ShootArea.Monitoring = true;
 		ShootArea.Monitorable = true;
