@@ -63,6 +63,7 @@ public partial class MainMenu : Control, IController
 		{
 			GD.Print("制作人员名单");
 			_log.Debug("制作人员名单");
+			GetTree().ChangeSceneToFile("res://scenes/credits/credits.tscn");
 		};
 
 		GetNode<Button>("%Language").Pressed += () =>	
