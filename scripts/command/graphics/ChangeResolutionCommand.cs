@@ -1,4 +1,4 @@
-﻿using CosmicMiningCompany.scripts.setting;
+using CosmicMiningCompany.scripts.setting;
 using CosmicMiningCompany.scripts.setting.interfaces;
 using GFramework.Core.Abstractions.command;
 using GFramework.Core.command;
@@ -17,13 +17,13 @@ public sealed class ChangeResolutionCommand(ChangeResolutionCommandInput input)
     /// 执行分辨率更改命令
     /// </summary>
     /// <param name="input">分辨率更改命令输入参数，包含新的宽度和高度值</param>
-    protected override void OnExecute(ChangeResolutionCommandInput input)
+    protected override async void OnExecute(ChangeResolutionCommandInput input)
     {
         var model = this.GetModel<ISettingsModel>()!;
         model.Graphics.ResolutionWidth = input.Width;
         model.Graphics.ResolutionHeight = input.Height;
 
-        this.GetSystem<ISettingsSystem>()!.ApplyGraphics();
+        await this.GetSystem<ISettingsSystem>()!.ApplyGraphics();
     }
 }
 

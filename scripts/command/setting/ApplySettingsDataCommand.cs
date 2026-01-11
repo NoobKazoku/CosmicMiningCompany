@@ -21,7 +21,7 @@ public sealed class ApplySettingsDataCommand(ApplySettingsDataCommandInput input
     /// 获取设置模型，将输入的设置数据应用到模型中，然后调用系统应用所有设置
     /// </summary>
     /// <param name="input">应用设置数据命令的输入参数</param>
-    protected override void OnExecute(ApplySettingsDataCommandInput input)
+    protected override async void OnExecute(ApplySettingsDataCommandInput input)
     {
         var model = this.GetModel<ISettingsModel>()!;
         var data = input.Settings;
@@ -39,7 +39,7 @@ public sealed class ApplySettingsDataCommand(ApplySettingsDataCommandInput input
         {
             Reason = SettingsChangedReason.All
         });
-        this.GetSystem<ISettingsSystem>()!.ApplyAll();
+        await this.GetSystem<ISettingsSystem>()!.ApplyAll();
     }
 }
 /// <summary>

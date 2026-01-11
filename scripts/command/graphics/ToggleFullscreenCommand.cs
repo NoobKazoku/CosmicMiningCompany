@@ -1,4 +1,4 @@
-﻿using CosmicMiningCompany.scripts.setting;
+using CosmicMiningCompany.scripts.setting;
 using CosmicMiningCompany.scripts.setting.interfaces;
 using GFramework.Core.Abstractions.command;
 using GFramework.Core.command;
@@ -17,12 +17,12 @@ public sealed class ToggleFullscreenCommand(ToggleFullscreenCommandInput input)
     /// 执行切换全屏命令
     /// </summary>
     /// <param name="input">切换全屏命令输入参数</param>
-    protected override void OnExecute(ToggleFullscreenCommandInput input)
+    protected override async void OnExecute(ToggleFullscreenCommandInput input)
     {
         var model = this.GetModel<ISettingsModel>()!;
         model.Graphics.Fullscreen = input.Fullscreen;
 
-        this.GetSystem<ISettingsSystem>()!.ApplyGraphics();
+        await this.GetSystem<ISettingsSystem>()!.ApplyGraphics();
     }
 }
 

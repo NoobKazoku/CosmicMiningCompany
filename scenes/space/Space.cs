@@ -63,6 +63,10 @@ public partial class Space :Node2D,IController
 	/// <param name="delta">物理帧时间间隔</param>
 	public override void _PhysicsProcess(double delta)
 	{
+		// 平滑跟随太空船
+		float followSpeed = 2.0f; // 跟随速度，值越大跟随越快
+		Camera.GlobalPosition = Camera.GlobalPosition.Lerp(SpaceShip.GlobalPosition, (float)delta * followSpeed);
+
 		var viewRect = GetCameraWorldRect();
 		var viewExpansion = 500f; // 视野外多少距离开始计时销毁
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+using System;
+using System.Threading.Tasks;
 using CosmicMiningCompany.scripts.constants;
 using CosmicMiningCompany.scripts.setting.interfaces;
 using GFramework.Core.extensions;
@@ -40,32 +41,29 @@ public partial class SettingsSystem : AbstractSystem, ISettingsSystem
     public async Task ApplyGraphics()
     {
         var g = _settingsModel.Graphics;
-
         var size = new Vector2I(g.ResolutionWidth, g.ResolutionHeight);
 
-        // 1. 模式 & 外观
-        DisplayServer.WindowSetFlag(
-            DisplayServer.WindowFlags.Borderless,
-            g.Fullscreen
-        );
-
+        // 直接调用DisplayServer API，不使用异步或延迟
+        // 1. 设置边框标志
+        DisplayServer.WindowSetFlag(DisplayServer.WindowFlags.Borderless, g.Fullscreen);
+        
+        // 2. 设置窗口模式
         DisplayServer.WindowSetMode(
-            g.Fullscreen
-                ? DisplayServer.WindowMode.ExclusiveFullscreen
-                : DisplayServer.WindowMode.Windowed
+            g.Fullscreen ? DisplayServer.WindowMode.ExclusiveFullscreen : DisplayServer.WindowMode.Windowed
         );
-        await GameEntryPoint.Instance.ToSignal(Engine.GetMainLoop(), "process_frame");
-        // 2. 窗口化下才管尺寸和位置
+        
+        // 3. 窗口化下设置尺寸和位置
         if (!g.Fullscreen)
         {
             DisplayServer.WindowSetSize(size);
-           await  GameEntryPoint.Instance.ToSignal(Engine.GetMainLoop(), "process_frame");
+            // 居中窗口
             var screen = DisplayServer.GetPrimaryScreen();
             var screenSize = DisplayServer.ScreenGetSize(screen);
             var pos = (screenSize - size) / 2;
-
             DisplayServer.WindowSetPosition(pos);
         }
+        
+        await Task.CompletedTask;
     }
 
     /// <summary>
