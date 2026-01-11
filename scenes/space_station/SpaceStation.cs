@@ -30,6 +30,25 @@ public partial class SpaceStation :Control,IController
 		// 获取LevelUpDataReadUtility
 		_levelUpDataUtility = this.GetUtility<LevelUpDataReadUtility>();
 
+		// 获取LevelUp节点并设置TextTyper
+		var levelUpNode = GetNode<LevelUp>("%LevelUp");
+		if (levelUpNode != null && _npcTextTyper != null)
+		{
+			levelUpNode.SetNpcTextTyper(_npcTextTyper);
+			_log.Debug("已为LevelUp节点设置TextTyper引用");
+		}
+		else
+		{
+			if (levelUpNode == null)
+			{
+				_log.Error("未找到LevelUp节点");
+			}
+			if (_npcTextTyper == null)
+			{
+				_log.Error("TextTyper节点未初始化");
+			}
+		}
+
 		DataLoad();
 
 		// 从存档加载技能等级数据并更新PlayerManager变量
@@ -254,8 +273,8 @@ public partial class SpaceStation :Control,IController
 				currentLevel = 1;
 			}
 			
-			// 构建显示文本：技能描述（使用本地化）
-			string displayText = Tr(skillData.Description) + "\n";
+			// 构建显示文本：技能名称（使用本地化）和技能描述（使用本地化）
+			string displayText = $"{Tr(skillData.DisplayName)}: {Tr(skillData.Description)}\n";
 			
 			// 计算下一等级
 			int nextLevel = currentLevel;
@@ -272,7 +291,7 @@ public partial class SpaceStation :Control,IController
 				if (currentLevel < skillData.MaxLevel)
 				{
 					// 未满级：显示当前等级 -> 下一等级和消耗（使用本地化）
-					displayText += $"{Tr("当前等级")}{currentLevel} -> {Tr("下一等级")}{nextLevel}:  {Tr("消耗")}={nextLevelData.UpgradeCost.Ore}{Tr("矿石")}, {nextLevelData.UpgradeCost.Gem}{Tr("宝石")}";
+					displayText += $"{Tr("当前等级")}{currentLevel} -> {Tr("下一等级")}{nextLevel}:  {Tr("消耗")}={nextLevelData.UpgradeCost.Ore}{Tr("散矿")}, {nextLevelData.UpgradeCost.Gem}{Tr("宝石")}";
 				}
 				else
 				{

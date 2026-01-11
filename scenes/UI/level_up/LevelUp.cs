@@ -28,6 +28,19 @@ public partial class LevelUp : Button, IController
 	// 静态缓存：参考陨石实现方法的备选方案
 	private static SkillRoot? _cachedSkillRoot = null;
 	private static bool _hasTriedLoadStatic = false;
+	
+	// NPC对话框文本打字机
+	private TextTyper? _npcTextTyper = null;
+
+	/// <summary>
+	/// 设置NPC对话框文本打字机
+	/// </summary>
+	/// <param name="textTyper">TextTyper实例</param>
+	public void SetNpcTextTyper(TextTyper textTyper)
+	{
+		_npcTextTyper = textTyper;
+		GD.Print($"LevelUp: 已设置TextTyper引用");
+	}
 
 	public override void _Ready()
 	{
@@ -73,7 +86,14 @@ public partial class LevelUp : Button, IController
 		// 检查是否有选中的技能
 		if (_currentSkillData == null || _currentSkillLevel == null)
 		{
-			GD.Print("请先选择一个技能");
+			if (_npcTextTyper != null)
+			{
+				_npcTextTyper.SetTyperText(Tr("没有选中技能"));
+			}
+			else
+			{
+				GD.Print(Tr("没有选中技能"));
+			}
 			return;
 		}
 		
@@ -87,7 +107,15 @@ public partial class LevelUp : Button, IController
 		// 检查是否已满级
 		if (currentLevel >= _currentSkillData.MaxLevel)
 		{
-			GD.Print($"{_currentSkillData.DisplayName} 已满级，无法继续升级");
+			string fullLevelText = $"{Tr(_currentSkillData.DisplayName)} {Tr("已满级")}";
+			if (_npcTextTyper != null)
+			{
+				_npcTextTyper.SetTyperText(fullLevelText);
+			}
+			else
+			{
+				GD.Print(fullLevelText);
+			}
 			return;
 		}
 		
@@ -98,17 +126,56 @@ public partial class LevelUp : Button, IController
 			return;
 		}
 		
-		// 检查散矿是否足够
-		if (PlayerManager.Instance.TotalOreCount < OreCost)
+		// 检查资源是否足够
+		bool oreShortage = PlayerManager.Instance.TotalOreCount < OreCost;
+		bool gemShortage = PlayerManager.Instance.TotalGemCount < GemCost;
+		
+		// 如果两种资源都缺
+		if (oreShortage && gemShortage)
 		{
-			GD.Print($"矿石不足！需要{OreCost}散矿，当前只有{PlayerManager.Instance.TotalOreCount}散矿");
+			int oreNeeded = OreCost - PlayerManager.Instance.TotalOreCount;
+			int gemNeeded = GemCost - PlayerManager.Instance.TotalGemCount;
+			string shortageText = $"{Tr("升级失败")}，{Tr("缺少")}{oreNeeded}{Tr("散矿")}+{gemNeeded}{Tr("宝石")}";
+			if (_npcTextTyper != null)
+			{
+				_npcTextTyper.SetTyperText(shortageText);
+			}
+			else
+			{
+				GD.Print(shortageText);
+			}
 			return;
 		}
 		
-		// 检查宝石是否足够
-		if (PlayerManager.Instance.TotalGemCount < GemCost)
+		// 如果只缺散矿
+		if (oreShortage)
 		{
-			GD.Print($"宝石不足！需要{GemCost}宝石，当前只有{PlayerManager.Instance.TotalGemCount}宝石");
+			int oreNeeded = OreCost - PlayerManager.Instance.TotalOreCount;
+			string oreShortageText = $"{Tr("升级失败")}，{Tr("缺少")}{oreNeeded}{Tr("散矿")}";
+			if (_npcTextTyper != null)
+			{
+				_npcTextTyper.SetTyperText(oreShortageText);
+			}
+			else
+			{
+				GD.Print(oreShortageText);
+			}
+			return;
+		}
+		
+		// 如果只缺宝石
+		if (gemShortage)
+		{
+			int gemNeeded = GemCost - PlayerManager.Instance.TotalGemCount;
+			string gemShortageText = $"{Tr("升级失败")}，{Tr("缺少")}{gemNeeded}{Tr("宝石")}";
+			if (_npcTextTyper != null)
+			{
+				_npcTextTyper.SetTyperText(gemShortageText);
+			}
+			else
+			{
+				GD.Print(gemShortageText);
+			}
 			return;
 		}
 		
@@ -133,8 +200,16 @@ public partial class LevelUp : Button, IController
 		// 保存存档
 		_saveStorageUtility.Save();
 		
-		GD.Print($"升级成功！{_currentSkillData.DisplayName} 从等级{currentLevel}提升到等级{nextLevel}");
-		GD.Print($"消耗了{OreCost}散矿和{GemCost}宝石");
+		// 显示升级成功信息
+		string successText = $"{Tr("升级成功")}！{Tr(_currentSkillData.DisplayName)} {Tr("从等级")}{currentLevel}{Tr("提升到等级")}{nextLevel}";
+		if (_npcTextTyper != null)
+		{
+			_npcTextTyper.SetTyperText(successText);
+		}
+		else
+		{
+			GD.Print(successText);
+		}
 		
 		// 更新PlayerManager中的对应变量
 		UpdatePlayerManagerVariable(_currentSkillData.Name, (float)_currentSkillLevel.Value);
@@ -320,7 +395,7 @@ public partial class LevelUp : Button, IController
 		
 		if (_currentSkillData != null)
 		{
-			GD.Print($"选中{_currentSkillData.DisplayName}: {_currentSkillData.Description}");
+			GD.Print($"选中{Tr(_currentSkillData.DisplayName)}: {Tr(_currentSkillData.Description)}");
 			
 			// 从存档中获取当前技能等级
 			int currentLevel = _saveStorageUtility.GetSkillLevel(skillName);
@@ -357,7 +432,7 @@ public partial class LevelUp : Button, IController
 				
 				if (currentLevel < _currentSkillData.MaxLevel)
 				{
-					GD.Print($"当前等级{currentLevel} -> 下一等级{nextLevel}: 数值={_currentSkillLevel.Value}, 消耗={OreCost}矿石, {GemCost}宝石");
+					GD.Print($"当前等级{currentLevel} -> 下一等级{nextLevel}: 数值={_currentSkillLevel.Value}, 消耗={OreCost}{Tr("散矿")}, {GemCost}{Tr("宝石")}");
 				}
 				else
 				{

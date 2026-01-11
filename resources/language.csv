@@ -58,7 +58,13 @@ id,ch,en
 当前等级,当前等级,Current Level
 下一等级,下一等级,Next Level
 消耗,消耗,Cost
-矿石,矿石,Ore
+散矿,散矿,Ore
 宝石,宝石,Gem
 已满级,已满级,Max Level Reached
 等级,等级,Level
+升级成功,升级成功,Upgrade Successful
+升级失败,升级失败,Upgrade Failed
+没有选中技能,没有选中技能,No Skill Selected
+缺少,缺少,Lacking
+从等级,从等级,From Level
+提升到等级,提升到等级,To Level
