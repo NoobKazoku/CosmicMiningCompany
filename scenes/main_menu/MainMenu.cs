@@ -27,7 +27,7 @@ public partial class MainMenu : Control, IController
 		// 获取存档工具依赖
 		_saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
 		_gameStateModel = this.GetModel<IGameStateModel>()!;
-
+		_gameStateModel.SetGaming(false);
 		GetNode<Button>("%NewGame").Pressed += () =>
 		{
 			GD.Print("新游戏");
