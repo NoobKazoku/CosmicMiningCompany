@@ -18,11 +18,33 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 	// 对象池引用
 	private ILootPoolSystem _pool = null!;
 
-	private SpaceShip SpaceShip => GetTree().Root.GetNode<SpaceShip>("Space/SpaceShip");
+	private SpaceShip SpaceShip
+	{
+		get
+		{
+			var ship = GetTree().Root.GetNodeOrNull<SpaceShip>("Space/SpaceShip");
+			if (ship == null)
+			{
+				GD.PushWarning("Loot: SpaceShip 节点未找到");
+			}
+			return ship!;
+		}
+	}
 	private AnimatedSprite2D AnimatedSprite2D => GetNode<AnimatedSprite2D>("%AnimatedSprite2D");
 	private CollisionShape2D CollisionShape => GetNode<CollisionShape2D>("%CollisionShape2D");
 
-	private Cargo Cargo => GetTree().Root.GetNode<Cargo>("Space/UI/Cargo");
+	private Cargo Cargo
+	{
+		get
+		{
+			var cargo = GetTree().Root.GetNodeOrNull<Cargo>("Space/UI/MarginContainer/HBoxContainer/Cargo");
+			if (cargo == null)
+			{
+				GD.PushWarning("Loot: Cargo 节点未找到");
+			}
+			return cargo!;
+		}
+	}
 
 	public override void _Ready()
 	{
@@ -32,6 +54,11 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (SpaceShip == null || Cargo == null)
+		{
+			return; // 如果必要节点不存在，直接返回
+		}
+
 		if (IsCollected)
 		{
 			//应用速度，持续向飞船方向移动
@@ -77,7 +104,7 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 	}
 
 	/// <summary>
-	/// 从池中获取时调用
+	/// 从池中获取时调用	
 	/// </summary>
 	public void OnAcquire()
 	{
