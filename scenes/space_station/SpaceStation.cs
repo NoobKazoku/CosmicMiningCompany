@@ -25,7 +25,7 @@ public partial class SpaceStation :Control,IController
 		_saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
 		
 		// 获取TextTyper节点
-		_npcTextTyper = GetNode<TextTyper>("VBoxContainer/VBoxContainer/NPC对话框/NPC对话文本");
+		_npcTextTyper = GetNode<TextTyper>("%NPC对话文本");
 		
 		// 获取LevelUpDataReadUtility
 		_levelUpDataUtility = this.GetUtility<LevelUpDataReadUtility>();
@@ -245,9 +245,51 @@ public partial class SpaceStation :Control,IController
 		var skillData = _levelUpDataUtility?.GetSkillData(skillName);
 		if (skillData != null && _npcTextTyper != null)
 		{
-			// 显示技能描述
-			_npcTextTyper.SetTyperText(skillData.Description);
-			_log.Debug($"显示技能描述: {skillName} - {skillData.Description}");
+			// 从存档中获取当前技能等级
+			int currentLevel = _saveStorageUtility.GetSkillLevel(skillName);
+			
+			// 如果玩家没有升过等级（存档返回0），则默认使用等级1
+			if (currentLevel == 0)
+			{
+				currentLevel = 1;
+			}
+			
+			// 构建显示文本：技能描述
+			string displayText = skillData.Description + "\n";
+			
+			// 计算下一等级
+			int nextLevel = currentLevel;
+			if (currentLevel < skillData.MaxLevel)
+			{
+				nextLevel = currentLevel + 1;
+			}
+			
+			// 获取下一等级的技能数据
+			var nextLevelData = _levelUpDataUtility?.GetSkillLevelData(skillName, nextLevel);
+			
+			if (nextLevelData != null)
+			{
+				if (currentLevel < skillData.MaxLevel)
+				{
+					// 未满级：显示当前等级 -> 下一等级和消耗
+					displayText += $"当前等级{currentLevel} -> 下一等级{nextLevel}:  消耗={nextLevelData.UpgradeCost.Ore}矿石, {nextLevelData.UpgradeCost.Gem}宝石";
+				}
+				else
+				{
+					// 已满级：只显示当前等级
+					displayText += $"已满级（等级{currentLevel}）";
+				}
+			}
+			else
+			{
+				// 无法获取等级数据
+				displayText += $"当前等级{currentLevel}";
+				_log.Error($"未找到技能 {skillName} 的等级 {nextLevel} 数据");
+			}
+			
+			// 显示完整文本
+			_npcTextTyper.SetTyperText(displayText);
+			_log.Debug($"显示技能信息: {skillName} - {displayText}");
 		}
 		else
 		{
