@@ -84,7 +84,7 @@ jobs:
         run: zip -r build/${{ env.EXPORT_NAME }}-linux.zip build/linux
       - uses: actions/upload-artifact@v4
         with:
-          name: release-assets
+          name: release-assets-windows-linux
           path: build/*.zip
 
 
@@ -152,7 +152,7 @@ jobs:
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release-assets
+          name: release-assets-macos
           path: build/${{ env.EXPORT_NAME }}-macOS.zip
   
   
@@ -165,7 +165,6 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: release-assets
           path: dist
 
       - name: Create GitHub Release
@@ -175,7 +174,7 @@ jobs:
           body: "Automated release for tag ${{ github.ref_name }}"
           draft: false
           prerelease: false
-          files: dist/*.zip
+          files: dist/**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
       # 调试用途：列出已成功上传到 Release 的附件信息
