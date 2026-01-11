@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using CosmicMiningCompany.scripts.asteroid;
+using CosmicMiningCompany.scripts.enums;
+using CosmicMiningCompany.scripts.events.audio;
 using GFramework.Core.Abstractions.controller;
 using GFramework.Core.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;
@@ -129,6 +131,10 @@ public partial class Space :Node2D,IController
 		};
 		_spawnTimer.Timeout += OnSpawnTimeout;
 		AddChild(_spawnTimer);
+		this.SendEvent(new BgmChangedEvent()
+		{
+			BgmType = BgmType.Gaming
+		});
 	}
 	
 	/// <summary>
