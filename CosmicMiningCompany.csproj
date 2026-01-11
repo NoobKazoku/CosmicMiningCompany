@@ -19,4 +19,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Riok.Mapperly" Version="4.3.1" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include=".github\workflows\auto-tag.yml" />
+    <Content Include=".github\workflows\release.yml" />
+  </ItemGroup>
 </Project>
