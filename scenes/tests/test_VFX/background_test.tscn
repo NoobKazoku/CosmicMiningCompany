@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://d0cm2pfa3u3ss"]
+[gd_scene load_steps=33 format=3 uid="uid://d0cm2pfa3u3ss"]
 
 [ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="1_gi24m"]
 [ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="2_hwurh"]
@@ -31,7 +31,13 @@ shader = ExtResource("1_gi24m")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_37kl0"]
 shader = ExtResource("2_hwurh")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mgvpm"]
+shader = ExtResource("1_gi24m")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gb8ji"]
+shader = ExtResource("2_hwurh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mvhjx"]
 shader = ExtResource("4_mgvpm")
 shader_parameter/color1 = Color(0.984, 0.961, 0.937, 1)
 shader_parameter/color2 = Color(0.949, 0.827, 0.671, 1)
@@ -100,23 +106,58 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.019607844)
 [node name="control" type="Node2D"]
 
 [node name="background" type="Polygon2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_pvqjq")
 polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 
 [node name="tiny_star" type="Polygon2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_8uh7m")
 polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 
 [node name="bright_star" type="Polygon2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_37kl0")
 polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 
-[node name="ColorRect" type="ColorRect" parent="bright_star"]
-material = SubResource("ShaderMaterial_gb8ji")
-custom_minimum_size = Vector2(20000, 20000)
+[node name="ColorRect3" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07450981, 0.078431375, 0.18039216, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_mgvpm")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_gb8ji")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_mvhjx")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_right = 1920.0
+offset_bottom = 1078.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -247,5 +288,6 @@ angular_velocity_max = 25.0
 color_ramp = SubResource("Gradient_icixp")
 
 [node name="空间站" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(437, 815)
 texture = ExtResource("14_hwurh")

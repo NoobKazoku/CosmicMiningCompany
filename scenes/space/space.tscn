@@ -1,17 +1,32 @@
-[gd_scene load_steps=7 format=3 uid="uid://beo8d4p6emdbg"]
+[gd_scene load_steps=13 format=3 uid="uid://beo8d4p6emdbg"]
 
 [ext_resource type="PackedScene" uid="uid://b6hicsjid7hc1" path="res://scenes/space_ship/space_ship.tscn" id="1_t2gi8"]
 [ext_resource type="Script" uid="uid://udcgk5f8lhmf" path="res://scenes/space/Space.cs" id="1_wfdyj"]
 [ext_resource type="PackedScene" uid="uid://cdh57f160jys4" path="res://scenes/UI/fuel/fuel.tscn" id="2_ugvpa"]
 [ext_resource type="PackedScene" uid="uid://b6rprjt4km0f7" path="res://scenes/UI/hot/hot.tscn" id="3_0a2q3"]
 [ext_resource type="PackedScene" uid="uid://wvy8y4twx6s2" path="res://scenes/UI/cargo/cargo.tscn" id="4_n6hgd"]
-[ext_resource type="PackedScene" uid="uid://d0cm2pfa3u3ss" path="res://scenes/tests/test_VFX/background_test.tscn" id="5_x217o"]
+[ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="6_5v2dy"]
+[ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="7_pcxls"]
+[ext_resource type="Texture2D" uid="uid://b6rjw4ajrqvj" path="res://assets/art/空间站.png" id="7_wfdyj"]
+[ext_resource type="Shader" path="res://scenes/main_menu/main_menu.gdshader" id="8_vho6q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0drc4"]
+shader = ExtResource("6_5v2dy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xm3ba"]
+shader = ExtResource("7_pcxls")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pp5mj"]
+shader = ExtResource("8_vho6q")
+shader_parameter/color1 = Color(0.984, 0.961, 0.937, 1)
+shader_parameter/color2 = Color(0.949, 0.827, 0.671, 1)
+shader_parameter/color3 = Color(0.776, 0.624, 0.647, 1)
+shader_parameter/color4 = Color(0.545, 0.427, 0.612, 1)
+shader_parameter/color5 = Color(0.286, 0.302, 0.494, 1)
+shader_parameter/color6 = Color(0.075, 0.078, 0.18, 1)
 
 [node name="Space" type="Node2D"]
 script = ExtResource("1_wfdyj")
-
-[node name="Background" parent="." instance=ExtResource("5_x217o")]
-z_index = -10
 
 [node name="AsteroidRoot" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -55,3 +70,55 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 metadata/_edit_use_anchors_ = true
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(1920, 1080)
+
+[node name="ColorRect3" type="ColorRect" parent="Parallax2D"]
+z_index = -10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07450981, 0.078431375, 0.18039216, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Parallax2D"]
+z_index = -10
+material = SubResource("ShaderMaterial_0drc4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect4" type="ColorRect" parent="Parallax2D"]
+z_index = -10
+material = SubResource("ShaderMaterial_xm3ba")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Parallax2D"]
+z_index = -10
+material = SubResource("ShaderMaterial_pp5mj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_right = 1920.0
+offset_bottom = 1078.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="空间站" type="Sprite2D" parent="."]
+position = Vector2(437, 815)
+texture = ExtResource("7_wfdyj")
