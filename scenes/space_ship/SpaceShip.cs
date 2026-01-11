@@ -222,8 +222,14 @@ public partial class SpaceShip :CharacterBody2D,IController
 			{
 				Fuel = 0;
 				GD.Print("燃料耗尽！");
-				//回到空间站
-				GetTree().ChangeSceneToFile("res://scenes/space_station/space_station.tscn");
+				//实例化结算界面
+				PackedScene gameOverScene = ResourceLoader.Load<PackedScene>("res://scenes/UI/game_over/game_over.tscn");
+				Node gameOverInstance = gameOverScene.Instantiate();
+				
+				// 添加到Camera2D下
+				GetNode<CanvasLayer>("%UI").AddChild(gameOverInstance);
+				GetTree().Paused = true;
+
 			}
 		}
 	}

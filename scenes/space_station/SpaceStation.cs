@@ -20,6 +20,8 @@ public partial class SpaceStation :Control,IController
 	/// </summary>
 	public override void _Ready()
 	{
+		GetTree().Paused = false;
+		
 		_saveStorageUtility = this.GetUtility<ISaveStorageUtility>()!;
 		
 		// 获取TextTyper节点
