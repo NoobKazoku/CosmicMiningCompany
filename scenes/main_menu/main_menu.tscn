@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgnuqqco6xbmw"]
+[gd_scene load_steps=13 format=3 uid="uid://dgnuqqco6xbmw"]
 
 [ext_resource type="Script" uid="uid://brpe1cvn7jnbp" path="res://scenes/main_menu/MainMenu.cs" id="1_o25w2"]
 [ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_cds3d"]
@@ -6,7 +6,17 @@
 [ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="3_3ovsr"]
 [ext_resource type="Texture2D" uid="uid://cyctgu4oqqats" path="res://assets/art/planet03.png" id="4_4xg86"]
 [ext_resource type="Shader" uid="uid://baqqpsotv4dfc" path="res://assets/art/pixel.gdshader" id="4_5seab"]
+[ext_resource type="Shader" path="res://scenes/main_menu/main_menu.gdshader" id="4_thkx5"]
 [ext_resource type="Texture2D" uid="uid://b0ym1yy5pdtxy" path="res://assets/art/标题.png" id="6_3ovsr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2yjq"]
+shader = ExtResource("4_5seab")
+shader_parameter/color1 = Color(0.984, 0.961, 0.937, 1)
+shader_parameter/color2 = Color(0.949, 0.827, 0.671, 1)
+shader_parameter/color3 = Color(0.776, 0.624, 0.647, 1)
+shader_parameter/color4 = Color(0.545, 0.427, 0.612, 1)
+shader_parameter/color5 = Color(0.286, 0.302, 0.494, 1)
+shader_parameter/color6 = Color(0.075, 0.078, 0.18, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4xg86"]
 shader = ExtResource("2_wem23")
@@ -14,8 +24,8 @@ shader = ExtResource("2_wem23")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_thkx5"]
 shader = ExtResource("3_3ovsr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x2yjq"]
-shader = ExtResource("4_5seab")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lqpn7"]
+shader = ExtResource("4_thkx5")
 shader_parameter/color1 = Color(0.984, 0.961, 0.937, 1)
 shader_parameter/color2 = Color(0.949, 0.827, 0.671, 1)
 shader_parameter/color3 = Color(0.776, 0.624, 0.647, 1)
@@ -43,6 +53,15 @@ polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000
 [node name="bright_star" type="Polygon2D" parent="."]
 material = SubResource("ShaderMaterial_thkx5")
 polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
+
+[node name="ColorRect" type="ColorRect" parent="bright_star"]
+material = SubResource("ShaderMaterial_lqpn7")
+custom_minimum_size = Vector2(20000, 20000)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Planet03" type="Sprite2D" parent="."]
 position = Vector2(275.00006, 649)

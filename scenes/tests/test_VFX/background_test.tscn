@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="2_hwurh"]
 [ext_resource type="Shader" uid="uid://baqqpsotv4dfc" path="res://assets/art/pixel.gdshader" id="3_mgvpm"]
 [ext_resource type="FontFile" uid="uid://cr2i4stnkh5fc" path="res://assets/fonts/VonwaonBitmap-16px.ttf" id="4_gb8ji"]
-[ext_resource type="Shader" uid="uid://yx1hnj3uanro" path="res://scenes/main_menu/main_menu.gdshader" id="4_mgvpm"]
+[ext_resource type="Shader" path="res://scenes/main_menu/main_menu.gdshader" id="4_mgvpm"]
 [ext_resource type="Texture2D" uid="uid://1xnk8rvurye" path="res://assets/art/oil-6-32x.png" id="5_mvhjx"]
 [ext_resource type="Shader" uid="uid://bsb0cwho76tw8" path="res://assets/art/line.gdshader" id="6_lmjjp"]
 [ext_resource type="Texture2D" uid="uid://cc0kyy84m3qcu" path="res://assets/art/宝石.png" id="7_s6ttp"]
