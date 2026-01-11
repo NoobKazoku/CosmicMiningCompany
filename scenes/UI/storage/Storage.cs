@@ -8,7 +8,7 @@ using CosmicMiningCompany.scripts.data.interfaces;
 
 [ContextAware]
 [Log]
-public partial class Storage : VBoxContainer, IController
+public partial class Storage : Panel, IController
 {
 	private Label OreLabel => GetNode<Label>("%散矿数量");
 	private Label GemLabel => GetNode<Label>("%宝石1数量");
