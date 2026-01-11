@@ -1,4 +1,5 @@
-﻿using CosmicMiningCompany.scripts.asteroid;
+﻿using CosmicMiningCompany.scenes.Options;
+using CosmicMiningCompany.scripts.asteroid;
 using CosmicMiningCompany.scripts.loot;
 using CosmicMiningCompany.scripts.setting;
 using GFramework.Core.Abstractions.architecture;
@@ -22,5 +23,6 @@ public class SystemModule: AbstractModule
         architecture.RegisterSystem(new AsteroidPoolSystem());
         architecture.RegisterSystem(new AsteroidSpawnSystem());
         architecture.RegisterSystem(new LootPoolSystem());
+        architecture.RegisterSystem(new OptionsMenuSystem());
     }
 }

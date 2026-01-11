@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtjsa35tecnjt"]
+
+[ext_resource type="Script" uid="uid://cyrshirbll3r0" path="res://global/PauseInputController.cs" id="1_x4mqx"]
+
+[node name="PauseInputController" type="Node"]
+script = ExtResource("1_x4mqx")
