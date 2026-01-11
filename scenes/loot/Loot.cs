@@ -15,6 +15,11 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 	public bool IsCollected = false;
 	public string OreName = "";
 
+	// 免疫期相关：防止刚生成时立即被检测到
+	private bool _isImmune = false;
+	private int _immuneFrames = 0;
+	private const int IMMUNE_FRAME_COUNT = 3; // 免疫3帧，约0.05秒
+
 	// 对象池引用
 	private ILootPoolSystem _pool = null!;
 
@@ -32,6 +37,16 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// 更新免疫期状态
+		if (_isImmune && _immuneFrames > 0)
+		{
+			_immuneFrames--;
+			if (_immuneFrames <= 0)
+			{
+				_isImmune = false;
+			}
+		}
+
 		if (IsCollected)
 		{
 			//应用速度，持续向飞船方向移动
@@ -51,6 +66,13 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 	/// </summary>
 	public void HasCollect()
 	{
+		// 如果处于免疫期，忽略检测
+		if (_isImmune)
+		{
+			GD.Print("矿石处于免疫期，忽略检测");
+			return;
+		}
+		
 		GD.Print("矿石被吸引");
 		IsCollected = true;
 	}
@@ -83,6 +105,10 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 		SetProcess(true);
 		SetPhysicsProcess(true);
 		
+		// 设置免疫期，防止刚生成时立即被检测到
+		_isImmune = true;
+		_immuneFrames = IMMUNE_FRAME_COUNT;
+		
 		// 暂时禁用碰撞检测，避免刚生成时立即触发检测区域事件
 		if (CollisionShape != null)
 		{
@@ -109,6 +135,9 @@ public partial class Loot : CharacterBody2D, IPoolableNode, IController
 	public void OnRelease()
 	{
 		IsCollected = false;
+		// 重置免疫状态
+		_isImmune = false;
+		_immuneFrames = 0;
 		// 确保碰撞检测被禁用，避免在池中时仍然触发事件
 		if (CollisionShape != null)
 		{
