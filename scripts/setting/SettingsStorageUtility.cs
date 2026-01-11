@@ -13,12 +13,11 @@ namespace CosmicMiningCompany.scripts.setting;
 public class SettingsStorageUtility: AbstractContextUtility, ISettingsStorageUtility
 {
     /// <summary>
-    /// 存档文件的路径，保存在用户目录下的save.json文件
+    /// 设置文件的路径，保存在用户目录下的setting.json文件
+    /// 使用user://路径，在导出后的环境中也能正常工作
     /// </summary>
-    private static readonly string Path =
-        ProjectSettings.GlobalizePath(
-            ProjectSettings.GetSetting("application/config/save/setting_path").AsString()
-        );
+    private const string Path = "user://setting.json";
+    
     private ISaveStorage _storage = null!;
     private readonly ISerializer<SettingsData> _serializer = new SettingsSerializer();
     

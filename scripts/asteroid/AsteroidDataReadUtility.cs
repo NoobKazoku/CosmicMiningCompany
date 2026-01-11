@@ -14,12 +14,10 @@ namespace CosmicMiningCompany.scripts.asteroid;
 public class AsteroidDataReadUtility : AbstractContextUtility, IAsteroidDataReadUtility
 {
     /// <summary>
-    /// 小行星数据文件的路径，从项目设置中获取并全局化路径
+    /// 小行星数据文件的路径，直接使用res://路径
+    /// 在导出后的环境中也能正常工作
     /// </summary>
-    private static readonly string AsteroidPath =
-        ProjectSettings.GlobalizePath(
-            ProjectSettings.GetSetting("application/config/assets/asteroid_path").AsString()
-        );
+    private const string AsteroidPath = "res://assets/data/Asteroid.json";
 
     /// <summary>
     /// 小行星数据序列化器，用于将JSON数据反序列化为AsteroidData对象

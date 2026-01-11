@@ -13,9 +13,9 @@ public class LevelUpDataReadUtility : AbstractContextUtility
 {
     /// <summary>
     /// LevelUp数据文件的路径
+    /// 直接使用res://路径，在导出后的环境中也能正常工作
     /// </summary>
-    private static readonly string LevelUpPath =
-        ProjectSettings.GlobalizePath("res://assets/data/LevelUp.json");
+    private const string LevelUpPath = "res://assets/data/LevelUp.json";
     
     /// <summary>
     /// LevelUp数据序列化器，用于将JSON数据反序列化为SkillRoot对象

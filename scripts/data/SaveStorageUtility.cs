@@ -21,16 +21,7 @@ public class SaveStorageUtility : AbstractContextUtility, ISaveStorageUtility
     /// <summary>
     /// 存档文件的路径，保存在用户目录下的save.json文件
     /// </summary>
-    private static readonly string SavePath =
-        ProjectSettings.GlobalizePath(
-            ProjectSettings.GetSetting("application/config/save/save_path").AsString()
-        );
-
-    /// <summary>
-    /// 检查是否存在存档文件
-    /// </summary>
-    /// <returns>如果存档文件存在返回true，否则返回false</returns>
-    public static bool HasSave() => File.Exists(SavePath);
+    private const string SavePath = "user://save.json";
 
     private readonly ISerializer<GameSaveData> _serializer = new GameSaveSerializer();
     private  GameSaveData? _current;
@@ -44,7 +35,7 @@ public class SaveStorageUtility : AbstractContextUtility, ISaveStorageUtility
 
     bool ISaveStorageUtility.HasSave()
     {
-        return HasSave();
+        return _storage.Exists(SavePath);
     }
 
     /// <summary>
@@ -176,7 +167,7 @@ public class SaveStorageUtility : AbstractContextUtility, ISaveStorageUtility
     public void Load()
     {
         // 检查存档文件是否存在
-        if (!HasSave())
+        if (!_storage.Exists(SavePath))
         {
             _current = new GameSaveData();
             return;
@@ -202,9 +193,9 @@ public class SaveStorageUtility : AbstractContextUtility, ISaveStorageUtility
     private  GameSaveData EnsureLoaded()
     {
         if (_current != null) return _current;
-        if (HasSave())
+        if (_storage.Exists(SavePath))
         {
-            var json = File.ReadAllText(SavePath);
+            var json = _storage.Read(SavePath);
             _current = JsonConvert.DeserializeObject<GameSaveData>(json)
                        ?? new GameSaveData();
         }
