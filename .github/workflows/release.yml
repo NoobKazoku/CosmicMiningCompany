@@ -174,7 +174,7 @@ jobs:
           body: "Automated release for tag ${{ github.ref_name }}"
           draft: false
           prerelease: false
-          files: dist/*.zip
+          files: dist/**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    
       # 调试用途：列出已成功上传到 Release 的附件信息
