@@ -228,12 +228,24 @@ public partial class SpaceShip :CharacterBody2D,IController
 		}
 	}
 
-	public void OnLootEntered(Node body)
+	public void OnLootEntered(Node2D body)
 	{
 		if (body is Loot loot)
 		{
 			GD.Print("检测到矿石");
-			loot.HasCollect();
+			// 获取飞船的检测区域
+			// 获取检测区域的碰撞形状
+			var collisionShape = LootArea.GetNodeOrNull<CollisionShape2D>("%LootCollisionShape2D");
+			
+			// 计算检测区域的全局位置和大小
+			var areaGlobalPos = LootArea.GlobalPosition;
+			var shape = collisionShape.Shape as CircleShape2D;
+			
+			// 计算检测半径（考虑缩放）
+			float detectionRadius = shape.Radius * LootArea.Scale.X;
+
+				loot.HasCollect(detectionRadius);
+			
 		}
 	}
 }

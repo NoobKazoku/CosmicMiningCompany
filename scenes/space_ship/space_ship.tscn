@@ -98,5 +98,6 @@ unique_name_in_owner = true
 collision_layer = 16
 collision_mask = 32
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LootArea"]
+[node name="LootCollisionShape2D" type="CollisionShape2D" parent="LootArea"]
+unique_name_in_owner = true
 shape = SubResource("CircleShape2D_w5ed5")
