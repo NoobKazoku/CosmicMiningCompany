@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dgnuqqco6xbmw"]
 
 [ext_resource type="Script" uid="uid://brpe1cvn7jnbp" path="res://scenes/main_menu/MainMenu.cs" id="1_o25w2"]
-[ext_resource type="Theme" uid="uid://cfadp5dxx3ld1" path="res://resources/theme.tres" id="2_cds3d"]
+[ext_resource type="Theme" path="res://resources/theme.tres" id="2_cds3d"]
 [ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="2_wem23"]
 [ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="3_3ovsr"]
 [ext_resource type="Texture2D" uid="uid://cyctgu4oqqats" path="res://assets/art/planet03.png" id="4_4xg86"]
@@ -148,6 +148,7 @@ text = "制作组"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("2_cds3d")
 text = "切换语言"
 
 [node name="Exit" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
