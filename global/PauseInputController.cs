@@ -37,6 +37,7 @@ public partial class PauseInputController : GameInputController
         {
             return;
         }
+
         // 根据当前游戏暂停状态决定执行暂停或恢复命令
         if (_gameStateModel.IsGamePaused())
         {

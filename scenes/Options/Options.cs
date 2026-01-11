@@ -62,14 +62,29 @@ public partial class Options : Control, IController
     /// </summary>
     public override void _Ready()
     {
-        GetNode<Button>("%Back").Pressed += () =>
-        {
-            this.SendCommand(new SaveSettingsCommand(new EmptyCommentInput()));
-            _log.Info("设置已保存");
-            this.SendEvent<CloseOptionsMenuEvent>();
-        };
+        GetNode<Button>("%Back").Pressed += OnBackPressed;
         InitializeUi();
         SetupEventHandlers();
+    }
+
+    /// <summary>
+    /// 处理未处理的输入事件，用于 ESC 关闭设置窗口
+    /// </summary>
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        if (@event.IsActionPressed("ui_cancel"))
+        {
+            OnBackPressed();
+            AcceptEvent();
+        }
+        
+    }
+
+    private void OnBackPressed()
+    {
+        this.SendCommand(new SaveSettingsCommand(new EmptyCommentInput()));
+        _log.Info("设置已保存");
+        this.SendEvent<CloseOptionsMenuEvent>();
     }
 
     /// <summary>

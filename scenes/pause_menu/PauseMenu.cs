@@ -32,10 +32,13 @@ public partial class PauseMenu : Control, IController
             _pauseMenuSystem.Close();
         };
 
-        OptionsButton.Pressed += () => { this.SendCommand(new OpenOptionsMenuCommand(new OpenOptionsMenuCommandInput()
+        OptionsButton.Pressed += () => 
         {
-            Node = this
-        })); };
+            this.SendCommand(new OpenOptionsMenuCommand(new OpenOptionsMenuCommandInput()
+            {
+                Node = this
+            })); 
+        };
 
         MainMenuButton.Pressed += () =>
         {
