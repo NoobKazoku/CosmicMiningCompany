@@ -16,12 +16,13 @@ z_index = -10
 [node name="AsteroidRoot" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-unique_name_in_owner = true
-
 [node name="SpaceShip" parent="." instance=ExtResource("1_t2gi8")]
 unique_name_in_owner = true
 position = Vector2(961, 542)
+
+[node name="Camera2D" type="Camera2D" parent="SpaceShip"]
+unique_name_in_owner = true
+position = Vector2(-3, 1)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
