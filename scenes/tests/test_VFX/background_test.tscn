@@ -15,12 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://cffyyf4ith1q2" path="res://assets/art/弹壳.png" id="13_iab3q"]
 [ext_resource type="Texture2D" uid="uid://b6rjw4ajrqvj" path="res://assets/art/空间站.png" id="14_hwurh"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uh7m"]
-shader = ExtResource("1_gi24m")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_37kl0"]
-shader = ExtResource("2_hwurh")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pvqjq"]
 shader = ExtResource("3_mgvpm")
 shader_parameter/color1 = Color(0.984, 0.961, 0.937, 1)
@@ -29,6 +23,12 @@ shader_parameter/color3 = Color(0.776, 0.624, 0.647, 1)
 shader_parameter/color4 = Color(0.545, 0.427, 0.612, 1)
 shader_parameter/color5 = Color(0.286, 0.302, 0.494, 1)
 shader_parameter/color6 = Color(0.075, 0.078, 0.18, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uh7m"]
+shader = ExtResource("1_gi24m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_37kl0"]
+shader = ExtResource("2_hwurh")
 
 [sub_resource type="Theme" id="Theme_yo6cv"]
 default_font = ExtResource("4_gb8ji")
@@ -90,19 +90,19 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.019607844)
 [node name="control" type="Node2D"]
 
 [node name="background" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 material = SubResource("ShaderMaterial_pvqjq")
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 
 [node name="tiny_star" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 material = SubResource("ShaderMaterial_8uh7m")
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 
 [node name="bright_star" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 material = SubResource("ShaderMaterial_37kl0")
+polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
 
 [node name="备忘" type="Label" parent="."]
-layout_mode = 0
+visible = false
 offset_left = 1.0
 offset_top = 48.0
 offset_right = 641.0
@@ -111,30 +111,36 @@ theme = SubResource("Theme_yo6cv")
 text = "星星的shader使用的是屏幕坐标，没法滚动，后面得改"
 
 [node name="Oil632x" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(101, 21)
 texture = ExtResource("5_mvhjx")
 
 [node name="宝石" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_tjsml")
 position = Vector2(961, 446)
 texture = ExtResource("7_s6ttp")
 
 [node name="散矿" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_yo6cv")
 position = Vector2(1004, 448)
 texture = ExtResource("8_1lxb4")
 
 [node name="小行星测试" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_jeld2")
 position = Vector2(1132.0001, 401)
 rotation = -0.001471199
 texture = ExtResource("9_bv2hq")
 
 [node name="子弹" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(1058, 398)
 texture = ExtResource("10_g28o7")
 
 [node name="break" type="Node2D" parent="."]
+visible = false
 position = Vector2(1203, 398)
 
 [node name="CPUParticles2D_break" type="CPUParticles2D" parent="break"]
@@ -185,6 +191,7 @@ scale_amount_max = 0.2
 scale_amount_curve = SubResource("Curve_icixp")
 
 [node name="hit" type="Node2D" parent="."]
+visible = false
 position = Vector2(1099, 396)
 
 [node name="CPUParticles2D_hit" type="CPUParticles2D" parent="hit"]
@@ -205,6 +212,7 @@ scale_amount_curve = SubResource("Curve_0l0bx")
 color_ramp = SubResource("Gradient_ea1dn")
 
 [node name="shell casing" type="Node2D" parent="."]
+visible = false
 position = Vector2(1021, 388)
 
 [node name="CPUParticles2D_shell casing" type="CPUParticles2D" parent="shell casing"]
