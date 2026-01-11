@@ -1,5 +1,8 @@
+using CosmicMiningCompany.scripts.enums;
+using CosmicMiningCompany.scripts.events.audio;
 using Godot;
 using GFramework.Core.Abstractions.controller;
+using GFramework.Core.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
 
@@ -61,6 +64,11 @@ public partial class Gun : Sprite2D, IController
 			{
 				particlesNode.Emitting = true; // 启动粒子效果
 			}
+			this.SendEvent(new PlaySfxEvent
+			{
+				SfxType = SfxType.ShipFire
+			});
+
 		}
 		else if (!Input.IsActionPressed("shoot"))
 		{
