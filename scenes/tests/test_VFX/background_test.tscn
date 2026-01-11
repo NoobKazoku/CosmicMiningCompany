@@ -1,9 +1,10 @@
-[gd_scene load_steps=29 format=3 uid="uid://d0cm2pfa3u3ss"]
+[gd_scene load_steps=31 format=3 uid="uid://d0cm2pfa3u3ss"]
 
 [ext_resource type="Shader" uid="uid://bo07iwf6vb2x4" path="res://assets/art/tiny_star_test.gdshader" id="1_gi24m"]
 [ext_resource type="Shader" uid="uid://clber8wcbyxn7" path="res://assets/art/bright_star_test.gdshader" id="2_hwurh"]
 [ext_resource type="Shader" uid="uid://baqqpsotv4dfc" path="res://assets/art/pixel.gdshader" id="3_mgvpm"]
 [ext_resource type="FontFile" uid="uid://cr2i4stnkh5fc" path="res://assets/fonts/VonwaonBitmap-16px.ttf" id="4_gb8ji"]
+[ext_resource type="Shader" uid="uid://yx1hnj3uanro" path="res://scenes/main_menu/main_menu.gdshader" id="4_mgvpm"]
 [ext_resource type="Texture2D" uid="uid://1xnk8rvurye" path="res://assets/art/oil-6-32x.png" id="5_mvhjx"]
 [ext_resource type="Shader" uid="uid://bsb0cwho76tw8" path="res://assets/art/line.gdshader" id="6_lmjjp"]
 [ext_resource type="Texture2D" uid="uid://cc0kyy84m3qcu" path="res://assets/art/宝石.png" id="7_s6ttp"]
@@ -29,6 +30,15 @@ shader = ExtResource("1_gi24m")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_37kl0"]
 shader = ExtResource("2_hwurh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gb8ji"]
+shader = ExtResource("4_mgvpm")
+shader_parameter/color1 = Color(0.984, 0.961, 0.937, 1)
+shader_parameter/color2 = Color(0.949, 0.827, 0.671, 1)
+shader_parameter/color3 = Color(0.776, 0.624, 0.647, 1)
+shader_parameter/color4 = Color(0.545, 0.427, 0.612, 1)
+shader_parameter/color5 = Color(0.286, 0.302, 0.494, 1)
+shader_parameter/color6 = Color(0.075, 0.078, 0.18, 1)
 
 [sub_resource type="Theme" id="Theme_yo6cv"]
 default_font = ExtResource("4_gb8ji")
@@ -100,6 +110,15 @@ polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000
 [node name="bright_star" type="Polygon2D" parent="."]
 material = SubResource("ShaderMaterial_37kl0")
 polygon = PackedVector2Array(-10000, -10000, 10000, -10000, 10000, 10000, -10000, 10000)
+
+[node name="ColorRect" type="ColorRect" parent="bright_star"]
+material = SubResource("ShaderMaterial_gb8ji")
+custom_minimum_size = Vector2(20000, 20000)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="备忘" type="Label" parent="."]
 visible = false
