@@ -1,5 +1,7 @@
 using CosmicMiningCompany.scripts.command.game;
 using CosmicMiningCompany.scripts.core;
+using CosmicMiningCompany.scripts.events.menu;
+using CosmicMiningCompany.scripts.game;
 using GFramework.Core.extensions;
 using GFramework.SourceGenerators.Abstractions.logging;
 using GFramework.SourceGenerators.Abstractions.rule;
@@ -14,11 +16,11 @@ namespace CosmicMiningCompany.global;
 [Log]
 public partial class PauseInputController : GameInputController
 {
+    private IGameStateModel _gameStateModel = null!;
     public override void _Ready()
     {
-        
+        _gameStateModel = this.GetModel<IGameStateModel>()!;
     }
-
     /// <summary>
     /// 处理输入事件，检测暂停/恢复游戏的按键操作
     /// </summary>
@@ -30,11 +32,24 @@ public partial class PauseInputController : GameInputController
         {
             return;
         }
-        
+
+        if (!_gameStateModel.IsGaming())
+        {
+            return;
+        }
         // 根据当前游戏暂停状态决定执行暂停或恢复命令
-        if (IsGamePaused)
-            this.SendCommand(new ResumeGameCommand(new ResumeGameCommandInput { Node = this }));
+        if (_gameStateModel.IsGamePaused())
+        {
+            // 当前是暂停 → 恢复游戏 → 关闭暂停菜单
+            this.SendEvent<ClosePauseMenuEvent>();
+            this.SendCommand(new ResumeGameCommand(new ResumeGameCommandInput{Node = this}));
+        }
         else
-            this.SendCommand(new PauseGameCommand(new PauseGameCommandInput { Node = this }));
+        {
+            // 当前是运行 → 暂停游戏 → 打开暂停菜单
+            this.SendCommand(new PauseGameCommand(new PauseGameCommandInput{Node = this}));
+            this.SendEvent<OpenPauseMenuEvent>();
+        }
+
     }
 }

@@ -25,6 +25,7 @@ DevBindingManager="*res://global/dev_binding_manager.tscn"
 PlayerManager="*res://global/PlayerManager.cs"
 AsteroidSceneRegistry="*res://global/asteroid_scene_registry.tscn"
 PauseInputController="*res://global/pause_input_controller.tscn"
+UiRoot="*res://global/ui_root.tscn"
 
 [display]
 

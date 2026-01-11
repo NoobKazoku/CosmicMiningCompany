@@ -1,5 +1,7 @@
-﻿using GFramework.Core.Abstractions.command;
+﻿using CosmicMiningCompany.scripts.game;
+using GFramework.Core.Abstractions.command;
 using GFramework.Core.command;
+using GFramework.Core.extensions;
 using Godot;
 
 namespace CosmicMiningCompany.scripts.command.game;
@@ -18,6 +20,8 @@ public sealed class PauseGameCommand(PauseGameCommandInput input) : AbstractComm
     {
         // 设置游戏树的暂停状态为true，实现游戏暂停功能
         input.Node.GetTree().Paused = true;
+        var gameStateModel = this.GetModel<IGameStateModel>()!;
+        gameStateModel.SetGamePaused(true);
     }
 }
 

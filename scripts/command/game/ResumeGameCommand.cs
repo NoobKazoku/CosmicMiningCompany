@@ -1,5 +1,7 @@
-﻿using GFramework.Core.Abstractions.command;
+﻿using CosmicMiningCompany.scripts.game;
+using GFramework.Core.Abstractions.command;
 using GFramework.Core.command;
+using GFramework.Core.extensions;
 using Godot;
 
 namespace CosmicMiningCompany.scripts.command.game;
@@ -17,6 +19,8 @@ public sealed class ResumeGameCommand(ResumeGameCommandInput input) : AbstractCo
     protected override void OnExecute(ResumeGameCommandInput input)
     {
         input.Node.GetTree().Paused = false;
+        var gameStateModel = this.GetModel<IGameStateModel>()!;
+        gameStateModel.SetGamePaused(false);
     }
 }
 

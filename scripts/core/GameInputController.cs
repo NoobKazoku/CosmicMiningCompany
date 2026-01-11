@@ -16,13 +16,6 @@ public abstract partial class GameInputController
     protected SceneTree Tree => GetTree();
 
     /// <summary>
-    /// 判断游戏是否暂停的属性
-    /// </summary>
-    protected bool IsGamePaused => Tree.Paused;
-
-    protected bool IsGaming;
-
-    /// <summary>
     /// 处理未处理的输入事件
     /// </summary>
     /// <param name="event">输入事件对象</param>

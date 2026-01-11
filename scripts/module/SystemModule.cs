@@ -1,4 +1,5 @@
 ﻿using CosmicMiningCompany.scenes.Options;
+using CosmicMiningCompany.scenes.pause_menu;
 using CosmicMiningCompany.scripts.asteroid;
 using CosmicMiningCompany.scripts.loot;
 using CosmicMiningCompany.scripts.setting;
@@ -24,5 +25,6 @@ public class SystemModule: AbstractModule
         architecture.RegisterSystem(new AsteroidSpawnSystem());
         architecture.RegisterSystem(new LootPoolSystem());
         architecture.RegisterSystem(new OptionsMenuSystem());
+        architecture.RegisterSystem(new PauseMenuSystem());
     }
 }

@@ -1,4 +1,5 @@
-﻿using CosmicMiningCompany.scripts.setting;
+﻿using CosmicMiningCompany.scripts.game;
+using CosmicMiningCompany.scripts.setting;
 using GFramework.Core.Abstractions.architecture;
 using GFramework.Game.architecture;
 
@@ -16,5 +17,6 @@ public class ModelModule: AbstractModule
     public override void Install(IArchitecture architecture)
     {
         architecture.RegisterModel(new SettingsModel());
+        architecture.RegisterModel(new GameStateModel());
     }
 }

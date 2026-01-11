@@ -16,6 +16,7 @@ public partial class PauseMenu : Control, IController
     private Button OptionsButton => GetNode<Button>("%OptionsButton");
     private Button MainMenuButton => GetNode<Button>("%MainMenuButton");
     private Button QuitButton => GetNode<Button>("%QuitButton");
+    private IPauseMenuSystem _pauseMenuSystem;
 
     public override void _Ready()
     {
@@ -28,6 +29,7 @@ public partial class PauseMenu : Control, IController
         ResumeButton.Pressed += () =>
         {
             this.SendCommand(new ResumeGameCommand(new ResumeGameCommandInput { Node = this }));
+            _pauseMenuSystem.Close();
         };
 
         OptionsButton.Pressed += () => { this.SendCommand(new OpenOptionsMenuCommand(new OpenOptionsMenuCommandInput()
@@ -38,14 +40,17 @@ public partial class PauseMenu : Control, IController
         MainMenuButton.Pressed += () =>
         {
             this.SendCommand(new BackToMainMenuCommand(new BackToMainMenuCommandInput { Node = this }));
+            _pauseMenuSystem.Close();
         };
         QuitButton.Pressed += () =>
         {
             this.SendCommand(new QuitGameCommand(new QuitGameCommandInput { Node = this }));
+            _pauseMenuSystem.Close();
         };
     }
 
     private void InitializeUi()
     {
+        _pauseMenuSystem = this.GetSystem<IPauseMenuSystem>()!;
     }
 }
