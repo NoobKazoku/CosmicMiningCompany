@@ -79,9 +79,14 @@ jobs:
           set -e
           godot --headless --export-release "Linux" build/linux/${{ env.EXPORT_NAME }}.x86_64 --quit
       - name: Package Windows
-        run: zip -r build/${{ env.EXPORT_NAME }}-windows.zip build/windows
+        run: |
+          cd build/windows
+          zip -r ../${{ env.EXPORT_NAME }}-windows.zip .
+      
       - name: Package Linux
-        run: zip -r build/${{ env.EXPORT_NAME }}-linux.zip build/linux
+        run: |
+          cd build/linux
+          zip -r ../${{ env.EXPORT_NAME }}-linux.zip .
       - uses: actions/upload-artifact@v4
         with:
           name: release-assets-windows-linux
