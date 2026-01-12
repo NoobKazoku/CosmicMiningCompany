@@ -21,10 +21,7 @@ public class SaveStorageUtility : AbstractContextUtility, ISaveStorageUtility
     /// <summary>
     /// 存档文件的路径，保存在用户目录下的save.json文件
     /// </summary>
-    private static readonly string SavePath =
-        ProjectSettings.GlobalizePath(
-            ProjectSettings.GetSetting("application/config/save/save_path").AsString()
-        );
+    private static readonly string SavePath =ProjectSettings.GetSetting("application/config/save/save_path").AsString();
 
     /// <summary>
     /// 检查是否存在存档文件
