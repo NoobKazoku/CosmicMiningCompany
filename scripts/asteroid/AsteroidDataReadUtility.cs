@@ -17,9 +17,7 @@ public class AsteroidDataReadUtility : AbstractContextUtility, IAsteroidDataRead
     /// 小行星数据文件的路径，从项目设置中获取并全局化路径
     /// </summary>
     private static readonly string AsteroidPath =
-        ProjectSettings.GlobalizePath(
-            ProjectSettings.GetSetting("application/config/assets/asteroid_path").AsString()
-        );
+        ProjectSettings.GetSetting("application/config/assets/asteroid_path").AsString();
 
     /// <summary>
     /// 小行星数据序列化器，用于将JSON数据反序列化为AsteroidData对象

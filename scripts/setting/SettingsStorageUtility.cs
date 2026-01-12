@@ -15,10 +15,7 @@ public class SettingsStorageUtility: AbstractContextUtility, ISettingsStorageUti
     /// <summary>
     /// 存档文件的路径，保存在用户目录下的save.json文件
     /// </summary>
-    private static readonly string Path =
-        ProjectSettings.GlobalizePath(
-            ProjectSettings.GetSetting("application/config/save/setting_path").AsString()
-        );
+    private static readonly string Path =ProjectSettings.GetSetting("application/config/save/setting_path").AsString();
     private ISaveStorage _storage = null!;
     private readonly ISerializer<SettingsData> _serializer = new SettingsSerializer();
     
